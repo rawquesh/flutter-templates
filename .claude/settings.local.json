@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm info:*)",
+      "WebFetch(domain:registry.npmjs.org)",
+      "WebFetch(domain:www.npmjs.com)",
+      "Bash(pnpm add:*)"
+    ],
+    "defaultMode": "bypassPermissions"
+  }
+}
