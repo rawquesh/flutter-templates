@@ -10,16 +10,19 @@ flutter create --org com.bluetouch.cryptovault cryptovault
 You are building a complete Flutter UI template for a cryptocurrency wallet and finance mobile application called "CryptoVault". This is a UI-only template (no state management, no actual API calls) that demonstrates a premium crypto finance app interface with a sleek dark theme and glowing accents.
 
 ### Project Setup
-- Create the project using: `flutter create --org com.bluetouch.cryptovault cryptovault`
+- Create the project using: `flutter create --org com.bluetouch.cryptovault --platforms android,ios cryptovault`
+- **Priority: Android first** - ensure all features work perfectly on Android
 - Navigate to the project folder and work entirely within it
 - Install any additional packages needed to achieve a premium glassy modern look
 - You have Claude Max subscription so DO NOT worry about token costs - be thorough and comprehensive
+- **IMPORTANT: Do NOT use any state management packages** (no Provider, Riverpod, Bloc, GetX, etc.) - pure UI only
+- Use `adaptive_theme` package for theme switching (install via `flutter pub add adaptive_theme`)
 
 ### Theme System (MANDATORY - Must Implement)
-Create a theme switcher with 3 distinct themes accessible via a toggle button in the top-right corner. The selected theme must persist visually and be indicated clearly. Note: This app naturally lends itself to dark themes, so ensure all 3 themes look premium:
+Create a theme switcher with 3 distinct themes accessible via a toggle button in the top-right corner. **Default Theme: Option 2 (Dark Sidebar + Dark Content)** The selected theme must persist visually and be indicated clearly. Note: This app naturally lends itself to dark themes, so ensure all 3 themes look premium:
 
 1. **Light Theme**: Light mode with the same blue/green crypto accents (for accessibility)
-2. **Dark Sidebar Theme**: Dark sidebar + dark content pages (classic crypto dark)
+2. **Dark Sidebar Theme**: Dark sidebar + dark content pages (classic crypto dark) **← DEFAULT**
 3. **Dark Theme**: Deep black theme with maximum contrast
 
 For the theme toggle UI:
@@ -88,6 +91,11 @@ Create a bottom navigation bar with 5 main sections:
 - Markets
 - Swap/Trade
 - Earn
+- Staking
+- NFT Gallery
+- Price Alerts
+- Gas Tracker
+- DApp Browser
 - Buy Crypto
 - Transaction History
 - Security
@@ -270,6 +278,219 @@ Create a bottom navigation bar with 5 main sections:
   - Privacy Policy
   - Licenses
 
+#### 10. Price Alerts Screen
+- **Header**: "Price Alerts" title
+- **Create Alert Button**: Floating action button
+- **Active Alerts Section**:
+  - Each alert card:
+    - Coin icon and name
+    - Alert type (Above/Below)
+    - Target price
+    - Current price
+    - Progress indicator (how close to target)
+    - Status badge (Active/Triggered)
+    - Edit/Delete options
+- **Alert Types**:
+  - Price above threshold
+  - Price below threshold
+  - Price change percentage (24h)
+  - New all-time high
+  - New all-time low
+- **Create Alert Form**:
+  - Coin selector
+  - Alert type dropdown
+  - Price input field
+  - Optional: % change threshold
+  - Notification preference
+  - "Create Alert" button
+- **Alert History Section**:
+  - "Triggered Alerts" tab
+  - Each historical alert:
+    - Coin and price
+    - Triggered date/time
+    - Price at trigger
+    - "Reactivate" option
+- **Alert Settings**:
+  - Push notification toggle
+  - Sound toggle
+  - Vibration toggle
+  - Alert cooldown period
+
+#### 11. Gas Tracker Screen
+- **Header**: "Gas Tracker" title with network selector (Ethereum, Polygon, etc.)
+- **Current Gas Prices Card**:
+  - Large display of current gas:
+    - Low: XX gwei
+    - Average: XX gwei
+    - High: XX gwei
+  - Last updated timestamp
+  - "Refresh" button
+- **Gas History Chart**:
+  - Line chart showing gas trends
+  - Time range: 1h, 6h, 24h, 7d
+  - Min/Max indicators
+- **Gas Calculator Section**:
+  - Transaction type selector:
+    - Transfer ETH
+    - Token Transfer
+    - NFT Transfer
+    - Smart Contract Interaction
+    - Swap
+  - Estimated gas cost:
+    - Gas limit
+    - Gas price
+    - Total cost in ETH
+    - Total cost in USD
+- **Network Status Card**:
+  - Current block number
+  - Network congestion indicator
+  - Pending transactions count
+- **Optimal Timing Suggestion**:
+  - "Best time to transact" indicator
+  - Hourly gas heatmap
+  - Recommendations based on current network
+- **Gas Saving Tips Card**:
+  - Tips for reducing gas fees
+  - Batch transactions option
+  - Layer 2 suggestions
+
+#### 12. NFT Gallery Screen
+- **Header**: "NFT Gallery" title
+- **Portfolio Value Card**:
+  - Total NFT value in USD
+  - Total NFT count
+  - Value change (24h)
+- **Filter Tabs**: All, Collected, Created, Favorites
+- **Collection Stats Card**:
+  - Collections breakdown:
+    - Profile pictures (PFPs)
+    - Art
+    - Music
+    - Domain names
+    - Gaming items
+  - Count per category
+- **NFT Grid View**:
+  - 2-column grid of NFT cards:
+    - NFT image placeholder (colorful gradient)
+    - NFT name
+    - Collection name
+    - Value in ETH/USD
+    - Favorite heart icon
+- **NFT Detail Screen**:
+  - Large NFT display
+  - NFT name and description
+  - Collection info
+  - Token ID
+  - Contract address
+  - Blockchain info
+  - **Attributes/Properties Section**:
+    - Trait types and values
+    - Rarity indicators
+  - **Price History**:
+    - Recent sales chart
+    - Listing price
+  - **Actions**:
+    - Set as Profile Picture
+    - Send/Transfer
+    - View on Explorer
+    - Share
+- **Featured Collections Carousel**:
+  - Trending NFT collections
+- **Mint/Create NFT Section**:
+  - "Create" button
+  - Upload artwork
+  - Configure collection
+  - Mint options
+
+#### 13. Staking Screen
+- **Header**: "Staking" title
+- **Staking Overview Card**:
+  - Total staked amount
+  - Estimated annual yield (APY)
+  - Total rewards earned
+  - Next reward distribution date
+- **Network Selector Tabs**:
+  - Ethereum 2.0
+  - Solana
+  - Cardano
+  - Polygon
+  - Other
+- **Available Staking Options**:
+  - Each staking option card:
+    - Coin icon and name
+    - APY percentage
+    - Min/Max stake
+    - Lock period
+    - "Stake Now" button
+    - Info icon for details
+- **Staking Details Modal**:
+  - **What is Staking?**: Explanation
+  - **How it works**: Step by step
+  - **Rewards Schedule**: When rewards are paid
+  - **Unstaking Process**: Lock period and withdrawal time
+  - **Risks**: Slashing, volatility
+- **My Staking Positions**:
+  - Each staked position:
+    - Coin and amount
+    - APY earned
+    - Start date
+    - Rewards accrued
+    - Days until unlock
+    - "Claim Rewards" button
+    - "Unstake" button
+- **Staking Calculator**:
+  - Input amount to stake
+  - Select duration
+  - Calculate estimated rewards
+  - Compare different options
+- **Staking History**:
+  - List of staking transactions
+  - Deposits and withdrawals
+  - Rewards claimed
+
+#### 14. DApp Browser Screen
+- **Header**: "DApp Browser" title
+- **URL Bar**: 
+  - Address bar with search
+  - Security indicator (verified/not verified)
+  - Connection status badge
+- **Quick Access Section**:
+  - Popular DApp shortcuts:
+    - Uniswap
+    - OpenSea
+    - Aave
+    - Compound
+    - Curve
+    - 1inch
+    - Custom add button
+- **Recent DApps List**:
+  - Recently visited DApps
+  - Each with icon, name, last visit
+- **Featured DApps**:
+  - Categories:
+    - DeFi
+    - NFT
+    - Gaming
+    - Social
+  - Each DApp card:
+    - Logo placeholder
+    - Name
+    - Category badge
+    - Visit count
+- **Web3 Connection Status**:
+  - Connected wallet indicator
+  - Network indicator
+  - Disconnect button
+- **Browser Settings**:
+  - Clear history
+  - Block popups toggle
+  - Auto-approve toggle
+  - Default network for DApps
+- **Transaction Queue**:
+  - Pending transactions
+  - Approve/Reject buttons
+  - Gas fee display
+
 ### UI Components Library
 Create reusable glassmorphism components:
 - GlassCard (with glow effect option)
@@ -329,7 +550,9 @@ Create reusable glassmorphism components:
   - flutter_animate
   - shimmer
   - fl_chart (for charts)
+  - adaptive_theme (for theme switching)
   - any other UI enhancement packages
+- **Android Build Requirement**: After completing all code, verify the app builds successfully with `flutter build apk --debug`
 
 ### File Structure
 ```
@@ -357,6 +580,18 @@ lib/
 │   │   └── send_screen.dart
 │   ├── receive/
 │   │   └── receive_screen.dart
+│   ├── price_alerts/
+│   │   └── price_alerts_screen.dart
+│   ├── gas_tracker/
+│   │   └── gas_tracker_screen.dart
+│   ├── nft_gallery/
+│   │   ├── nft_gallery_screen.dart
+│   │   └── nft_detail_screen.dart
+│   ├── staking/
+│   │   ├── staking_screen.dart
+│   │   └── staking_position_screen.dart
+│   ├── dapp_browser/
+│   │   └── dapp_browser_screen.dart
 │   └── settings/
 │       └── settings_screen.dart
 ├── widgets/
@@ -376,6 +611,11 @@ lib/
 │   ├── balance_display.dart
 │   ├── transaction_tile.dart
 │   ├── qr_code_placeholder.dart
+│   ├── alert_card.dart
+│   ├── gas_price_display.dart
+│   ├── nft_card.dart
+│   ├── staking_option_card.dart
+│   ├── dapp_tile.dart
 │   ├── animated_background.dart
 │   └── shimmer_loading.dart
 └── utils/
@@ -385,6 +625,7 @@ lib/
 ### Quality Checklist
 - [ ] Login page with futuristic glassmorphism design
 - [ ] Theme switcher with 3 themes working correctly
+- [ ] Default theme is Dark Sidebar + Dark Content
 - [ ] Dashboard with portfolio balance and quick actions
 - [ ] Markets screen with coin list
 - [ ] Coin detail with chart placeholder
@@ -392,6 +633,11 @@ lib/
 - [ ] Swap interface with rate display
 - [ ] Transaction history with filters
 - [ ] Send and Receive screens
+- [ ] Price Alerts with create/edit functionality
+- [ ] Gas Tracker with calculator
+- [ ] NFT Gallery with detail view
+- [ ] Staking with positions management
+- [ ] DApp Browser with popular shortcuts
 - [ ] Settings with theme switcher prominent
 - [ ] Consistent dark theme with glow effects
 - [ ] Smooth animations on all interactions
@@ -404,9 +650,10 @@ lib/
 ### Output
 When complete, ensure:
 1. The app runs without errors: `flutter run`
-2. Theme switching works for all 3 themes
+2. Theme switching works for all 3 themes (using adaptive_theme)
 3. Login navigates to dashboard
 4. All navigation works (bottom nav, back buttons)
 5. All screens have proper crypto content
 6. Charts and visualizations look good
-7. No crashes, no layout overflow, no missing assets
+7. **Android build succeeds**: Run `flutter build apk --debug` and verify BUILD SUCCESSFUL
+8. No crashes, no layout overflow, no missing assets

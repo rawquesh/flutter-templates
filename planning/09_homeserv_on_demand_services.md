@@ -10,16 +10,19 @@ flutter create --org com.bluetouch.homeserv homeserv
 You are building a complete Flutter UI template for an on-demand home services mobile application called "HomeServ". This is a UI-only template (no state management, no actual API calls) that demonstrates a professional service marketplace app interface with trustworthy visuals and glassmorphism design.
 
 ### Project Setup
-- Create the project using: `flutter create --org com.bluetouch.homeserv homeserv`
+- Create the project using: `flutter create --org com.bluetouch.homeserv --platforms android,ios homeserv`
+- **Priority: Android first** - ensure all features work perfectly on Android
 - Navigate to the project folder and work entirely within it
 - Install any additional packages needed to achieve a premium glassy modern look
 - You have Claude Max subscription so DO NOT worry about token costs - be thorough and comprehensive
+- **IMPORTANT: Do NOT use any state management packages** (no Provider, Riverpod, Bloc, GetX, etc.) - pure UI only
+- Use `adaptive_theme` package for theme switching (install via `flutter pub add adaptive_theme`)
 
 ### Theme System (MANDATORY - Must Implement)
-Create a theme switcher with 3 distinct themes accessible via a toggle button in the top-right corner of the app bar. The selected theme must persist visually and be indicated clearly:
+Create a theme switcher with 3 distinct themes accessible via a toggle button in the top-right corner of the app bar. **Default Theme: Option 2 (Dark Sidebar + Light Content)** The selected theme must persist visually and be indicated clearly:
 
 1. **Light Theme**: Light sidebar (white/light gray) + light pages (white backgrounds, light cards)
-2. **Dark Sidebar Theme**: Dark sidebar + white/light content pages (hybrid approach)
+2. **Dark Sidebar Theme**: Dark sidebar + white/light content pages (hybrid approach) **← DEFAULT**
 3. **Dark Theme**: Complete dark theme (dark sidebar, dark pages, dark cards)
 
 For the theme toggle UI:
@@ -83,6 +86,11 @@ Create a bottom navigation bar with 5 main sections:
 - My Bookings
 - Service History
 - Saved Providers
+- Emergency Services
+- Service Warranty
+- Multi-Service Booking
+- Reviews
+- Promotions & Offers
 - Payment Methods
 - Addresses
 - Settings
@@ -334,6 +342,229 @@ Create a bottom navigation bar with 5 main sections:
 - **Terms & Conditions**
 - **App Version**
 
+#### 12. Emergency Services Screen
+- **Header**: "Emergency Services" title with urgent warning icon
+- **Urgent Services Section**:
+  - **Plumbing Emergency**:
+    - 24/7 availability indicator
+    - "Burst pipe, flood, no water" options
+    - Immediate booking
+  - **Electrical Emergency**:
+    - Power outage, sparks, exposed wires
+    - Safety warnings
+    - Immediate booking
+  - **Lock & Key Emergency**:
+    - Locked out, broken lock, lost keys
+    - 24/7 availability
+  - **AC Emergency**:
+    - Complete AC failure
+    - Gas leak warnings
+    - Same-day service
+- **Emergency Contact Cards**:
+  - Large call buttons
+  - "Call Now" prominent
+  - Service name and availability
+- **Quick Diagnosis Section**:
+  - Describe your emergency
+  - Photo upload option
+  - Instant quote estimate
+- **Estimated Arrival**:
+  - Real-time availability
+  - ETA display
+  - Priority queue option
+- **Safety Reminders**:
+  - Important safety tips
+  - What to do while waiting
+  - Emergency shut-off guides
+- **Nearby Emergency Resources**:
+  - Hospital contacts
+  - Fire department
+  - Police
+  - Poison control
+
+#### 13. Service Warranty Screen
+- **Header**: "Service Warranty" title
+- **Active Warranties Section**:
+  - **Warranty Cards**:
+    - Service type
+    - Provider who performed
+    - Warranty period (start - end date)
+    - Days remaining
+    - Status badge (Active/Expiring Soon/Expired)
+- **Warranty Details**:
+  - Coverage scope
+  - Terms and conditions
+  - What's covered
+  - What's NOT covered
+  - Claim process
+- **Claim Warranty**:
+  - "File a Claim" button
+  - Issue description input
+  - Photo upload
+  - Preferred date for revisit
+  - Priority options
+- **Warranty History**:
+  - Past claims
+  - Status (Approved/Pending/Rejected)
+  - Resolution details
+- **Warranty Types**:
+  - **Standard Warranty**:
+    - 30-day coverage
+    - Parts included
+  - **Extended Warranty**:
+    - 90-day or 1-year
+    - Labor included
+  - **Premium Warranty**:
+    - Multi-year
+    - Priority service
+    - Annual inspection
+- **Tips Section**:
+  - How to maintain warranty
+  - Common warranty void situations
+  - Maintenance reminders
+
+#### 14. Multi-Service Booking Screen
+- **Header**: "Book Multiple Services" title
+- **Address Selection**:
+  - Same address for all services
+  - Or different addresses option
+- **Service Selection List**:
+  - **Add Service Button**:
+    - Search/select service
+    - Category chips
+    - Popular services quick select
+  - **Selected Services** (each card):
+    - Service name and icon
+    - Brief description
+    - Estimated price range
+    - Preferred date/time
+    - Provider preference (any/特定)
+    - Edit/Remove buttons
+  - **Drag to Reorder**: Priority adjustment
+- **Combined Scheduling**:
+  - **Single Visit Option**:
+    - "Do all services in one visit"
+    - Stacked time slots
+    - Estimated total duration
+  - **Separate Visits**:
+    - Individual scheduling per service
+    - Different dates/times
+- **Discount Preview**:
+  - "Bundle discount" badge
+  - Savings calculation
+  - Percentage or fixed amount
+- **Provider Matching**:
+  - Auto-match for multiple services
+  - One provider for all (if possible)
+  - Or multiple specialists
+- **Price Summary Card**:
+  - Per-service breakdown
+  - Service fees
+  - Bundle discount applied
+  - **Total estimated cost**
+- **Combined Promo Code**:
+  - Apply multi-service discount
+  - Special bundle offers
+- **Booking Confirmation**:
+  - All services summary
+  - Combined schedule
+  - Total amount
+  - "Book All" button
+
+#### 15. Provider Reviews Screen
+- **Header**: "Reviews" title
+- **Write Review CTA**:
+  - "Rate Your Experience" card
+  - Service selector
+  - Star rating (1-5)
+  - Text review input
+  - Photo upload option
+  - Anonymous toggle
+  - Submit button
+- **Overall Rating Card**:
+  - Average rating (large number)
+  - Star visualization
+  - Total reviews count
+- **Rating Breakdown**:
+  - 5 star: XX%
+  - 4 star: XX%
+  - 3 star: XX%
+  - 2 star: XX%
+  - 1 star: XX%
+- **Filter Reviews**:
+  - All
+  - With Photos
+  - 5 Stars
+  - 4 Stars
+  - Lower ratings
+- **Sort Options**: Most Recent, Most Helpful, Highest, Lowest
+- **Review Cards List**:
+  - Each review:
+    - User avatar and name
+    - Date of service
+    - Star rating
+    - Service type badge
+    - Review text (expandable)
+    - Photo attachments
+    - Provider response (if any)
+    - Helpful/Report buttons
+- **Provider Response**:
+  - If provider replied:
+    - "Provider's Response" label
+    - Response text
+    - Date
+- **My Reviews Tab**:
+  - Reviews I've written
+  - Edit/Delete options
+- **Review Guidelines Card**:
+  - Community guidelines
+  - What makes a helpful review
+  - Moderation notice
+
+#### 16. Promotions & Offers Screen
+- **Header**: "Offers" title
+- **Active Promotions Banner**:
+  - Large promotional banner carousel
+  - Discount highlights
+  - "Shop Now" CTA
+- **For You Section**:
+  - Personalized offers based on history
+  - "Recommended for you"
+- **Available Offers Grid**:
+  - Offer cards:
+    - Offer image/gradient
+    - Discount amount/percentage
+    - Service category
+    - Valid until date
+    - "Apply" or "Use Code" button
+    - Terms preview
+- **Offer Categories**:
+  - First Booking
+  - Repeat Customer
+  - Bundle Deals
+  - Seasonal
+  - Refer a Friend
+- **How It Works Section**:
+  - Step by step for each offer type
+  - Eligibility requirements
+- **Referral Program Card**:
+  - "Refer & Earn" header
+  - Your referral code display
+  - Share buttons
+  - Earnings history
+  - Referral status tracking
+- **Promo Code Input**:
+  - Text input field
+  - "Apply" button
+  - Recent codes saved
+- **Offer History**:
+  - Used offers
+  - Savings total
+- **Terms & Conditions**:
+  - Expandable offer details
+  - Expiration info
+  - Usage limits
+
 ### UI Components Library
 Create reusable glassmorphism components:
 - GlassCard
@@ -392,7 +623,9 @@ Create reusable glassmorphism components:
   - google_fonts
   - flutter_animate
   - shimmer
+  - adaptive_theme (for theme switching)
   - any other UI enhancement packages
+- **Android Build Requirement**: After completing all code, verify the app builds successfully with `flutter build apk --debug`
 
 ### File Structure
 ```
@@ -416,10 +649,19 @@ lib/
 │   │   ├── booking_screen.dart
 │   │   ├── bookings_screen.dart
 │   │   ├── booking_detail_screen.dart
-│   │   └── track_job_screen.dart
+│   │   ├── track_job_screen.dart
+│   │   └── multi_service_booking_screen.dart
 │   ├── messages/
 │   │   ├── messages_screen.dart
 │   │   └── chat_screen.dart
+│   ├── emergency/
+│   │   └── emergency_services_screen.dart
+│   ├── warranty/
+│   │   └── service_warranty_screen.dart
+│   ├── reviews/
+│   │   └── provider_reviews_screen.dart
+│   ├── promotions/
+│   │   └── promotions_screen.dart
 │   ├── profile/
 │   │   └── profile_screen.dart
 │   └── settings/
@@ -445,6 +687,10 @@ lib/
 │   ├── price_breakdown.dart
 │   ├── chat_bubble.dart
 │   ├── map_placeholder.dart
+│   ├── emergency_card.dart
+│   ├── warranty_card.dart
+│   ├── review_card.dart
+│   ├── offer_card.dart
 │   ├── animated_background.dart
 │   └── shimmer_loading.dart
 └── utils/
@@ -454,6 +700,7 @@ lib/
 ### Quality Checklist
 - [ ] Login page with professional glassmorphism design
 - [ ] Theme switcher with 3 themes working correctly
+- [ ] Default theme is Dark Sidebar + Light Content
 - [ ] Home dashboard with service categories
 - [ ] Services screen with listings
 - [ ] Service detail with pricing
@@ -463,6 +710,11 @@ lib/
 - [ ] Booking detail with timeline
 - [ ] Track job screen
 - [ ] Messages/chat UI
+- [ ] Emergency Services with 24/7 support
+- [ ] Service Warranty management
+- [ ] Multi-Service Booking
+- [ ] Provider Reviews
+- [ ] Promotions & Offers
 - [ ] Profile with stats
 - [ ] Settings with theme switcher
 - [ ] Consistent professional design throughout
@@ -476,9 +728,10 @@ lib/
 ### Output
 When complete, ensure:
 1. The app runs without errors: `flutter run`
-2. Theme switching works for all 3 themes
+2. Theme switching works for all 3 themes (using adaptive_theme)
 3. Login navigates to home
 4. All navigation works (bottom nav, back buttons)
 5. All screens have proper service marketplace content
 6. Booking flow looks complete
-7. No crashes, no layout overflow, no missing assets
+7. **Android build succeeds**: Run `flutter build apk --debug` and verify BUILD SUCCESSFUL
+8. No crashes, no layout overflow, no missing assets

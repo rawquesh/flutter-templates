@@ -10,16 +10,19 @@ flutter create --org com.bluetouch.tripmate tripmate
 You are building a complete Flutter UI template for a travel and booking mobile application called "TripMate". This is a UI-only template (no state management, no actual API calls) that demonstrates a beautiful travel app interface with inspiring visuals and glassmorphism design.
 
 ### Project Setup
-- Create the project using: `flutter create --org com.bluetouch.tripmate tripmate`
+- Create the project using: `flutter create --org com.bluetouch.tripmate --platforms android,ios tripmate`
+- **Priority: Android first** - ensure all features work perfectly on Android
 - Navigate to the project folder and work entirely within it
 - Install any additional packages needed to achieve a premium glassy modern look
 - You have Claude Max subscription so DO NOT worry about token costs - be thorough and comprehensive
+- **IMPORTANT: Do NOT use any state management packages** (no Provider, Riverpod, Bloc, GetX, etc.) - pure UI only
+- Use `adaptive_theme` package for theme switching (install via `flutter pub add adaptive_theme`)
 
 ### Theme System (MANDATORY - Must Implement)
-Create a theme switcher with 3 distinct themes accessible via a toggle button in the top-right corner of the app bar. The selected theme must persist visually and be indicated clearly:
+Create a theme switcher with 3 distinct themes accessible via a toggle button in the top-right corner of the app bar. **Default Theme: Option 2 (Dark Sidebar + Light Content)** The selected theme must persist visually and be indicated clearly:
 
 1. **Light Theme**: Light sidebar (white/light gray) + light pages (white backgrounds, light cards)
-2. **Dark Sidebar Theme**: Dark sidebar + white/light content pages (hybrid approach)
+2. **Dark Sidebar Theme**: Dark sidebar + white/light content pages (hybrid approach) **← DEFAULT**
 3. **Dark Theme**: Complete dark theme (dark sidebar, dark pages, dark cards)
 
 For the theme toggle UI:
@@ -82,6 +85,11 @@ Create a bottom navigation bar with 5 main sections:
 - My Trips
 - Saved Places
 - Flight Status
+- Travel Insurance
+- Currency Converter
+- Packing List
+- Travel Guides
+- Loyalty Program
 - Deals & Offers
 - Settings
 - Help & Support
@@ -293,6 +301,279 @@ Create a bottom navigation bar with 5 main sections:
 - **Privacy & Security**
 - **App Version**
 
+#### 12. Travel Insurance Screen
+- **Header**: "Travel Insurance" title
+- **Trip Selector**:
+  - Link insurance to existing trip
+  - Or "Create New Insurance"
+- **Available Insurance Plans**:
+  - Each plan card:
+    - Plan name (Basic, Standard, Premium)
+    - Price
+    - Coverage highlights
+    - "Learn More" expand button
+- **Plan Comparison Table**:
+  - Side-by-side comparison:
+    - Trip Cancellation
+    - Medical Coverage
+    - Baggage Loss
+    - Flight Delay
+    - Adventure Sports
+    - COVID-19 Coverage
+- **Coverage Details Section**:
+  - **Medical Coverage**:
+    - Emergency medical expenses
+    - Hospitalization
+    - Emergency evacuation
+  - **Trip Protection**:
+    - Trip cancellation
+    - Trip interruption
+    - Missed connection
+  - **Baggage Coverage**:
+    - Lost baggage
+    - Delayed baggage
+    - Personal belongings
+  - **Travel Assistance**:
+    - 24/7 hotline
+    - Language assistance
+    - Emergency translations
+- **Customize Plan**:
+  - Add-on options:
+    - Adventure sports rider
+    - Pre-existing conditions
+    - Cancel for any reason
+  - Premium adjustments
+- **Purchase Form**:
+  - Traveler details
+  - Trip dates and destination
+  - Coverage amount selection
+  - Primary beneficiary
+- **My Insurance Policies**:
+  - List of purchased policies
+  - Each with:
+    - Policy number
+    - Coverage details
+    - Download PDF button
+    - Claim button
+    - Emergency contact
+
+#### 13. Currency Converter Screen
+- **Header**: "Currency Converter" title
+- **Converter Interface**:
+  - **From Currency Section**:
+    - Currency dropdown selector
+    - Amount input field
+    - Flag and currency code display
+    - Current exchange rate to USD
+  - **Swap Button** (center):
+    - Arrow button to swap currencies
+    - Animation on tap
+  - **To Currency Section**:
+    - Currency dropdown selector
+    - Converted amount display (large)
+    - Flag and currency code display
+    - Current exchange rate to USD
+- **Exchange Rate Display**:
+  - "1 [FROM] = X.XX [TO]"
+  - Last updated timestamp
+  - "Refresh" button
+- **Popular Currencies Quick Select**:
+  - USD, EUR, GBP, JPY, AUD, CAD, CHF, CNY
+  - Tap to quickly switch
+- **Historical Rates Section**:
+  - "View Historical Rates" link
+  - Time range: 1W, 1M, 3M, 6M, 1Y
+  - Line chart showing rate trend
+- **Currency List**:
+  - Searchable list of all currencies
+  - Each with flag, code, name
+  - Current rate against base currency
+- **Favorites Section**:
+  - Star currencies for quick access
+  - Frequent conversion pairs
+- **Offline Mode Notice**:
+  - Shows last updated rates when offline
+  - "Connect to update rates"
+
+#### 14. Packing List Screen
+- **Header**: "Packing List" title
+- **Trip Selector**:
+  - Select trip for packing list
+  - Or create standalone list
+- **Template Lists Section**:
+  - "Start from Template":
+    - Beach Vacation
+    - Business Trip
+    - Camping
+    - Winter Travel
+    - Backpacking
+    - Family Trip
+- **Packing Categories**:
+  - Expandable sections:
+    - **Clothing**:
+      - Tops, Bottoms, Underwear, Sleepwear
+      - Shoes, Accessories
+    - **Toiletries**:
+      - Essentials, Skincare, Medications
+    - **Electronics**:
+      - Phone, Charger, Laptop, Camera
+      - Adapters, Power bank
+    - **Documents**:
+      - Passport, Visa, ID
+      - Tickets, Reservations
+      - Insurance
+    - **Money**:
+      - Cash, Cards
+    - **Miscellaneous**:
+      - Books, Snacks, First Aid
+- **Item Cards**:
+  - Checkbox for packed status
+  - Item name
+  - Quantity selector
+  - Notes field
+  - Delete button
+- **Add Item Section**:
+  - Input field
+  - Category selector
+  - Quick add buttons
+- **Progress Tracker**:
+  - "XX of YY items packed"
+  - Progress bar
+  - Category completion status
+- **Share/Export Options**:
+  - Share list with travel companions
+  - Export as PDF
+  - Print list
+- **Packing Tips Card**:
+  - Smart packing suggestions
+  - Weight limit warnings
+  - TSA guidelines
+
+#### 15. Travel Guides Screen
+- **Header**: "Travel Guides" title with search
+- **Featured Guide Hero**:
+  - Large destination guide card
+  - "Destination of the Month"
+- **Popular Destinations Grid**:
+  - 2-column grid of destination cards:
+    - Destination image placeholder
+    - Country name
+    - "Essential Guide" badge
+    - Brief description
+- **Guide Categories**:
+  - **By Region**:
+    - Asia
+    - Europe
+    - North America
+    - South America
+    - Africa
+    - Oceania
+  - **By Interest**:
+    - Adventure
+    - Culture & History
+    - Beach & Relaxation
+    - Food & Culinary
+    - Eco-Tourism
+    - Luxury Travel
+- **Guide Detail Screen**:
+  - **Header Image**: Destination photo
+  - **Quick Stats**:
+    - Best time to visit
+    - Average temperature
+    - Currency
+    - Language
+  - **Overview Section**:
+    - Introduction text
+    - Key highlights
+  - **Things to Do**:
+    - Must-see attractions
+    - Hidden gems
+    - Activities by interest
+  - **Best Places to Stay**:
+    - Areas/neighborhoods
+    - Hotel recommendations
+    - Price ranges
+  - **Food & Dining**:
+    - Local cuisine highlights
+    - Restaurant recommendations
+    - Food to try
+  - **Getting Around**:
+    - Transportation options
+    - Public transit info
+    - Airport info
+  - **Travel Tips**:
+    - Visa requirements
+    - Safety tips
+    - Local customs
+    - Budget tips
+  - **Packing Recommendations**:
+    - Weather-appropriate suggestions
+    - Cultural dress tips
+  - **Nearby Destinations**:
+    - Day trips
+    - Multi-country suggestions
+- **Save Guide Button**:
+  - Save for offline access
+  - "Saved Guides" section
+
+#### 16. Loyalty Program Screen
+- **Header**: "TripMate Rewards" title
+- **Membership Status Card**:
+  - Current tier (Bronze, Silver, Gold, Platinum)
+  - Tier badge with icon
+  - Points balance (large)
+  - Progress to next tier
+- **Tier Benefits Comparison**:
+  - Bronze (0-999 points)
+  - Silver (1000-4999 points)
+  - Gold (5000-14999 points)
+  - Platinum (15000+ points)
+  - Each with:
+    - Cashback percentage
+    - Priority support
+    - Exclusive deals
+    - Birthday bonus
+- **Points Summary**:
+  - Points earned this year
+  - Points redeemed
+  - Points expiring soon
+- **Earn Points Section**:
+  - **Booking Rewards**:
+    - Hotel bookings: 1 point per $1
+    - Flight bookings: 1 point per $2
+    - Packages: Bonus points
+  - **Activity Rewards**:
+    - Write a review: 50 points
+    - Refer a friend: 200 points
+    - Complete profile: 25 points
+  - **Partner Earning**:
+    - Partner app integrations
+    - Linked credit card spending
+- **Redeem Points Section**:
+  - **Travel Rewards**:
+    - Flight discounts
+    - Hotel upgrades
+    - Free night stays
+  - **Gift Cards**:
+    - Popular retailers
+    - Restaurants
+    - Entertainment
+  - **Donations**:
+    - Charity options
+  - Point value calculator
+- **Points History**:
+  - List of transactions
+  - Points earned/redeemed
+  - Date and description
+- **Exclusive Offers**:
+  - Member-only deals
+  - Early access to sales
+  - Bonus point promotions
+- **Referral Program**:
+  - Share code
+  - "Refer and Earn" description
+  - Referral tracking
+
 ### UI Components Library
 Create reusable glassmorphism components:
 - GlassCard
@@ -350,7 +631,9 @@ Create reusable glassmorphism components:
   - google_fonts
   - flutter_animate
   - shimmer
+  - adaptive_theme (for theme switching)
   - any other UI enhancement packages
+- **Android Build Requirement**: After completing all code, verify the app builds successfully with `flutter build apk --debug`
 
 ### File Structure
 ```
@@ -377,6 +660,18 @@ lib/
 │   │   └── trip_detail_screen.dart
 │   ├── booking/
 │   │   └── checkout_screen.dart
+│   ├── insurance/
+│   │   ├── insurance_screen.dart
+│   │   └── policy_detail_screen.dart
+│   ├── currency/
+│   │   └── currency_converter_screen.dart
+│   ├── packing_list/
+│   │   └── packing_list_screen.dart
+│   ├── travel_guides/
+│   │   ├── travel_guides_screen.dart
+│   │   └── guide_detail_screen.dart
+│   ├── loyalty/
+│   │   └── loyalty_screen.dart
 │   ├── profile/
 │   │   └── profile_screen.dart
 │   └── settings/
@@ -400,6 +695,11 @@ lib/
 │   ├── guest_selector.dart
 │   ├── rating_stars.dart
 │   ├── amenity_icon.dart
+│   ├── insurance_card.dart
+│   ├── currency_input.dart
+│   ├── packing_item_tile.dart
+│   ├── guide_card.dart
+│   ├── loyalty_tier_card.dart
 │   ├── animated_background.dart
 │   └── shimmer_loading.dart
 └── utils/
@@ -409,6 +709,7 @@ lib/
 ### Quality Checklist
 - [ ] Login page with inspiring glassmorphism design
 - [ ] Theme switcher with 3 themes working correctly
+- [ ] Default theme is Dark Sidebar + Light Content
 - [ ] Explore screen with destinations
 - [ ] Hotels screen with search and listings
 - [ ] Hotel detail with rooms
@@ -417,6 +718,11 @@ lib/
 - [ ] My trips with upcoming/past tabs
 - [ ] Trip detail with itinerary
 - [ ] Checkout/booking flow
+- [ ] Travel Insurance with plan comparison
+- [ ] Currency Converter with live rates
+- [ ] Packing List with templates
+- [ ] Travel Guides with detailed info
+- [ ] Loyalty Program with tiers
 - [ ] Profile with travel stats
 - [ ] Settings with theme switcher
 - [ ] Consistent travel aesthetic throughout
@@ -430,9 +736,10 @@ lib/
 ### Output
 When complete, ensure:
 1. The app runs without errors: `flutter run`
-2. Theme switching works for all 3 themes
+2. Theme switching works for all 3 themes (using adaptive_theme)
 3. Login navigates to explore
 4. All navigation works (bottom nav, back buttons)
 5. All screens have proper travel content
 6. Beautiful hero images placeholders
-7. No crashes, no layout overflow, no missing assets
+7. **Android build succeeds**: Run `flutter build apk --debug` and verify BUILD SUCCESSFUL
+8. No crashes, no layout overflow, no missing assets

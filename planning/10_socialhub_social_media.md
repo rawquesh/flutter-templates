@@ -10,16 +10,19 @@ flutter create --org com.bluetouch.socialhub socialhub
 You are building a complete Flutter UI template for a social media dashboard mobile application called "SocialHub". This is a UI-only template (no state management, no actual API calls) that demonstrates a modern social media app interface with engaging visuals and glassmorphism design.
 
 ### Project Setup
-- Create the project using: `flutter create --org com.bluetouch.socialhub socialhub`
+- Create the project using: `flutter create --org com.bluetouch.socialhub --platforms android,ios socialhub`
+- **Priority: Android first** - ensure all features work perfectly on Android
 - Navigate to the project folder and work entirely within it
 - Install any additional packages needed to achieve a premium glassy modern look
 - You have Claude Max subscription so DO NOT worry about token costs - be thorough and comprehensive
+- **IMPORTANT: Do NOT use any state management packages** (no Provider, Riverpod, Bloc, GetX, etc.) - pure UI only
+- Use `adaptive_theme` package for theme switching (install via `flutter pub add adaptive_theme`)
 
 ### Theme System (MANDATORY - Must Implement)
-Create a theme switcher with 3 distinct themes accessible via a toggle button in the top-right corner of the app bar. The selected theme must persist visually and be indicated clearly:
+Create a theme switcher with 3 distinct themes accessible via a toggle button in the top-right corner of the app bar. **Default Theme: Option 2 (Dark Sidebar + Light Content)** The selected theme must persist visually and be indicated clearly:
 
 1. **Light Theme**: Light sidebar (white/light gray) + light pages (white backgrounds, light cards)
-2. **Dark Sidebar Theme**: Dark sidebar + white/light content pages (hybrid approach)
+2. **Dark Sidebar Theme**: Dark sidebar + white/light content pages (hybrid approach) **← DEFAULT**
 3. **Dark Theme**: Complete dark theme (dark sidebar, dark pages, dark cards)
 
 For the theme toggle UI:
@@ -83,6 +86,11 @@ Create a bottom navigation bar with 5 main sections:
 - Home Feed
 - Explore
 - Reels
+- Live
+- Stories Archive
+- Close Friends
+- Business Profile
+- Analytics
 - Saved
 - Settings
 - Help & Support
@@ -315,6 +323,231 @@ Create a bottom navigation bar with 5 main sections:
   - Privacy Policy
   - App Version
 
+#### 12. Live Streaming Screen
+- **Header**: "Live" tab
+- **Live Now Section**:
+  - Horizontal scroll of live streams:
+    - Live indicator badge
+    - Stream thumbnail
+    - Username
+    - Viewer count
+    - Category badge
+- **Suggested Live Streams**:
+  - People you follow who are live
+  - Trending live streams
+  - Nearby live streams
+- **Live Stream Card**:
+  - Tap to join full screen
+- **Go Live Section**:
+  - "Start Live" button
+  - Stream setup options
+- **Full Screen Live View**:
+  - Video stream placeholder
+  - Live indicator (red)
+  - Viewer count
+  - Stream duration
+  - **Overlay Controls**:
+    - Close/minimize
+    - Mute audio
+    - Flip camera
+    - Effects/filters
+  - **Chat Overlay**:
+    - Scrolling comments
+    - Super comments highlighted
+    - Join/leave notifications
+  - **Reaction Bar**:
+    - Animated reactions (hearts, etc.)
+    - Tap to send
+  - **Live Shopping** (optional):
+    - Product showcase during live
+    - "Tap to shop" badge
+- **Live Host Controls**:
+  - Mute all
+  - Pin comment
+  - Remove viewer
+  - End stream
+  - Share stream
+- **Post-Live Summary**:
+  - Total viewers
+  - Peak viewers
+  - Likes received
+  - Comments count
+  - Duration
+
+#### 13. Stories Archive Screen
+- **Header**: "Your Story Archive" title
+- **Archive Stats Card**:
+  - Total stories
+  - Total views
+  - Most viewed story
+- **Stories Timeline**:
+  - Chronological list of past stories:
+    - Date grouping
+    - Story thumbnail preview
+    - View count
+    - Duration
+    - Tap to view
+- **Story Detail View**:
+  - Full story playback
+  - Viewer list
+  - Reactions received
+- **Highlights Management**:
+  - Create highlight from archive
+  - Highlight covers editor
+  - Reorder highlights
+- **Archive Settings**:
+  - Auto-archive toggle
+  - Archive duration (30 days, 1 year, Forever)
+  - Download stories option
+- **Shared Stories**:
+  - Stories you were tagged in
+  - Stories you shared with close friends
+- **Storage Info Card**:
+  - Space used by stories
+  - Clear old stories option
+
+#### 14. Close Friends Screen
+- **Header**: "Close Friends" title
+- **Current Close Friends List**:
+  - List of close friends:
+    - Avatar
+    - Username
+    - Remove button
+- **Add Close Friends Section**:
+  - Search users to add
+  - Suggestions based on interaction
+- **Close Friends Feed Filter**:
+  - "See Close Friends Content" toggle
+  - Preview what they share with you
+- **Story Sharing Settings**:
+  - Default share setting for new stories
+  - Always/Never/Ask option
+- **Post Sharing Settings**:
+  - Same close friends list for posts
+  - Different groups for different content
+- **Best Friends**:
+  - Mutual close friends
+  - "Close Friends" mutual badge
+- **Group Management**:
+  - Create custom groups
+  - Family, Work, Acquaintances
+  - Different sharing rules per group
+- **Notification Settings**:
+  - Notify when someone adds you
+  - Alert for close friends posts
+
+#### 15. Business Profile Screen
+- **Header**: Switch to Business button
+- **Business Dashboard**:
+  - Overview stats cards:
+    - Total followers
+    - Profile views
+    - Website clicks
+    - Reach
+  - **This Week vs Last Week**:
+    - Comparison indicators
+- **Content Performance**:
+  - Recent posts grid:
+    - Post thumbnail
+    - Likes, comments, shares
+    - Best performing highlighted
+  - Top performing content
+- **Followers Insights**:
+  - Follower count chart
+  - Growth over time
+  - Audience demographics:
+    - Age range
+    - Gender split
+    - Top locations
+    - Active times
+- **Engagement Metrics**:
+  - Average likes per post
+  - Average comments
+  - Engagement rate
+  - Save/share ratio
+- **Discovery Stats**:
+  - Explore placement
+  - Hashtag performance
+  - Reels reach
+- **Promotions Section**:
+  - "Create Promotion" button
+  - Active promotions
+  - Past campaigns
+- **Contact Info Editor**:
+  - Business category
+  - Contact options
+  - Business hours
+  - Address
+- **Call to Action Buttons**:
+  - Customize buttons
+  - Email, Phone, WhatsApp, etc.
+- **Professional Dashboard Access**:
+  - Insights tab
+  - Content tab
+  - Audience tab
+  - Promotions tab
+
+#### 16. Analytics Screen
+- **Header**: "Analytics" title with date range selector
+- **Overview Stats Cards**:
+  - **Accounts Reached**:
+    - This week total
+    - Change from previous
+    - Chart visualization
+  - **Accounts Engaged**:
+    - Likes, comments, saves, shares
+    - Breakdown by type
+  - **Total Views**:
+    - Profile views
+    - Story views
+  - **Followers**:
+    - Net growth
+    - Follow/unfollow chart
+- **Content Performance Tab**:
+  - **Posts Tab**:
+    - Grid of posts
+    - Sort by: Likes, Comments, Saves, Reach
+    - Each post card:
+      - Thumbnail
+      - Date posted
+      - Likes/Comments/Saves/Shares
+      - Reach
+  - **Reels Tab**:
+    - Reels performance
+    - Views count
+    - Engagement metrics
+  - **Stories Tab**:
+    - Stories metrics
+    - Views per story
+    - Exit rate
+- **Audience Tab**:
+  - **Followers Chart**:
+    - Growth over time
+    - Time range selector
+  - **Demographics**:
+    - Age & Gender pie charts
+    - Top locations
+    - Active hours heatmap
+  - **Follower Sources**:
+    - Hashtags
+    - Explore
+    - Suggested
+    - Other
+- **Activity Tab**:
+  - **Notifications Received**:
+    - Likes, Comments, Mentions, DMs
+    - Daily breakdown
+- **Best Time to Post**:
+  - Heatmap of posting times
+  - Recommended optimal times
+- **Content Ideas**:
+  - Trending hashtags
+  - Related content suggestions
+  - Competitor insights (anonymized)
+- **Export Data**:
+  - Download reports
+  - Weekly/Monthly summaries
+
 ### UI Components Library
 Create reusable glassmorphism components:
 - GlassCard
@@ -375,7 +608,9 @@ Create reusable glassmorphism components:
   - google_fonts
   - flutter_animate
   - shimmer
+  - adaptive_theme (for theme switching)
   - any other UI enhancement packages
+- **Android Build Requirement**: After completing all code, verify the app builds successfully with `flutter build apk --debug`
 
 ### File Structure
 ```
@@ -394,6 +629,9 @@ lib/
 │   │   └── explore_screen.dart
 │   ├── reels/
 │   │   └── reels_screen.dart
+│   ├── live/
+│   │   ├── live_screen.dart
+│   │   └── live_view_screen.dart
 │   ├── create/
 │   │   └── create_post_screen.dart
 │   ├── notifications/
@@ -406,6 +644,14 @@ lib/
 │   ├── messages/
 │   │   ├── messages_screen.dart
 │   │   └── chat_detail_screen.dart
+│   ├── stories_archive/
+│   │   └── stories_archive_screen.dart
+│   ├── close_friends/
+│   │   └── close_friends_screen.dart
+│   ├── business/
+│   │   └── business_profile_screen.dart
+│   ├── analytics/
+│   │   └── analytics_screen.dart
 │   └── settings/
 │       └── settings_screen.dart
 ├── widgets/
@@ -430,6 +676,11 @@ lib/
 │   ├── reel_card.dart
 │   ├── carousel_indicator.dart
 │   ├── progress_bar.dart
+│   ├── live_stream_card.dart
+│   ├── story_archive_card.dart
+│   ├── close_friends_tile.dart
+│   ├── business_stat_card.dart
+│   ├── analytics_chart.dart
 │   ├── animated_background.dart
 │   └── shimmer_loading.dart
 └── utils/
@@ -439,6 +690,7 @@ lib/
 ### Quality Checklist
 - [ ] Login page with engaging glassmorphism design
 - [ ] Theme switcher with 3 themes working correctly
+- [ ] Default theme is Dark Sidebar + Light Content
 - [ ] Home feed with stories and posts
 - [ ] Explore/search screen with grid
 - [ ] Reels full-screen view
@@ -448,6 +700,11 @@ lib/
 - [ ] Other user profile
 - [ ] Post detail with comments
 - [ ] Messages list and chat
+- [ ] Live Streaming with viewer controls
+- [ ] Stories Archive with management
+- [ ] Close Friends with groups
+- [ ] Business Profile dashboard
+- [ ] Analytics with charts
 - [ ] Settings with theme switcher
 - [ ] Consistent social media design throughout
 - [ ] Smooth animations on all interactions
@@ -460,9 +717,10 @@ lib/
 ### Output
 When complete, ensure:
 1. The app runs without errors: `flutter run`
-2. Theme switching works for all 3 themes
+2. Theme switching works for all 3 themes (using adaptive_theme)
 3. Login navigates to home feed
 4. All navigation works (bottom nav, back buttons)
 5. All screens have proper social media content
 6. Post and story UI looks authentic
-7. No crashes, no layout overflow, no missing assets
+7. **Android build succeeds**: Run `flutter build apk --debug` and verify BUILD SUCCESSFUL
+8. No crashes, no layout overflow, no missing assets

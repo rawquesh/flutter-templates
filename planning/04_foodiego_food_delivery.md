@@ -10,16 +10,19 @@ flutter create --org com.bluetouch.foodiego foodiego
 You are building a complete Flutter UI template for a food delivery and restaurant mobile application called "FoodieGo". This is a UI-only template (no state management, no actual API calls) that demonstrates a delicious food delivery app interface with appetizing animations and glassmorphism design.
 
 ### Project Setup
-- Create the project using: `flutter create --org com.bluetouch.foodiego foodiego`
+- Create the project using: `flutter create --org com.bluetouch.foodiego --platforms android,ios foodiego`
+- **Priority: Android first** - ensure all features work perfectly on Android
 - Navigate to the project folder and work entirely within it
 - Install any additional packages needed to achieve a premium glassy modern look
 - You have Claude Max subscription so DO NOT worry about token costs - be thorough and comprehensive
+- **IMPORTANT: Do NOT use any state management packages** (no Provider, Riverpod, Bloc, GetX, etc.) - pure UI only
+- Use `adaptive_theme` package for theme switching (install via `flutter pub add adaptive_theme`)
 
 ### Theme System (MANDATORY - Must Implement)
-Create a theme switcher with 3 distinct themes accessible via a toggle button in the top-right corner of the app bar. The selected theme must persist visually and be indicated clearly:
+Create a theme switcher with 3 distinct themes accessible via a toggle button in the top-right corner of the app bar. **Default Theme: Option 2 (Dark Sidebar + Light Content)** The selected theme must persist visually and be indicated clearly:
 
 1. **Light Theme**: Light sidebar (white/light gray) + light pages (white backgrounds, light cards)
-2. **Dark Sidebar Theme**: Dark sidebar + white/light content pages (hybrid approach)
+2. **Dark Sidebar Theme**: Dark sidebar + white/light content pages (hybrid approach) **← DEFAULT**
 3. **Dark Theme**: Complete dark theme (dark sidebar, dark pages, dark cards)
 
 For the theme toggle UI:
@@ -80,7 +83,9 @@ Create a bottom navigation bar with 5 main sections:
 **Side Navigation (Drawer)**:
 - Home
 - My Orders
+- Reorder
 - Favorites
+- Table Booking
 - Addresses
 - Payment Methods
 - Notifications
@@ -254,6 +259,213 @@ Create a bottom navigation bar with 5 main sections:
 - **Privacy & Security**
 - **App Version**
 
+#### 11. Restaurant Reviews Screen
+- **Header**: Restaurant name with "Reviews" subtitle
+- **Rating Summary Card**:
+  - Large average rating (X.X)
+  - Star rating visual
+  - Total reviews count
+  - Rating breakdown bars:
+    - 5 stars: XX%
+    - 4 stars: XX%
+    - 3 stars: XX%
+    - 2 stars: XX%
+    - 1 star: XX%
+- **Filter Chips**:
+  - All
+  - With Photos
+  - Positive
+  - Critical
+  - "XX reviews with comments"
+- **Sort Dropdown**: Most Recent, Highest Rated, Lowest Rated, Most Helpful
+- **Review Cards List**:
+  - Each review card:
+    - User avatar
+    - User name
+    - Date posted
+    - Star rating
+    - "Verified Order" badge
+    - Review text (expandable)
+    - Photos carousel (if any)
+    - Helpful/Useful button with count
+    - "Report" option
+- **Write Review CTA**:
+  - "Share your experience" card
+  - Rating selector (stars)
+  - Photo upload option
+  - Review text field
+  - Submit button
+- **Restaurant Response Section**:
+  - If restaurant owner responded:
+    - "Owner Response" label
+    - Response text
+    - Response date
+
+#### 12. Multi-Restaurant Cart Screen
+- **Header**: "Your Cart" title with item count
+- **Split Cart Warning**:
+  - Warning card explaining items from multiple restaurants
+  - "These items are from X restaurants"
+- **Restaurant Sections**:
+  - Each restaurant grouped:
+    - Restaurant name header
+    - Delivery time
+    - Items from this restaurant:
+      - Item name and customizations
+      - Quantity selector
+      - Price
+      - Remove button
+    - "View Restaurant" link
+- **Item Conflict Notice**:
+  - Info about delivery restrictions
+  - "Items from different restaurants will be delivered separately"
+- **Combined Price Summary**:
+  - Per-restaurant breakdown:
+    - Restaurant 1: $XX
+    - Restaurant 2: $XX
+  - Delivery fees (separate per restaurant)
+  - Grand Total
+- **Delivery Options**:
+  - "Deliver separately" (default)
+  - "Deliver together (may take longer)"
+- **Checkout Button**:
+  - Full-width button
+  - "Checkout (X restaurants)" text
+- **Empty State**: "Your cart is empty" with illustration
+
+#### 13. Table Booking Screen
+- **Header**: "Book a Table" title
+- **Restaurant Search/Selection**:
+  - Search field
+  - Recent restaurants
+  - Nearby restaurants list
+- **Selected Restaurant Card**:
+  - Restaurant name and image
+  - Cuisine type
+  - Location
+  - Rating
+  - Operating hours
+- **Booking Form** (glass card):
+  - **Date Picker**: Calendar view
+  - **Time Slot Selection**: Available times grid
+  - **Party Size**: +/- selector (1-20 guests)
+  - **Occasion**: Dropdown (Birthday, Anniversary, Business, Date, Other)
+  - **Special Requests**: Text area
+  - **Contact Name**: Input field
+  - **Contact Phone**: Input field
+  - **Email**: Input field
+- **Seating Preferences**:
+  - Indoor / Outdoor
+  - Window seat
+  - Quiet area
+  - High chair needed (toggle)
+- **Pre-Order Menu Section**:
+  - "Pre-order food for your booking"
+  - Browse restaurant menu
+  - Add items to booking
+  - Pre-order total
+- **Price Summary**:
+  - Booking fee (if any)
+  - Estimated food order
+  - Total
+- **Confirmation Section**:
+  - Cancellation policy
+  - Terms checkbox
+  - "Confirm Booking" button
+- **Booking Confirmation**:
+  - Success animation
+  - Booking details card
+  - QR code for check-in
+  - Add to calendar button
+  - Modify/Cancel options
+
+#### 14. Reorder Screen
+- **Header**: "Reorder" title
+- **Quick Reorder Section**:
+  - "Order Again" prominent section
+  - Last 5 orders as cards:
+    - Restaurant name and logo
+    - Order date
+    - Total amount
+    - Item count
+    - "Reorder" button (quick one-tap)
+- **Frequent Orders Section**:
+  - Your most ordered items
+  - Quick add buttons
+  - "Add to Cart" for individual items
+- **Reorder History List**:
+  - Chronological order list
+  - Each order card:
+    - Restaurant info
+    - Date and time
+    - Items summary
+    - Total paid
+    - "Reorder All" button
+    - "Reorder Some" option (select items)
+- **Item Selection** (for partial reorder):
+  - Checkbox list of items
+  - Modify quantities
+  - Add/remove items
+  - "Add Selected to Cart" button
+- **Customization Reminder**:
+  - Note about re-adding customizations
+  - "Previous choices saved as template"
+- **Similar Restaurants**:
+  - "Order from similar places" section
+  - Restaurant suggestions based on history
+
+#### 15. Advanced Filters Screen
+- **Header**: "Filters" title with reset and apply buttons
+- **Search Within Results**:
+  - Search field to filter current results
+- **Cuisine Filter**:
+  - Multi-select cuisine chips:
+    - American, Italian, Chinese, Japanese, Mexican, Indian, Thai, Mediterranean, Fast Food, Healthy, Desserts, etc.
+- **Dietary Preferences**:
+  - Toggle filters:
+    - Vegetarian
+    - Vegan
+    - Gluten-Free
+    - Halal
+    - Kosher
+    - Dairy-Free
+    - Nut-Free
+- **Price Range**:
+  - Slider or preset buttons:
+    - $
+    - $$
+    - $$$
+    - $$$$
+- **Distance/Radius**:
+  - Slider: 1km - 20km
+  - "Use my location" button
+- **Delivery Time**:
+  - Filter by estimated delivery:
+    - ASAP
+    - 30 min or less
+    - 45 min or less
+- **Rating Filter**:
+  - Minimum rating slider (3.0 - 5.0 stars)
+- **Promotions/Offers**:
+  - "Free Delivery"
+  - "Buy 1 Get 1 Free"
+  - "Cashback"
+  - "Restaurant Open Now"
+- **Sort By**:
+  - Recommended
+  - Rating
+  - Delivery Time
+  - Price: Low to High
+  - Price: High to Low
+  - Distance
+- **Active Filters Display**:
+  - Chip list of active filters
+  - "Clear All" button
+  - Individual filter removal
+- **Results Count**:
+  - "XX restaurants match your filters"
+  - "Apply Filters" prominent button
+
 ### UI Components Library
 Create reusable glassmorphism components:
 - GlassCard
@@ -311,7 +523,9 @@ Create reusable glassmorphism components:
   - google_fonts
   - flutter_animate
   - shimmer
+  - adaptive_theme (for theme switching)
   - any other UI enhancement packages
+- **Android Build Requirement**: After completing all code, verify the app builds successfully with `flutter build apk --debug`
 
 ### File Structure
 ```
@@ -328,15 +542,21 @@ lib/
 │   │   └── home_screen.dart
 │   ├── restaurant/
 │   │   ├── restaurant_detail_screen.dart
-│   │   └── food_detail_screen.dart
+│   │   ├── food_detail_screen.dart
+│   │   └── restaurant_reviews_screen.dart
 │   ├── cart/
 │   │   ├── cart_screen.dart
+│   │   ├── multi_cart_screen.dart
 │   │   └── checkout_screen.dart
 │   ├── orders/
 │   │   ├── orders_screen.dart
-│   │   └── order_tracking_screen.dart
+│   │   ├── order_tracking_screen.dart
+│   │   └── reorder_screen.dart
 │   ├── search/
-│   │   └── search_screen.dart
+│   │   ├── search_screen.dart
+│   │   └── advanced_filters_screen.dart
+│   ├── booking/
+│   │   └── table_booking_screen.dart
 │   ├── profile/
 │   │   └── profile_screen.dart
 │   └── settings/
@@ -358,6 +578,9 @@ lib/
 │   ├── progress_tracker.dart
 │   ├── rating_stars.dart
 │   ├── quantity_selector.dart
+│   ├── review_card.dart
+│   ├── table_slot_picker.dart
+│   ├── filter_chip_group.dart
 │   ├── animated_background.dart
 │   └── shimmer_loading.dart
 └── utils/
@@ -367,6 +590,7 @@ lib/
 ### Quality Checklist
 - [ ] Login page with warm glassmorphism design
 - [ ] Theme switcher with 3 themes working correctly
+- [ ] Default theme is Dark Sidebar + Light Content
 - [ ] Home screen with restaurants and categories
 - [ ] Restaurant detail with menu items
 - [ ] Food item detail with customization
@@ -375,6 +599,11 @@ lib/
 - [ ] Orders screen with tabs
 - [ ] Order tracking UI
 - [ ] Search functionality
+- [ ] Restaurant Reviews with ratings breakdown
+- [ ] Multi-restaurant cart handling
+- [ ] Table Booking flow
+- [ ] Reorder from history
+- [ ] Advanced filters
 - [ ] Profile with rewards
 - [ ] Consistent warm color scheme throughout
 - [ ] Smooth animations on all interactions
@@ -387,8 +616,9 @@ lib/
 ### Output
 When complete, ensure:
 1. The app runs without errors: `flutter run`
-2. Theme switching works for all 3 themes
+2. Theme switching works for all 3 themes (using adaptive_theme)
 3. Login navigates to home
 4. All navigation works (bottom nav, back buttons)
 5. All screens have proper food delivery content
-6. No crashes, no layout overflow, no missing assets
+6. **Android build succeeds**: Run `flutter build apk --debug` and verify BUILD SUCCESSFUL
+7. No crashes, no layout overflow, no missing assets

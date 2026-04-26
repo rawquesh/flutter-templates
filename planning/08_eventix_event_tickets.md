@@ -10,16 +10,19 @@ flutter create --org com.bluetouch.eventix eventix
 You are building a complete Flutter UI template for an event tickets and booking mobile application called "Eventix". This is a UI-only template (no state management, no actual API calls) that demonstrates a vibrant event discovery and ticketing app interface with exciting visuals and glassmorphism design.
 
 ### Project Setup
-- Create the project using: `flutter create --org com.bluetouch.eventix eventix`
+- Create the project using: `flutter create --org com.bluetouch.eventix --platforms android,ios eventix`
+- **Priority: Android first** - ensure all features work perfectly on Android
 - Navigate to the project folder and work entirely within it
 - Install any additional packages needed to achieve a premium glassy modern look
 - You have Claude Max subscription so DO NOT worry about token costs - be thorough and comprehensive
+- **IMPORTANT: Do NOT use any state management packages** (no Provider, Riverpod, Bloc, GetX, etc.) - pure UI only
+- Use `adaptive_theme` package for theme switching (install via `flutter pub add adaptive_theme`)
 
 ### Theme System (MANDATORY - Must Implement)
-Create a theme switcher with 3 distinct themes accessible via a toggle button in the top-right corner of the app bar. The selected theme must persist visually and be indicated clearly:
+Create a theme switcher with 3 distinct themes accessible via a toggle button in the top-right corner of the app bar. **Default Theme: Option 2 (Dark Sidebar + Light Content)** The selected theme must persist visually and be indicated clearly:
 
 1. **Light Theme**: Light sidebar (white/light gray) + light pages (white backgrounds, light cards)
-2. **Dark Sidebar Theme**: Dark sidebar + white/light content pages (hybrid approach)
+2. **Dark Sidebar Theme**: Dark sidebar + white/light content pages (hybrid approach) **← DEFAULT**
 3. **Dark Theme**: Complete dark theme (dark sidebar, dark pages, dark cards)
 
 For the theme toggle UI:
@@ -83,6 +86,8 @@ Create a bottom navigation bar with 5 main sections:
 - My Events
 - My Tickets
 - Favorites
+- Event Calendar
+- Seat Selection
 - Offers & Discounts
 - Settings
 - Help & Support
@@ -309,6 +314,223 @@ Create a bottom navigation bar with 5 main sections:
 - **Privacy & Security**
 - **App Version**
 
+#### 11. Event Calendar Screen
+- **Header**: "Events Calendar" title
+- **Calendar View**:
+  - Month calendar grid
+  - Days with events highlighted
+  - Swipe for next/previous month
+- **Month Navigation**:
+  - Current month and year
+  - Previous/Next arrows
+  - "Today" button
+- **Event Indicators**:
+  - Dot indicators on dates with events
+  - Color coding by category:
+    - Music: Purple
+    - Sports: Green
+    - Theater: Blue
+    - Comedy: Orange
+- **Selected Day Events List**:
+  - Events for selected date:
+    - Event image thumbnail
+    - Event name
+    - Time
+    - Venue
+    - "Get Tickets" button
+- **Upcoming Events Timeline**:
+  - Chronological list of next 7 days
+  - Events grouped by date
+- **Category Filter**:
+  - Filter by event type
+  - "All" selected by default
+- **Add to Calendar**:
+  - Export event to device calendar
+  - Select specific events
+- **Notifications**:
+  - "Remind me" option for events
+  - Reminder timing selection
+
+#### 12. Seat Selection Screen
+- **Header**: "Choose Your Seats" with event name
+- **Venue Map**:
+  - Interactive seat map:
+    - Stage/platform indicator
+    - Section labels (A, B, C, etc.)
+    - Row numbers
+    - Seat numbers
+  - Color legend:
+    - Available (green)
+    - Selected (highlighted)
+    - Sold/Unavailable (gray)
+    - VIP (gold)
+  - Zoom controls (+/- buttons)
+  - Pan gesture for navigation
+- **Section Selector**:
+  - Dropdown to jump to section
+  - "Best Available" option
+- **Seat Info Panel**:
+  - Selected seat(s) details:
+    - Section, Row, Seat number
+    - Price per seat
+    - Number of seats
+- **Quick Selection Options**:
+  - "Best Available" button
+  - Number of seats selector (1-6)
+  - Auto-select nearby available seats
+- **Accessibility Options**:
+  - "Wheelchair Accessible" filter
+  - "Easy Access" sections
+- **Legend and Info**:
+  - Price range key
+  - Distance from stage indicator
+  - Aisle markers
+- **Seat Details Card**:
+  - Expanded info for tapped seat:
+    - Exact location
+    - View preview (simulated)
+    - Price
+    - Add/Remove button
+- **Selection Summary**:
+  - Total seats selected
+  - Individual prices
+  - Total amount
+  - "Continue" button
+
+#### 13. Artist/Performer Pages Screen
+- **Header**: Artist name with follow button
+- **Artist Hero**:
+  - Large artist image placeholder
+  - Artist name (large)
+  - Genre/Badge
+  - Follower count
+  - Social stats
+- **Bio Section**:
+  - About text
+  - Origin/Background
+  - Career highlights
+- **Social Links**:
+  - Instagram, Twitter, Spotify, YouTube icons
+  - Profile links
+- **Upcoming Events Section**:
+  - Events featuring this artist:
+    - Event cards:
+      - Event name
+      - Date and venue
+      - Ticket status
+      - "Get Tickets" button
+- **Past Events Gallery**:
+  - Event photos/recaps
+  - Highlights reel
+- **Discography/Videos Section**:
+  - Latest release card
+  - Popular tracks list
+  - Music video thumbnails
+- **Merchandise**:
+  - Official merch link
+  - Featured products
+- **Similar Artists**:
+  - "Fans also like" section
+  - Horizontal scroll of related artists
+- **Follower Updates**:
+  - Notification preference
+  - "Notify me of new events"
+
+#### 14. Event Guide Screen
+- **Header**: Event name with "Guide" subtitle
+- **Event Overview Card**:
+  - Event image
+  - Date, time, venue
+  - Quick summary
+- **Essential Info Section**:
+  - **Date & Time**:
+    - Event date and time
+    - Duration
+    - Timezone
+    - "Add to Calendar" button
+  - **Location**:
+    - Venue name
+    - Full address
+    - Map preview
+    - "Get Directions" button
+    - Parking info
+    - Nearest transit
+  - **Age Restrictions**:
+    - Age limit display
+    - ID requirements
+- **Before You Go Section**:
+  - **What to Bring**:
+    - Essential items checklist
+    - Ticket confirmation
+    - ID
+    - Camera rules
+  - **Prohibited Items**:
+    - List of not-allowed items
+    - Security check info
+- **Venue Guide**:
+  - **Seating Information**:
+    - Seat map preview
+    - Entry gates
+    - Accessibility info
+  - **Facilities**:
+    - Restrooms locations
+    - Food & Beverage
+    - Merchandise booths
+    - First aid
+  - **Accessibility**:
+    - Wheelchair access
+    - Assistive listening
+    - Sign language
+- **Event Day Tips**:
+  - Arrival time suggestions
+  - Traffic/parking warnings
+  - Weather considerations
+  - Bag policy
+- **Know Before You Go**:
+  - Social media hashtags
+  - Fan meetup info
+  - Post-show info
+- **FAQ Section**:
+  - Common questions
+  - Contact info
+- **Share Guide**:
+  - Share with friends
+  - Export as PDF option
+
+#### 15. Waitlist Screen
+- **Header**: "Event Waitlist" title
+- **Joined Waitlists Section**:
+  - Events on waitlist cards:
+    - Event name and image
+    - Date
+    - Current position in queue
+    - "Leave Waitlist" button
+    - Estimated notification time
+- **How Waitlist Works Card**:
+  - Explanation of waitlist process:
+    - Join when sold out
+    - Get notified of cancellations
+    - Limited time to purchase
+  - Tips for success
+- **Event Details** (tap to expand):
+  - Full event info
+  - Similar available events
+  - "Explore Alternatives" link
+- **Notifications Settings**:
+  - "Notify me first" priority option
+  - Alert timing preferences
+- **Availability Alerts**:
+  - "Notify me immediately" toggle
+  - Quiet hours setting
+- **Waitlist History**:
+  - Past waitlist items
+  - Successfully purchased (marked)
+  - Expired offers
+- **Tips for Getting Tickets**:
+  - Strategies to improve chances
+  - Best times to check
+  - Alternative events suggestion
+
 ### UI Components Library
 Create reusable glassmorphism components:
 - GlassCard
@@ -364,7 +586,9 @@ Create reusable glassmorphism components:
   - google_fonts
   - flutter_animate
   - shimmer
+  - adaptive_theme (for theme switching)
   - any other UI enhancement packages
+- **Android Build Requirement**: After completing all code, verify the app builds successfully with `flutter build apk --debug`
 
 ### File Structure
 ```
@@ -381,10 +605,18 @@ lib/
 │   │   └── discover_screen.dart
 │   ├── events/
 │   │   ├── events_screen.dart
-│   │   └── event_detail_screen.dart
+│   │   ├── event_detail_screen.dart
+│   │   └── event_guide_screen.dart
 │   ├── tickets/
 │   │   ├── ticket_selection_screen.dart
-│   │   └── my_tickets_screen.dart
+│   │   ├── my_tickets_screen.dart
+│   │   └── waitlist_screen.dart
+│   ├── calendar/
+│   │   └── event_calendar_screen.dart
+│   ├── seat_selection/
+│   │   └── seat_selection_screen.dart
+│   ├── artist/
+│   │   └── artist_page_screen.dart
 │   ├── offers/
 │   │   └── offers_screen.dart
 │   ├── checkout/
@@ -412,6 +644,9 @@ lib/
 │   ├── offer_card.dart
 │   ├── category_chip.dart
 │   ├── seat_map_placeholder.dart
+│   ├── calendar_grid.dart
+│   ├── artist_card.dart
+│   ├── waitlist_card.dart
 │   ├── animated_background.dart
 │   └── shimmer_loading.dart
 └── utils/
@@ -421,6 +656,7 @@ lib/
 ### Quality Checklist
 - [ ] Login page with exciting glassmorphism design
 - [ ] Theme switcher with 3 themes working correctly
+- [ ] Default theme is Dark Sidebar + Light Content
 - [ ] Discover screen with featured event
 - [ ] Events screen with filters
 - [ ] Event detail with countdown
@@ -429,6 +665,11 @@ lib/
 - [ ] Offers/deals screen
 - [ ] Checkout flow
 - [ ] Order confirmation
+- [ ] Event Calendar with month view
+- [ ] Interactive Seat Selection
+- [ ] Artist/Performer Pages
+- [ ] Event Guide with tips
+- [ ] Waitlist functionality
 - [ ] Profile with membership
 - [ ] Settings with theme switcher
 - [ ] Consistent purple/pink gradient theme
@@ -442,9 +683,10 @@ lib/
 ### Output
 When complete, ensure:
 1. The app runs without errors: `flutter run`
-2. Theme switching works for all 3 themes
+2. Theme switching works for all 3 themes (using adaptive_theme)
 3. Login navigates to discover
 4. All navigation works (bottom nav, back buttons)
 5. All screens have proper event content
 6. Ticket designs look authentic
-7. No crashes, no layout overflow, no missing assets
+7. **Android build succeeds**: Run `flutter build apk --debug` and verify BUILD SUCCESSFUL
+8. No crashes, no layout overflow, no missing assets
