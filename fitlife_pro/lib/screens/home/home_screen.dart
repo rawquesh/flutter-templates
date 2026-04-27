@@ -4,7 +4,6 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../../theme/colors.dart';
 import '../../widgets/glass_progress_ring.dart';
 import '../../widgets/glass_avatar.dart';
-import '../../widgets/glass_toggle.dart';
 import '../../widgets/streak_calendar.dart';
 import '../../widgets/workout_card.dart';
 import '../workouts/workouts_screen.dart';
@@ -12,9 +11,12 @@ import '../workouts/workout_detail_screen.dart';
 import '../profile/profile_screen.dart';
 import '../progress/progress_screen.dart';
 import '../exercises/exercises_screen.dart';
+import '../settings/settings_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final Function(ThemeMode)? onThemeChanged;
+
+  const HomeScreen({super.key, this.onThemeChanged});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -23,18 +25,18 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _currentNavIndex = 0;
 
-  final List<Widget> _screens = [];
+  List<Widget> get _screens => [
+    _buildDashboard(),
+    const WorkoutsScreen(),
+    const ExercisesScreen(),
+    const ProgressScreen(),
+    ProfileScreen(onThemeChanged: widget.onThemeChanged),
+  ];
 
   @override
-  void initState() {
-    super.initState();
-    _screens.addAll([
-      _buildDashboard(),
-      const WorkoutsScreen(),
-      const ExercisesScreen(),
-      const ProgressScreen(),
-      const ProfileScreen(),
-    ]);
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Theme is now available
   }
 
   @override
@@ -109,10 +111,6 @@ class _HomeScreenState extends State<HomeScreen> {
               Icons.notifications_outlined,
               color: isDark ? Colors.white : const Color(0xFF1A1A2E),
             ),
-          ),
-          ThemeToggle(
-            currentIndex: 1,
-            onThemeChanged: (index) {},
           ),
         ],
       ),
@@ -495,35 +493,35 @@ class _HomeScreenState extends State<HomeScreen> {
       behavior: HitTestBehavior.opaque,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             AnimatedContainer(
               duration: const Duration(milliseconds: 200),
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
                 color: isSelected
                     ? AppColors.primaryOrange.withValues(alpha: 0.15)
                     : Colors.transparent,
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(10),
               ),
               child: Icon(
                 isSelected ? activeIcon : icon,
                 color: isSelected
                     ? AppColors.primaryOrange
                     : (isDark ? Colors.white54 : Colors.grey),
-                size: 24,
+                size: 22,
               ),
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 2),
             AnimatedDefaultTextStyle(
               duration: const Duration(milliseconds: 200),
               style: TextStyle(
                 color: isSelected
                     ? AppColors.primaryOrange
                     : (isDark ? Colors.white54 : Colors.grey),
-                fontSize: 10,
+                fontSize: 9,
                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
               ),
               child: Text(label),

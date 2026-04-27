@@ -1,39 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'theme/app_theme.dart';
 import 'screens/login/login_screen.dart';
+import 'screens/home/home_screen.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  final savedThemeMode = await AdaptiveTheme.getThemeMode();
-
-  runApp(FitLifeProApp(savedThemeMode: savedThemeMode));
+void main() {
+  runApp(const FitLifeProApp());
 }
 
-class FitLifeProApp extends StatelessWidget {
-  final AdaptiveThemeMode? savedThemeMode;
+class FitLifeProApp extends StatefulWidget {
+  const FitLifeProApp({super.key});
 
-  const FitLifeProApp({
-    super.key,
-    this.savedThemeMode,
-  });
+  @override
+  State<FitLifeProApp> createState() => _FitLifeProAppState();
+}
+
+class _FitLifeProAppState extends State<FitLifeProApp> {
+  ThemeMode _themeMode = ThemeMode.dark;
+  bool _isLoggedIn = false;
+
+  void _setThemeMode(ThemeMode mode) {
+    setState(() {
+      _themeMode = mode;
+    });
+  }
+
+  void _onLogin() {
+    setState(() {
+      _isLoggedIn = true;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return AdaptiveTheme(
-      light: AppTheme.lightTheme,
-      dark: AppTheme.darkTheme,
-      initial: savedThemeMode ?? AdaptiveThemeMode.dark,
-      builder: (theme, darkTheme) {
-        return MaterialApp(
-          title: 'FitLife Pro',
-          debugShowCheckedModeBanner: false,
-          theme: theme,
-          darkTheme: darkTheme,
-          themeMode: ThemeMode.dark,
-          home: const LoginScreen(),
-        );
-      },
+    return MaterialApp(
+      title: 'FitLife Pro',
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: _themeMode,
+      home: _isLoggedIn
+          ? HomeScreen(onThemeChanged: _setThemeMode)
+          : LoginScreen(onThemeChanged: _setThemeMode, onLogin: _onLogin),
     );
   }
 }

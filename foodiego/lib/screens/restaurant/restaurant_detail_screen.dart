@@ -44,7 +44,7 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen>
         slivers: [
           _buildSliverAppBar(isDark),
           _buildRestaurantInfo(isDark),
-          _buildSearchBar(isDark),
+          SliverToBoxAdapter(child: _buildSearchBar(isDark)),
           _buildCategoryTabs(),
           _buildMenuItems(),
           const SliverToBoxAdapter(child: SizedBox(height: 100)),

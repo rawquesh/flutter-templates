@@ -3,9 +3,12 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../../theme/colors.dart';
 import '../../widgets/glass_avatar.dart';
 import '../../widgets/glass_badge.dart';
+import '../settings/settings_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  final Function(ThemeMode)? onThemeChanged;
+
+  const ProfileScreen({super.key, this.onThemeChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +30,9 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget _buildHeader(BuildContext context, bool isDark) {
+    final textColor = isDark ? Colors.white : const Color(0xFF1A1A2E);
+    final subtitleColor = isDark ? Colors.white60 : Colors.grey;
+
     return Container(
       padding: const EdgeInsets.all(20),
       child: Column(
@@ -37,14 +43,23 @@ class ProfileScreen extends StatelessWidget {
               Text(
                 'Profile',
                 style: TextStyle(
-                  color: isDark ? Colors.white : const Color(0xFF1A1A2E),
+                  color: textColor,
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.settings, color: isDark ? Colors.white : const Color(0xFF1A1A2E)),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SettingsScreen(
+                        onThemeChanged: onThemeChanged,
+                      ),
+                    ),
+                  );
+                },
+                icon: Icon(Icons.settings, color: textColor),
               ),
             ],
           ),
@@ -81,10 +96,10 @@ class ProfileScreen extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-          const Text(
+          Text(
             'John Doe',
             style: TextStyle(
-              color: Colors.white,
+              color: textColor,
               fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
@@ -93,7 +108,7 @@ class ProfileScreen extends StatelessWidget {
           Text(
             'Member since January 2024',
             style: TextStyle(
-              color: isDark ? Colors.white60 : Colors.grey,
+              color: subtitleColor,
               fontSize: 14,
             ),
           ),
@@ -107,11 +122,11 @@ class ProfileScreen extends StatelessWidget {
                   gradient: AppColors.primaryGradient,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Row(
+                child: const Row(
                   children: [
-                    const Icon(Icons.star, color: Colors.white, size: 18),
-                    const SizedBox(width: 6),
-                    const Text('Level 12', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                    Icon(Icons.star, color: Colors.white, size: 18),
+                    SizedBox(width: 6),
+                    Text('Level 12', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                   ],
                 ),
               ),
@@ -128,6 +143,10 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget _buildStats(bool isDark) {
+    final textColor = isDark ? Colors.white : const Color(0xFF1A1A2E);
+    final subtitleColor = isDark ? Colors.white60 : Colors.grey;
+    final dividerColor = isDark ? Colors.white.withValues(alpha: 0.2) : Colors.grey.shade300;
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
       padding: const EdgeInsets.all(20),
@@ -138,25 +157,25 @@ class ProfileScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildStatItem('156', 'Workouts'),
-          _buildStatDivider(),
-          _buildStatItem('48h', 'Time Trained'),
-          _buildStatDivider(),
-          _buildStatItem('12.5k', 'Calories'),
-          _buildStatDivider(),
-          _buildStatItem('21', 'Day Streak'),
+          _buildStatItem('156', 'Workouts', textColor, subtitleColor),
+          _buildStatDivider(dividerColor),
+          _buildStatItem('48h', 'Time Trained', textColor, subtitleColor),
+          _buildStatDivider(dividerColor),
+          _buildStatItem('12.5k', 'Calories', textColor, subtitleColor),
+          _buildStatDivider(dividerColor),
+          _buildStatItem('21', 'Day Streak', textColor, subtitleColor),
         ],
       ),
     ).animate().fadeIn(delay: 100.ms, duration: 600.ms);
   }
 
-  Widget _buildStatItem(String value, String label) {
+  Widget _buildStatItem(String value, String label, Color valueColor, Color labelColor) {
     return Column(
       children: [
         Text(
           value,
-          style: const TextStyle(
-            color: Colors.white,
+          style: TextStyle(
+            color: valueColor,
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
@@ -164,21 +183,25 @@ class ProfileScreen extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           label,
-          style: const TextStyle(color: Colors.white54, fontSize: 11),
+          style: TextStyle(color: labelColor, fontSize: 11),
         ),
       ],
     );
   }
 
-  Widget _buildStatDivider() {
+  Widget _buildStatDivider(Color color) {
     return Container(
       height: 40,
       width: 1,
-      color: Colors.white.withValues(alpha: 0.2),
+      color: color,
     );
   }
 
   Widget _buildBodyStats(bool isDark) {
+    final textColor = isDark ? Colors.white : const Color(0xFF1A1A2E);
+    final subtitleColor = isDark ? Colors.white60 : Colors.grey;
+    final bgColor = isDark ? Colors.white.withValues(alpha: 0.1) : Colors.grey.shade100;
+
     return Container(
       margin: const EdgeInsets.all(20),
       padding: const EdgeInsets.all(20),
@@ -192,7 +215,7 @@ class ProfileScreen extends StatelessWidget {
           Text(
             'Body Stats',
             style: TextStyle(
-              color: isDark ? Colors.white : const Color(0xFF1A1A2E),
+              color: textColor,
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
@@ -200,10 +223,10 @@ class ProfileScreen extends StatelessWidget {
           const SizedBox(height: 16),
           Row(
             children: [
-              Expanded(child: _buildBodyStatItem('Height', '178 cm')),
-              Expanded(child: _buildBodyStatItem('Weight', '74 kg')),
-              Expanded(child: _buildBodyStatItem('Body Fat', '15%')),
-              Expanded(child: _buildBodyStatItem('BMI', '23.4')),
+              Expanded(child: _buildBodyStatItem('Height', '178 cm', textColor, subtitleColor)),
+              Expanded(child: _buildBodyStatItem('Weight', '74 kg', textColor, subtitleColor)),
+              Expanded(child: _buildBodyStatItem('Body Fat', '15%', textColor, subtitleColor)),
+              Expanded(child: _buildBodyStatItem('BMI', '23.4', textColor, subtitleColor)),
             ],
           ),
           const SizedBox(height: 16),
@@ -216,15 +239,15 @@ class ProfileScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text('Goal Weight', style: TextStyle(color: Colors.white54, fontSize: 12)),
-                        const Text('72 kg', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600)),
+                        Text('Goal Weight', style: TextStyle(color: subtitleColor, fontSize: 12)),
+                        Text('72 kg', style: TextStyle(color: textColor, fontSize: 14, fontWeight: FontWeight.w600)),
                       ],
                     ),
                     const SizedBox(height: 8),
                     Container(
                       height: 6,
                       decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.1),
+                        color: bgColor,
                         borderRadius: BorderRadius.circular(3),
                       ),
                       child: FractionallySizedBox(
@@ -248,13 +271,13 @@ class ProfileScreen extends StatelessWidget {
     ).animate().fadeIn(delay: 200.ms, duration: 600.ms);
   }
 
-  Widget _buildBodyStatItem(String label, String value) {
+  Widget _buildBodyStatItem(String label, String value, Color valueColor, Color labelColor) {
     return Column(
       children: [
         Text(
           value,
-          style: const TextStyle(
-            color: Colors.white,
+          style: TextStyle(
+            color: valueColor,
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
@@ -262,13 +285,15 @@ class ProfileScreen extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           label,
-          style: const TextStyle(color: Colors.white54, fontSize: 10),
+          style: TextStyle(color: labelColor, fontSize: 10),
         ),
       ],
     );
   }
 
   Widget _buildAchievements(bool isDark) {
+    final textColor = isDark ? Colors.white : const Color(0xFF1A1A2E);
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -277,7 +302,7 @@ class ProfileScreen extends StatelessWidget {
           Text(
             'Featured Achievements',
             style: TextStyle(
-              color: isDark ? Colors.white : const Color(0xFF1A1A2E),
+              color: textColor,
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
@@ -288,9 +313,9 @@ class ProfileScreen extends StatelessWidget {
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
-                _buildAchievementCard(Icons.fitness_center, 'First Workout', 'Completed first workout', AppColors.primaryOrange),
-                _buildAchievementCard(Icons.local_fire_department, '7 Day Streak', 'Exercised 7 days in a row', AppColors.warning),
-                _buildAchievementCard(Icons.emoji_events, 'Champion', 'Won a challenge', AppColors.accentBlue),
+                _buildAchievementCard(Icons.fitness_center, 'First Workout', 'Completed first workout', AppColors.primaryOrange, isDark),
+                _buildAchievementCard(Icons.local_fire_department, '7 Day Streak', 'Exercised 7 days in a row', AppColors.warning, isDark),
+                _buildAchievementCard(Icons.emoji_events, 'Champion', 'Won a challenge', AppColors.accentBlue, isDark),
               ],
             ),
           ),
@@ -299,37 +324,47 @@ class ProfileScreen extends StatelessWidget {
     ).animate().fadeIn(delay: 300.ms, duration: 600.ms);
   }
 
-  Widget _buildAchievementCard(IconData icon, String title, String subtitle, Color color) {
+  Widget _buildAchievementCard(IconData icon, String title, String subtitle, Color color, bool isDark) {
+    final textColor = isDark ? Colors.white : const Color(0xFF1A1A2E);
+    final subtitleColor = isDark ? Colors.white60 : Colors.grey;
+
     return Container(
       width: 140,
       margin: const EdgeInsets.only(right: 12),
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [color.withValues(alpha: 0.2), color.withValues(alpha: 0.05)],
-        ),
+        color: isDark ? color.withValues(alpha: 0.15) : Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: color.withValues(alpha: 0.3)),
+        border: Border.all(color: isDark ? color.withValues(alpha: 0.3) : Colors.grey.shade200),
+        boxShadow: isDark ? null : [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(6),
             decoration: BoxDecoration(
               color: color.withValues(alpha: 0.2),
               shape: BoxShape.circle,
             ),
-            child: Icon(icon, color: color, size: 20),
+            child: Icon(icon, color: color, size: 18),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 6),
           Text(
             title,
-            style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w600),
+            style: TextStyle(color: textColor, fontSize: 11, fontWeight: FontWeight.w600),
           ),
+          const SizedBox(height: 2),
           Text(
             subtitle,
-            style: const TextStyle(color: Colors.white54, fontSize: 10),
+            style: TextStyle(color: subtitleColor, fontSize: 9),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
@@ -339,7 +374,11 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget _buildMenuItems(BuildContext context, bool isDark) {
+    final textColor = isDark ? Colors.white : const Color(0xFF1A1A2E);
+    final subtitleColor = isDark ? Colors.white60 : Colors.grey;
+
     final menuItems = [
+      {'icon': Icons.palette, 'title': 'Theme', 'subtitle': 'Light, Dark, Dark Sidebar', 'route': 'settings'},
       {'icon': Icons.person, 'title': 'My Profile', 'subtitle': 'Edit your information'},
       {'icon': Icons.history, 'title': 'Workout History', 'subtitle': 'View past workouts'},
       {'icon': Icons.emoji_events, 'title': 'Achievements', 'subtitle': 'Your badges and rewards'},
@@ -380,16 +419,26 @@ class ProfileScreen extends StatelessWidget {
                 title: Text(
                   item['title'] as String,
                   style: TextStyle(
-                    color: isLogout ? AppColors.error : (isDark ? Colors.white : const Color(0xFF1A1A2E)),
+                    color: isLogout ? AppColors.error : textColor,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
                 subtitle: Text(
                   item['subtitle'] as String,
-                  style: const TextStyle(color: Colors.white54, fontSize: 12),
+                  style: TextStyle(color: subtitleColor, fontSize: 12),
                 ),
                 trailing: Icon(Icons.chevron_right, color: isDark ? Colors.white38 : Colors.grey),
-                onTap: () {},
+                onTap: () {
+                  final route = item['route'] as String?;
+                  if (route == 'settings') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SettingsScreen(
+                        onThemeChanged: onThemeChanged,
+                      )),
+                    );
+                  }
+                },
               ),
               if (item != menuItems.last)
                 Divider(color: isDark ? Colors.white.withValues(alpha: 0.1) : Colors.grey.shade200),

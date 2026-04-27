@@ -3,7 +3,9 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../../theme/colors.dart';
 
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({super.key});
+  final Function(ThemeMode)? onThemeChanged;
+
+  const SettingsScreen({super.key, this.onThemeChanged});
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -32,7 +34,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             SliverToBoxAdapter(child: _buildWorkoutPreferences(isDark)),
             SliverToBoxAdapter(child: _buildNotificationSettings(isDark)),
             SliverToBoxAdapter(child: _buildAppSection(isDark)),
-            const SliverToBoxAdapter(child: SizedBox(height: 100)),
+            const SliverToBoxAdapter(child: SizedBox(height: 50)),
           ],
         ),
       ),
@@ -123,7 +125,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final isSelected = _selectedThemeIndex == index;
 
     return GestureDetector(
-      onTap: () => setState(() => _selectedThemeIndex = index),
+      onTap: () {
+        setState(() => _selectedThemeIndex = index);
+        _applyTheme(index);
+      },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.all(16),
@@ -218,7 +223,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Widget _buildWorkoutPreferences(bool isDark) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20),
+      margin: const EdgeInsets.symmetric(horizontal: 20).copyWith(bottom: 10),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: isDark ? Colors.white.withValues(alpha: 0.1) : Colors.white,
@@ -254,7 +259,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Widget _buildNotificationSettings(bool isDark) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: isDark ? Colors.white.withValues(alpha: 0.1) : Colors.white,
@@ -293,7 +298,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Widget _buildAppSection(bool isDark) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: isDark ? Colors.white.withValues(alpha: 0.1) : Colors.white,
@@ -449,5 +454,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ],
       ),
     );
+  }
+
+  void _applyTheme(int index) {
+    switch (index) {
+      case 0:
+        widget.onThemeChanged?.call(ThemeMode.light);
+        break;
+      case 1:
+        widget.onThemeChanged?.call(ThemeMode.dark);
+        break;
+      case 2:
+        widget.onThemeChanged?.call(ThemeMode.dark);
+        break;
+    }
   }
 }

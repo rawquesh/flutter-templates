@@ -55,6 +55,9 @@ class _ProgressScreenState extends State<ProgressScreen> {
   }
 
   Widget _buildHeader(bool isDark) {
+    final textColor = isDark ? Colors.white : const Color(0xFF1A1A2E);
+    final subtitleColor = isDark ? Colors.white60 : Colors.grey;
+
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Row(
@@ -66,7 +69,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
               Text(
                 'Your Progress',
                 style: TextStyle(
-                  color: isDark ? Colors.white : const Color(0xFF1A1A2E),
+                  color: textColor,
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                 ),
@@ -75,7 +78,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
               Text(
                 'Track your fitness journey',
                 style: TextStyle(
-                  color: isDark ? Colors.white60 : Colors.grey,
+                  color: subtitleColor,
                   fontSize: 14,
                 ),
               ),
@@ -94,7 +97,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
                 Text(
                   _selectedPeriod,
                   style: TextStyle(
-                    color: isDark ? Colors.white : const Color(0xFF1A1A2E),
+                    color: textColor,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -117,16 +120,19 @@ class _ProgressScreenState extends State<ProgressScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildStatItem('12', 'Workouts', Icons.fitness_center, AppColors.primaryOrange),
-          _buildStatItem('2,450', 'Calories', Icons.local_fire_department, AppColors.progressCalories),
-          _buildStatItem('4', 'Streak', Icons.local_fire_department, AppColors.warning),
-          _buildStatItem('45', 'Avg min', Icons.timer, AppColors.accentBlue),
+          _buildStatItem('12', 'Workouts', Icons.fitness_center, AppColors.primaryOrange, isDark),
+          _buildStatItem('2,450', 'Calories', Icons.local_fire_department, AppColors.progressCalories, isDark),
+          _buildStatItem('4', 'Streak', Icons.local_fire_department, AppColors.warning, isDark),
+          _buildStatItem('45', 'Avg min', Icons.timer, AppColors.accentBlue, isDark),
         ],
       ),
     ).animate().fadeIn(delay: 100.ms, duration: 600.ms);
   }
 
-  Widget _buildStatItem(String value, String label, IconData icon, Color color) {
+  Widget _buildStatItem(String value, String label, IconData icon, Color color, bool isDark) {
+    final textColor = isDark ? Colors.white : const Color(0xFF1A1A2E);
+    final subtitleColor = isDark ? Colors.white60 : Colors.grey;
+
     return Column(
       children: [
         Container(
@@ -140,15 +146,15 @@ class _ProgressScreenState extends State<ProgressScreen> {
         const SizedBox(height: 8),
         Text(
           value,
-          style: const TextStyle(
-            color: Colors.white,
+          style: TextStyle(
+            color: textColor,
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(
           label,
-          style: const TextStyle(color: Colors.white54, fontSize: 11),
+          style: TextStyle(color: subtitleColor, fontSize: 11),
         ),
       ],
     );
@@ -182,14 +188,14 @@ class _ProgressScreenState extends State<ProgressScreen> {
                   color: AppColors.success.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Row(
+                child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.arrow_downward, color: AppColors.success, size: 14),
-                    const SizedBox(width: 4),
+                    Icon(Icons.arrow_downward, color: AppColors.success, size: 14),
+                    SizedBox(width: 4),
                     Text(
                       '-1.5 kg',
-                      style: const TextStyle(color: AppColors.success, fontSize: 12, fontWeight: FontWeight.w600),
+                      style: TextStyle(color: AppColors.success, fontSize: 12, fontWeight: FontWeight.w600),
                     ),
                   ],
                 ),
@@ -208,6 +214,8 @@ class _ProgressScreenState extends State<ProgressScreen> {
   }
 
   Widget _buildBodyMeasurements(bool isDark) {
+    final textColor = isDark ? Colors.white : const Color(0xFF1A1A2E);
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
       padding: const EdgeInsets.all(20),
@@ -221,7 +229,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
           Text(
             'Body Measurements',
             style: TextStyle(
-              color: isDark ? Colors.white : const Color(0xFF1A1A2E),
+              color: textColor,
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
@@ -229,17 +237,17 @@ class _ProgressScreenState extends State<ProgressScreen> {
           const SizedBox(height: 16),
           Row(
             children: [
-              Expanded(child: _buildMeasurementItem('Chest', '102 cm', Icons.expand)),
-              Expanded(child: _buildMeasurementItem('Waist', '84 cm', Icons.remove)),
-              Expanded(child: _buildMeasurementItem('Hips', '98 cm', Icons.circle_outlined)),
+              Expanded(child: _buildMeasurementItem('Chest', '102 cm', Icons.expand, isDark)),
+              Expanded(child: _buildMeasurementItem('Waist', '84 cm', Icons.remove, isDark)),
+              Expanded(child: _buildMeasurementItem('Hips', '98 cm', Icons.circle_outlined, isDark)),
             ],
           ),
           const SizedBox(height: 12),
           Row(
             children: [
-              Expanded(child: _buildMeasurementItem('Arms', '38 cm', Icons.pan_tool)),
-              Expanded(child: _buildMeasurementItem('Thighs', '56 cm', Icons.straighten)),
-              Expanded(child: _buildMeasurementItem('Calves', '38 cm', Icons.accessibility)),
+              Expanded(child: _buildMeasurementItem('Arms', '38 cm', Icons.pan_tool, isDark)),
+              Expanded(child: _buildMeasurementItem('Thighs', '56 cm', Icons.straighten, isDark)),
+              Expanded(child: _buildMeasurementItem('Calves', '38 cm', Icons.accessibility, isDark)),
             ],
           ),
         ],
@@ -247,7 +255,10 @@ class _ProgressScreenState extends State<ProgressScreen> {
     ).animate().fadeIn(delay: 300.ms, duration: 600.ms);
   }
 
-  Widget _buildMeasurementItem(String label, String value, IconData icon) {
+  Widget _buildMeasurementItem(String label, String value, IconData icon, bool isDark) {
+    final textColor = isDark ? Colors.white : const Color(0xFF1A1A2E);
+    final subtitleColor = isDark ? Colors.white60 : Colors.grey;
+
     return Container(
       margin: const EdgeInsets.all(4),
       padding: const EdgeInsets.all(12),
@@ -259,14 +270,16 @@ class _ProgressScreenState extends State<ProgressScreen> {
         children: [
           Icon(icon, color: AppColors.primaryOrange, size: 20),
           const SizedBox(height: 8),
-          Text(value, style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600)),
-          Text(label, style: const TextStyle(color: Colors.white54, fontSize: 10)),
+          Text(value, style: TextStyle(color: textColor, fontSize: 14, fontWeight: FontWeight.w600)),
+          Text(label, style: TextStyle(color: subtitleColor, fontSize: 10)),
         ],
       ),
     );
   }
 
   Widget _buildAchievements(bool isDark) {
+    final textColor = isDark ? Colors.white : const Color(0xFF1A1A2E);
+
     return Container(
       margin: const EdgeInsets.all(20),
       child: Column(
@@ -278,7 +291,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
               Text(
                 'Achievements',
                 style: TextStyle(
-                  color: isDark ? Colors.white : const Color(0xFF1A1A2E),
+                  color: textColor,
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
@@ -297,20 +310,26 @@ class _ProgressScreenState extends State<ProgressScreen> {
               itemCount: _achievements.length,
               itemBuilder: (context, index) {
                 final achievement = _achievements[index];
+                final unlocked = achievement['unlocked'] as bool;
+                final iconColor = unlocked ? AppColors.warning : Colors.grey;
+                final cardColor = unlocked ? AppColors.warning.withValues(alpha: 0.1) : Colors.grey.withValues(alpha: 0.1);
+                final cardBorderColor = unlocked ? AppColors.warning.withValues(alpha: 0.3) : Colors.grey.withValues(alpha: 0.2);
+
                 return Container(
                   width: 100,
                   margin: const EdgeInsets.only(right: 12),
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: achievement['unlocked']
-                        ? AppColors.warning.withValues(alpha: 0.1)
-                        : Colors.grey.withValues(alpha: 0.1),
+                    color: isDark ? cardColor : Colors.white,
                     borderRadius: BorderRadius.circular(16),
-                    border: Border.all(
-                      color: achievement['unlocked']
-                          ? AppColors.warning.withValues(alpha: 0.3)
-                          : Colors.grey.withValues(alpha: 0.2),
-                    ),
+                    border: Border.all(color: cardBorderColor),
+                    boxShadow: isDark ? null : [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.05),
+                        blurRadius: 10,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -318,14 +337,12 @@ class _ProgressScreenState extends State<ProgressScreen> {
                       Container(
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: achievement['unlocked']
-                              ? AppColors.warning.withValues(alpha: 0.2)
-                              : Colors.grey.withValues(alpha: 0.2),
+                          color: iconColor.withValues(alpha: 0.2),
                           shape: BoxShape.circle,
                         ),
                         child: Icon(
                           achievement['icon'],
-                          color: achievement['unlocked'] ? AppColors.warning : Colors.grey,
+                          color: iconColor,
                           size: 24,
                         ),
                       ),
@@ -334,7 +351,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
                         achievement['title'],
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: achievement['unlocked'] ? Colors.white : Colors.grey,
+                          color: unlocked ? textColor : Colors.grey,
                           fontSize: 10,
                           fontWeight: FontWeight.w500,
                         ),
@@ -352,6 +369,8 @@ class _ProgressScreenState extends State<ProgressScreen> {
 
   Widget _buildWorkoutCalendar(bool isDark) {
     final completedDays = [true, true, false, true, true, true, false];
+    final textColor = isDark ? Colors.white : const Color(0xFF1A1A2E);
+    final dayColor = isDark ? Colors.white54 : Colors.grey;
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -366,7 +385,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
           Text(
             'Workout Calendar',
             style: TextStyle(
-              color: isDark ? Colors.white : const Color(0xFF1A1A2E),
+              color: textColor,
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
@@ -381,7 +400,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
                 children: [
                   Text(
                     days[index],
-                    style: TextStyle(color: isDark ? Colors.white54 : Colors.grey, fontSize: 12),
+                    style: TextStyle(color: dayColor, fontSize: 12),
                   ),
                   const SizedBox(height: 8),
                   Container(

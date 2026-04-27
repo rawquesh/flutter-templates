@@ -4,10 +4,12 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../../theme/colors.dart';
 import '../../widgets/glass_button.dart';
 import '../../widgets/glass_text_field.dart';
-import '../home/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  final Function(ThemeMode)? onThemeChanged;
+  final VoidCallback? onLogin;
+
+  const LoginScreen({super.key, this.onThemeChanged, this.onLogin});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -42,16 +44,7 @@ class _LoginScreenState extends State<LoginScreen>
   }
 
   void _handleLogin() {
-    Navigator.of(context).pushReplacement(
-      PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            const HomeScreen(),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return FadeTransition(opacity: animation, child: child);
-        },
-        transitionDuration: const Duration(milliseconds: 500),
-      ),
-    );
+    widget.onLogin?.call();
   }
 
   @override
