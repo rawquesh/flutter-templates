@@ -7,7 +7,6 @@ enum AppThemeMode { light, darkSidebar, dark }
 class AppTheme {
   static ThemeData lightTheme() {
     return ThemeData(
-      useMaterial3: true,
       brightness: Brightness.light,
       primaryColor: AppColors.primaryBlue,
       scaffoldBackgroundColor: AppColors.backgroundLight,
@@ -87,7 +86,6 @@ class AppTheme {
 
   static ThemeData darkSidebarLightTheme() {
     return ThemeData(
-      useMaterial3: true,
       brightness: Brightness.light,
       primaryColor: AppColors.primaryBlue,
       scaffoldBackgroundColor: AppColors.backgroundLight,
@@ -168,7 +166,6 @@ class AppTheme {
 
   static ThemeData darkTheme() {
     return ThemeData(
-      useMaterial3: true,
       brightness: Brightness.dark,
       primaryColor: AppColors.primaryBlue,
       scaffoldBackgroundColor: AppColors.backgroundDark,

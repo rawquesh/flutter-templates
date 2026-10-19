@@ -47,7 +47,6 @@ class _WorkoutTimerState extends State<WorkoutTimer> {
               color: Colors.white,
               fontSize: widget.fontSize,
               fontWeight: FontWeight.bold,
-              fontFamily: 'monospace',
             ),
           ),
         ],

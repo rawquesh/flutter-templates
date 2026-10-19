@@ -67,7 +67,7 @@ class _MedicinesScreenState extends State<MedicinesScreen> with SingleTickerProv
     return Container(
       margin: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: widget.isDark ? Colors.white.withOpacity(0.05) : Colors.white,
+        color: widget.isDark ? Colors.white.withValues(alpha: 0.05) : Colors.white,
         borderRadius: BorderRadius.circular(12),
       ),
       child: TabBar(
@@ -120,7 +120,7 @@ class _MedicinesScreenState extends State<MedicinesScreen> with SingleTickerProv
           children: [
             Container(
               padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(color: color.withOpacity(0.2), borderRadius: BorderRadius.circular(8)),
+              decoration: BoxDecoration(color: color.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(8)),
               child: Icon(icon, color: color, size: 20),
             ),
             const SizedBox(width: 12),

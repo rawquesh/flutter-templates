@@ -105,7 +105,7 @@ class ChallengeDetailScreen extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: _buildBottomBar(),
+      bottomNavigationBar: _buildBottomBar(context),
     );
   }
 
@@ -119,25 +119,32 @@ class ChallengeDetailScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildInfoItem(Icons.timer, duration),
-          _buildInfoItem(Icons.people, '$participants'),
-          _buildDifficultyItem(),
+          _buildInfoItem(Icons.timer, duration, isDark),
+          _buildInfoItem(Icons.people, '$participants', isDark),
+          _buildDifficultyItem(isDark),
         ],
       ),
     ).animate().fadeIn(duration: 600.ms);
   }
 
-  Widget _buildInfoItem(IconData icon, String text) {
+  Widget _buildInfoItem(IconData icon, String text, bool isDark) {
     return Column(
       children: [
         Icon(icon, color: AppColors.primaryOrange, size: 24),
         const SizedBox(height: 8),
-        Text(text, style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500)),
+        Text(
+          text,
+          style: TextStyle(
+            color: isDark ? Colors.white : const Color(0xFF1A1A2E),
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
       ],
     );
   }
 
-  Widget _buildDifficultyItem() {
+  Widget _buildDifficultyItem(bool isDark) {
     return Column(
       children: [
         Row(
@@ -149,7 +156,14 @@ class ChallengeDetailScreen extends StatelessWidget {
           )),
         ),
         const SizedBox(height: 8),
-        const Text('Difficulty', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500)),
+        Text(
+          'Difficulty',
+          style: TextStyle(
+            color: isDark ? Colors.white : const Color(0xFF1A1A2E),
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
       ],
     );
   }
@@ -329,9 +343,9 @@ class ChallengeDetailScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _buildRewardItem('+500 XP', Icons.star, AppColors.warning),
-              _buildRewardItem('Badge', Icons.emoji_events, AppColors.primaryOrange),
-              _buildRewardItem('Certificate', Icons.verified, AppColors.success),
+              _buildRewardItem('+500 XP', Icons.star, AppColors.warning, isDark),
+              _buildRewardItem('Badge', Icons.emoji_events, AppColors.primaryOrange, isDark),
+              _buildRewardItem('Certificate', Icons.verified, AppColors.success, isDark),
             ],
           ),
         ],
@@ -339,7 +353,7 @@ class ChallengeDetailScreen extends StatelessWidget {
     ).animate().fadeIn(delay: 400.ms, duration: 600.ms);
   }
 
-  Widget _buildRewardItem(String text, IconData icon, Color color) {
+  Widget _buildRewardItem(String text, IconData icon, Color color, bool isDark) {
     return Column(
       children: [
         Container(
@@ -353,19 +367,28 @@ class ChallengeDetailScreen extends StatelessWidget {
         const SizedBox(height: 8),
         Text(
           text,
-          style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w500),
+          style: TextStyle(
+            color: isDark ? Colors.white : const Color(0xFF1A1A2E),
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ],
     );
   }
 
-  Widget _buildBottomBar() {
+  Widget _buildBottomBar(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: const Color(0xFF0D0D1A),
+        color: Theme.of(context).scaffoldBackgroundColor,
         border: Border(
-          top: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
+          top: BorderSide(
+            color: isDark
+                ? Colors.white.withValues(alpha: 0.1)
+                : Colors.grey.shade200,
+          ),
         ),
       ),
       child: SafeArea(

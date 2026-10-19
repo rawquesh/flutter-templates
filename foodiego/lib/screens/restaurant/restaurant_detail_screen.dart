@@ -158,17 +158,17 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen>
               ],
             ),
             const SizedBox(height: 12),
-            Row(
+            Wrap(
+              spacing: 12,
+              runSpacing: 8,
               children: [
                 _buildInfoChip(Icons.access_time, widget.restaurant.deliveryTime),
-                const SizedBox(width: 12),
                 _buildInfoChip(
                   Icons.delivery_dining,
                   widget.restaurant.deliveryFee == 0
                       ? 'Free Delivery'
                       : '\$${widget.restaurant.deliveryFee.toStringAsFixed(2)}',
                 ),
-                const SizedBox(width: 12),
                 _buildInfoChip(Icons.location_on, widget.restaurant.distance),
               ],
             ),

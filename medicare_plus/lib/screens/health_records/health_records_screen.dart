@@ -27,10 +27,18 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> with SingleTi
   void initState() {
     super.initState();
     _tabController = TabController(length: 4, vsync: this);
+    // Keep the custom tab chips in sync when the tab changes
+    // (tap or swipe), otherwise the highlight goes stale.
+    _tabController.addListener(_onTabChanged);
+  }
+
+  void _onTabChanged() {
+    if (mounted) setState(() {});
   }
 
   @override
   void dispose() {
+    _tabController.removeListener(_onTabChanged);
     _tabController.dispose();
     super.dispose();
   }
@@ -86,9 +94,9 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> with SingleTi
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.primaryBlue : (widget.isDark ? Colors.white.withOpacity(0.05) : Colors.white),
+          color: isSelected ? AppColors.primaryBlue : (widget.isDark ? Colors.white.withValues(alpha: 0.05) : Colors.white),
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: isSelected ? AppColors.primaryBlue : (widget.isDark ? Colors.white.withOpacity(0.1) : AppColors.dividerLight)),
+          border: Border.all(color: isSelected ? AppColors.primaryBlue : (widget.isDark ? Colors.white.withValues(alpha: 0.1) : AppColors.dividerLight)),
         ),
         child: Row(children: [
           Icon(icon, size: 18, color: isSelected ? Colors.white : (widget.isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight)),
@@ -138,7 +146,7 @@ class _RecordCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(children: [
-            Container(padding: const EdgeInsets.all(12), decoration: BoxDecoration(color: _getColor().withOpacity(0.2), borderRadius: BorderRadius.circular(12)), child: Icon(_getIcon(), color: _getColor(), size: 24)),
+            Container(padding: const EdgeInsets.all(12), decoration: BoxDecoration(color: _getColor().withValues(alpha: 0.2), borderRadius: BorderRadius.circular(12)), child: Icon(_getIcon(), color: _getColor(), size: 24)),
             const SizedBox(width: 16),
             Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(record.title, style: TextStyle(fontWeight: FontWeight.bold, color: isDark ? Colors.white : AppColors.textPrimaryLight)),

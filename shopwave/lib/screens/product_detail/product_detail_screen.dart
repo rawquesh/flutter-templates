@@ -18,11 +18,18 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   int _selectedColor = 0;
   int _selectedSize = 0;
   int _quantity = 1;
-  final int _currentImageIndex = 0;
+  int _currentImageIndex = 0;
   bool _isFavorite = false;
+  final PageController _imagePageController = PageController();
 
   final List<Color> _colors = [Colors.black, Colors.white, Colors.blue, Colors.red];
   final List<String> _sizes = ['S', 'M', 'L', 'XL', 'XXL'];
+
+  @override
+  void dispose() {
+    _imagePageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,22 +98,37 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       flexibleSpace: FlexibleSpaceBar(
         background: Stack(
           children: [
-            Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    AppColors.primaryBlue.withValues(alpha: 0.1),
-                    AppColors.accentCoral.withValues(alpha: 0.1),
-                  ],
-                ),
-              ),
-              child: Center(
-                child: Icon(
-                  Icons.shopping_bag_outlined,
-                  size: 150,
-                  color: AppColors.primaryBlue.withValues(alpha: 0.3),
-                ),
-              ),
+            PageView.builder(
+              itemCount: 4,
+              controller: _imagePageController,
+              onPageChanged: (index) =>
+                  setState(() => _currentImageIndex = index),
+              itemBuilder: (context, index) {
+                final tints = [
+                  AppColors.primaryBlue,
+                  AppColors.accentCoral,
+                  AppColors.success,
+                  AppColors.warning,
+                ];
+                final tint = tints[index % tints.length];
+                return Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        tint.withValues(alpha: 0.12),
+                        AppColors.accentCoral.withValues(alpha: 0.08),
+                      ],
+                    ),
+                  ),
+                  child: Center(
+                    child: Icon(
+                      Icons.shopping_bag_outlined,
+                      size: 150,
+                      color: tint.withValues(alpha: 0.35),
+                    ),
+                  ),
+                );
+              },
             ),
             Positioned(
               bottom: 16,
@@ -462,73 +484,71 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       left: 0,
       right: 0,
       bottom: 0,
-      child: ClipRRect(
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: isDark
-                  ? Colors.black.withValues(alpha: 0.8)
-                  : Colors.white.withValues(alpha: 0.9),
-              border: Border(
-                top: BorderSide(
-                  color: isDark
-                      ? Colors.white.withValues(alpha: 0.1)
-                      : Colors.grey.withValues(alpha: 0.2),
-                ),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: isDark
+                ? Colors.black.withValues(alpha: 0.8)
+                : Colors.white.withValues(alpha: 0.9),
+            border: Border(
+              top: BorderSide(
+                color: isDark
+                    ? Colors.white.withValues(alpha: 0.1)
+                    : Colors.grey.withValues(alpha: 0.2),
               ),
             ),
-            child: SafeArea(
-              child: Row(
-                children: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      _isFavorite ? Icons.favorite : Icons.favorite_border,
-                      color: _isFavorite ? AppColors.accentCoral : null,
-                    ),
+          ),
+          child: SafeArea(
+            child: Row(
+              children: [
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    _isFavorite ? Icons.favorite : Icons.favorite_border,
+                    color: _isFavorite ? AppColors.accentCoral : null,
                   ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primaryBlue,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                      ),
-                      child: const Text(
-                        'Add to Cart',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  ElevatedButton(
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.accentCoral,
-                      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                      backgroundColor: AppColors.primaryBlue,
+                      padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
                     ),
                     child: const Text(
-                      'Buy Now',
+                      'Add to Cart',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+                const SizedBox(width: 16),
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.accentCoral,
+                    padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
+                  child: const Text(
+                    'Buy Now',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),

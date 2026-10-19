@@ -7,13 +7,6 @@ import 'screens/home/main_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.light,
-    ),
-  );
-
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -60,10 +53,20 @@ class _ShopWaveAppState extends State<ShopWaveApp> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = _getTheme();
+    // Keep status-bar icons readable on both light and dark themes.
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: theme.brightness == Brightness.dark
+            ? Brightness.light
+            : Brightness.dark,
+      ),
+    );
     return MaterialApp(
       title: 'ShopWave',
       debugShowCheckedModeBanner: false,
-      theme: _getTheme(),
+      theme: theme,
       home: _isLoggedIn
           ? MainScreen(
               onThemeChanged: _onThemeChanged,

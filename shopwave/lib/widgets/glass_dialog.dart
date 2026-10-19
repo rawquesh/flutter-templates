@@ -173,6 +173,7 @@ class GlassConfirmDialog extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return GlassDialog(
+      title: title,
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

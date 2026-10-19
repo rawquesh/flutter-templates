@@ -208,11 +208,11 @@ class _DietScreenState extends State<DietScreen> {
               Expanded(
                 child: Column(
                   children: [
-                    _buildMacroRow('Protein', 85, 150, AppColors.progressProtein),
+                    _buildMacroRow('Protein', 85, 150, AppColors.progressProtein, isDark),
                     const SizedBox(height: 12),
-                    _buildMacroRow('Carbs', 180, 250, AppColors.progressCarbs),
+                    _buildMacroRow('Carbs', 180, 250, AppColors.progressCarbs, isDark),
                     const SizedBox(height: 12),
-                    _buildMacroRow('Fats', 55, 73, AppColors.progressFats),
+                    _buildMacroRow('Fats', 55, 73, AppColors.progressFats, isDark),
                   ],
                 ),
               ),
@@ -223,7 +223,7 @@ class _DietScreenState extends State<DietScreen> {
     ).animate().fadeIn(delay: 200.ms, duration: 600.ms);
   }
 
-  Widget _buildMacroRow(String label, double current, double goal, Color color) {
+  Widget _buildMacroRow(String label, double current, double goal, Color color, bool isDark) {
     final progress = current / goal;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -231,8 +231,21 @@ class _DietScreenState extends State<DietScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(label, style: const TextStyle(color: Colors.white70, fontSize: 12)),
-            Text('${current.toInt()}/${goal.toInt()}g', style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w600)),
+            Text(
+              label,
+              style: TextStyle(
+                color: isDark ? Colors.white70 : Colors.grey.shade700,
+                fontSize: 12,
+              ),
+            ),
+            Text(
+              '${current.toInt()}/${goal.toInt()}g',
+              style: TextStyle(
+                color: isDark ? Colors.white : const Color(0xFF1A1A2E),
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 6),
@@ -303,9 +316,9 @@ class _DietScreenState extends State<DietScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildWaterButton(250, '250ml'),
-              _buildWaterButton(350, '350ml'),
-              _buildWaterButton(500, '500ml'),
+              _buildWaterButton(250, '250ml', isDark),
+              _buildWaterButton(350, '350ml', isDark),
+              _buildWaterButton(500, '500ml', isDark),
             ],
           ),
         ],
@@ -313,7 +326,7 @@ class _DietScreenState extends State<DietScreen> {
     ).animate().fadeIn(delay: 300.ms, duration: 600.ms);
   }
 
-  Widget _buildWaterButton(int ml, String label) {
+  Widget _buildWaterButton(int ml, String label, bool isDark) {
     return GestureDetector(
       onTap: () {
         if (_glassesConsumed < _totalGlasses) {
@@ -331,7 +344,14 @@ class _DietScreenState extends State<DietScreen> {
           children: [
             const Icon(Icons.water_drop, color: AppColors.progressWater, size: 20),
             const SizedBox(height: 4),
-            Text(label, style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w500)),
+            Text(
+              label,
+              style: TextStyle(
+                color: isDark ? Colors.white : const Color(0xFF1A1A2E),
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
           ],
         ),
       ),
@@ -409,7 +429,10 @@ class _DietScreenState extends State<DietScreen> {
                         const SizedBox(height: 4),
                         Text(
                           (meal['items'] as List).join(', '),
-                          style: const TextStyle(color: Colors.white54, fontSize: 12),
+                          style: TextStyle(
+                            color: isDark ? Colors.white54 : Colors.grey,
+                            fontSize: 12,
+                          ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),

@@ -288,7 +288,10 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
                         const SizedBox(height: 4),
                         Text(
                           (meal['items'] as List).join(', '),
-                          style: const TextStyle(color: Colors.white54, fontSize: 12),
+                          style: TextStyle(
+                            color: isDark ? Colors.white54 : Colors.grey,
+                            fontSize: 12,
+                          ),
                         ),
                       ],
                     ),
@@ -376,7 +379,10 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
                           ),
                           Text(
                             '${meal['protein']}',
-                            style: const TextStyle(color: Colors.white54, fontSize: 10),
+                            style: TextStyle(
+                              color: isDark ? Colors.white54 : Colors.grey,
+                              fontSize: 10,
+                            ),
                           ),
                         ],
                       ),

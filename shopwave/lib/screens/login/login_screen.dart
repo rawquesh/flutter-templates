@@ -28,8 +28,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
     return Scaffold(
       body: AnimatedBackground(
         gradientColors: AppColors.gradientBackgroundDark,
@@ -40,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildGlassCard(isDark),
+                  _buildGlassCard(),
                 ],
               ),
             ),
@@ -50,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildGlassCard(bool isDark) {
+  Widget _buildGlassCard() {
     return ClipRRect(
       borderRadius: BorderRadius.circular(24),
       child: BackdropFilter(
@@ -128,14 +126,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 controller: _emailController,
                 hintText: 'Email or username',
                 icon: Icons.mail_outline,
-                isDark: isDark,
               ).animate().fadeIn(delay: 500.ms, duration: 500.ms).slideX(begin: -0.2),
               const SizedBox(height: 16),
               _buildTextField(
                 controller: _passwordController,
                 hintText: 'Password',
                 icon: Icons.lock_outline,
-                isDark: isDark,
                 obscureText: _obscurePassword,
                 suffixIcon: _obscurePassword ? Icons.visibility_off : Icons.visibility,
                 onSuffixTap: () => setState(() => _obscurePassword = !_obscurePassword),
@@ -226,7 +222,6 @@ class _LoginScreenState extends State<LoginScreen> {
     required TextEditingController controller,
     required String hintText,
     required IconData icon,
-    required bool isDark,
     bool obscureText = false,
     IconData? suffixIcon,
     VoidCallback? onSuffixTap,
@@ -302,16 +297,16 @@ class _LoginScreenState extends State<LoginScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _socialButton(Icons.g_mobiledata, 'Google'),
+        _socialButton(Icons.g_mobiledata),
         const SizedBox(width: 16),
-        _socialButton(Icons.apple, 'Apple'),
+        _socialButton(Icons.apple),
         const SizedBox(width: 16),
-        _socialButton(Icons.facebook, 'Facebook'),
+        _socialButton(Icons.facebook),
       ],
     ).animate().fadeIn(delay: 900.ms, duration: 500.ms);
   }
 
-  Widget _socialButton(IconData icon, String label) {
+  Widget _socialButton(IconData icon) {
     return GestureDetector(
       onTap: () {},
       child: ClipRRect(

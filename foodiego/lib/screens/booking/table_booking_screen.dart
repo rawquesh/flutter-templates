@@ -16,6 +16,7 @@ class _TableBookingScreenState extends State<TableBookingScreen> {
   int _partySize = 2;
   String _occasion = 'Other';
   final List<String> _occasions = ['Birthday', 'Anniversary', 'Business', 'Date', 'Other'];
+  final Set<String> _seatingPreferences = {};
 
   @override
   Widget build(BuildContext context) {
@@ -396,18 +397,29 @@ class _TableBookingScreenState extends State<TableBookingScreen> {
             spacing: 8,
             runSpacing: 8,
             children: ['Indoor', 'Outdoor', 'Window Seat', 'Quiet Area'].map((pref) {
+              final isSelected = _seatingPreferences.contains(pref);
               return Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 decoration: BoxDecoration(
-                  color: isDark ? Colors.black26 : Colors.grey.shade100,
+                  color: isSelected
+                      ? AppColors.primaryOrange.withValues(alpha: 0.15)
+                      : (isDark ? Colors.black26 : Colors.grey.shade100),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                     children: [
                     Checkbox(
-                      value: false,
-                      onChanged: (v) {},
+                      value: isSelected,
+                      onChanged: (v) {
+                        setState(() {
+                          if (v == true) {
+                            _seatingPreferences.add(pref);
+                          } else {
+                            _seatingPreferences.remove(pref);
+                          }
+                        });
+                      },
                       activeColor: AppColors.primaryOrange,
                     ),
                     Text(

@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
             SliverToBoxAdapter(child: _buildLocationHeader(isDark)),
             SliverToBoxAdapter(child: _buildSearchBar(isDark)),
             SliverToBoxAdapter(child: _buildPromoBanners()),
-            SliverToBoxAdapter(child: _buildCategories()),
+            SliverToBoxAdapter(child: _buildCategories(isDark)),
             SliverToBoxAdapter(child: _buildSectionHeader('Featured Restaurants', isDark)),
             SliverToBoxAdapter(child: _buildFeaturedRestaurants()),
             SliverToBoxAdapter(child: _buildSectionHeader('Popular Near You', isDark)),
@@ -203,18 +203,18 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildCategories() {
+  Widget _buildCategories(bool isDark) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.fromLTRB(16, 24, 16, 12),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 24, 16, 12),
           child: Text(
             'Categories',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color: AppColors.textPrimaryLight,
+              color: isDark ? Colors.white : AppColors.textPrimaryLight,
             ),
           ),
         ),

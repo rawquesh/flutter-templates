@@ -108,11 +108,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: _buildThemeOption(1, Icons.view_day, 'Hybrid', isDark),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: _buildThemeOption(2, Icons.dark_mode, 'Dark', isDark),
+                child: _buildThemeOption(1, Icons.dark_mode, 'Dark', isDark),
               ),
             ],
           ),
@@ -462,9 +458,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
         widget.onThemeChanged?.call(ThemeMode.light);
         break;
       case 1:
-        widget.onThemeChanged?.call(ThemeMode.dark);
-        break;
-      case 2:
         widget.onThemeChanged?.call(ThemeMode.dark);
         break;
     }

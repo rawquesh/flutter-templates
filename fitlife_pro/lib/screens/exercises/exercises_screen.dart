@@ -37,7 +37,7 @@ class _ExercisesScreenState extends State<ExercisesScreen> {
 
   List<Map<String, String>> get _filteredExercises {
     var filtered = _exercises;
-    if (_selectedMuscleGroups.isNotEmpty && !_selectedMuscleGroups.contains(0)) {
+    if (_selectedMuscleGroups.isNotEmpty) {
       filtered = filtered.where((e) {
         final muscleIndex = _muscleGroups.indexOf(e['muscle']!);
         return _selectedMuscleGroups.contains(muscleIndex);

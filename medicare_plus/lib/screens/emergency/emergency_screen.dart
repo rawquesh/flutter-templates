@@ -46,7 +46,7 @@ class EmergencyScreen extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
-          BoxShadow(color: AppColors.error.withOpacity(0.4), blurRadius: 20, offset: const Offset(0, 10))
+          BoxShadow(color: AppColors.error.withValues(alpha: 0.4), blurRadius: 20, offset: const Offset(0, 10))
         ],
       ),
       child: Column(
@@ -96,6 +96,7 @@ class _ServiceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return GestureDetector(
       onTap: onTap,
       child: GlassCard(
@@ -104,11 +105,11 @@ class _ServiceCard extends StatelessWidget {
           children: [
             Container(
               padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(color: color.withOpacity(0.2), borderRadius: BorderRadius.circular(12)),
+              decoration: BoxDecoration(color: color.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(12)),
               child: Icon(icon, color: color, size: 28),
             ),
             const SizedBox(height: 8),
-            Text(title, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.grey[700]), textAlign: TextAlign.center),
+            Text(title, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: isDark ? Colors.white : Colors.grey[800]), textAlign: TextAlign.center),
           ],
         ),
       ),

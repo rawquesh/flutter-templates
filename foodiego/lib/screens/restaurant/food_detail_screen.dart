@@ -17,8 +17,14 @@ class FoodDetailScreen extends StatefulWidget {
 class _FoodDetailScreenState extends State<FoodDetailScreen> {
   int _quantity = 1;
   String _spiceLevel = 'Medium';
-  final List<String> _addOns = [];
-  final List<String> _selectedAddOns = ['Extra Cheese', 'Jalapenos'];
+  final List<String> _addOns = [
+    'Extra Cheese',
+    'Jalapenos',
+    'Extra Sauce',
+    'Garlic Bread',
+    'Double Patty',
+  ];
+  final List<String> _selectedAddOns = [];
 
   @override
   Widget build(BuildContext context) {

@@ -17,6 +17,8 @@ class QuantitySelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       decoration: BoxDecoration(
         color: AppColors.primaryOrange.withValues(alpha: 0.1),
@@ -37,8 +39,10 @@ class QuantitySelector extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               quantity.toString(),
-              style: const TextStyle(
-                color: AppColors.textPrimaryDark,
+              style: TextStyle(
+                color: isDark
+                    ? AppColors.textPrimaryDark
+                    : AppColors.textPrimaryLight,
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),

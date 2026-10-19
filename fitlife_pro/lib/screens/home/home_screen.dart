@@ -11,7 +11,11 @@ import '../workouts/workout_detail_screen.dart';
 import '../profile/profile_screen.dart';
 import '../progress/progress_screen.dart';
 import '../exercises/exercises_screen.dart';
-import '../settings/settings_screen.dart';
+import '../diet/diet_screen.dart';
+import '../challenges/challenges_screen.dart';
+import '../water_tracker/water_tracker_screen.dart';
+import '../meal_planner/meal_planner_screen.dart';
+import '../body_measurements/body_measurements_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final Function(ThemeMode)? onThemeChanged;
@@ -32,12 +36,6 @@ class _HomeScreenState extends State<HomeScreen> {
     const ProgressScreen(),
     ProfileScreen(onThemeChanged: widget.onThemeChanged),
   ];
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    // Theme is now available
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
           SliverToBoxAdapter(child: _buildWeeklyStreak()),
           SliverToBoxAdapter(child: _buildTodaysWorkout()),
           SliverToBoxAdapter(child: _buildRecentActivity()),
+          SliverToBoxAdapter(child: _buildMoreFeatures()),
           const SliverToBoxAdapter(child: SizedBox(height: 100)),
         ],
       ),
@@ -446,6 +445,129 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
+  }
+
+  Widget _buildMoreFeatures() {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    final features = [
+      {
+        'icon': Icons.restaurant_menu,
+        'label': 'Diet',
+        'color': AppColors.success,
+        'screen': const DietScreen(),
+      },
+      {
+        'icon': Icons.emoji_events,
+        'label': 'Challenges',
+        'color': AppColors.primaryOrange,
+        'screen': const ChallengesScreen(),
+      },
+      {
+        'icon': Icons.water_drop,
+        'label': 'Water Tracker',
+        'color': AppColors.progressWater,
+        'screen': const WaterTrackerScreen(),
+      },
+      {
+        'icon': Icons.calendar_month,
+        'label': 'Meal Planner',
+        'color': AppColors.accentBlue,
+        'screen': const MealPlannerScreen(),
+      },
+      {
+        'icon': Icons.straighten,
+        'label': 'Measurements',
+        'color': AppColors.progressSteps,
+        'screen': const BodyMeasurementsScreen(),
+      },
+    ];
+
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 8),
+          Text(
+            'More Features',
+            style: TextStyle(
+              color: isDark ? Colors.white : const Color(0xFF1A1A2E),
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 12),
+          GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              mainAxisSpacing: 12,
+              crossAxisSpacing: 12,
+              childAspectRatio: 1.0,
+            ),
+            itemCount: features.length,
+            itemBuilder: (context, index) {
+              final feature = features[index];
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => feature['screen'] as Widget,
+                    ),
+                  );
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: isDark
+                        ? Colors.white.withValues(alpha: 0.05)
+                        : Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(
+                      color: isDark
+                          ? Colors.white.withValues(alpha: 0.1)
+                          : Colors.grey.shade200,
+                    ),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: (feature['color'] as Color)
+                              .withValues(alpha: 0.12),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Icon(
+                          feature['icon'] as IconData,
+                          color: feature['color'] as Color,
+                          size: 24,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        feature['label'] as String,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: isDark
+                              ? Colors.white
+                              : const Color(0xFF1A1A2E),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    ).animate().fadeIn(delay: 700.ms, duration: 600.ms);
   }
 
   Widget _buildBottomNav() {

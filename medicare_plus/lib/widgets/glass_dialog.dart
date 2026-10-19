@@ -33,17 +33,17 @@ class GlassDialog extends StatelessWidget {
             constraints: const BoxConstraints(maxWidth: 400),
             decoration: BoxDecoration(
               color: isDark
-                  ? AppColors.sidebarDark.withOpacity(0.95)
-                  : AppColors.cardLight.withOpacity(0.95),
+                  ? AppColors.sidebarDark.withValues(alpha: 0.95)
+                  : AppColors.cardLight.withValues(alpha: 0.95),
               borderRadius: BorderRadius.circular(borderRadius),
               border: Border.all(
                 color: isDark
-                    ? Colors.white.withOpacity(0.1)
-                    : Colors.white.withOpacity(0.3),
+                    ? Colors.white.withValues(alpha: 0.1)
+                    : Colors.white.withValues(alpha: 0.3),
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(isDark ? 0.5 : 0.2),
+                  color: Colors.black.withValues(alpha: isDark ? 0.5 : 0.2),
                   blurRadius: 30,
                   offset: const Offset(0, 20),
                 ),
@@ -81,7 +81,7 @@ class GlassDialog extends StatelessWidget {
                   Divider(
                     height: 1,
                     color: isDark
-                        ? Colors.white.withOpacity(0.1)
+                        ? Colors.white.withValues(alpha: 0.1)
                         : AppColors.dividerLight,
                   ),
                 ],
@@ -95,7 +95,7 @@ class GlassDialog extends StatelessWidget {
                   Divider(
                     height: 1,
                     color: isDark
-                        ? Colors.white.withOpacity(0.1)
+                        ? Colors.white.withValues(alpha: 0.1)
                         : AppColors.dividerLight,
                   ),
                   Padding(

@@ -28,7 +28,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
   ];
 
   static final List<String> _specialties = [
-    'All', 'Cardiologist', 'Dermatologist', 'General', 'Orthopedic', 'Pediatrician', 'Neurologist', 'Dentist',
+    'All', 'Cardiologist', 'Dermatologist', 'General Physician', 'Orthopedic', 'Pediatrician', 'Neurologist',
   ];
 
   @override
@@ -130,6 +130,37 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
           ],
         ),
         const SizedBox(height: 16),
+        if (filteredDoctors.isEmpty)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 48),
+            child: Center(
+              child: Column(
+                children: [
+                  Icon(
+                    Icons.medical_services_outlined,
+                    size: 64,
+                    color: widget.isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'No doctors found',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: widget.isDark ? Colors.white : AppColors.textPrimaryLight,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Try a different specialty',
+                    style: TextStyle(
+                      color: widget.isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ...filteredDoctors.asMap().entries.map((entry) {
           final index = entry.key;
           final doctor = entry.value;

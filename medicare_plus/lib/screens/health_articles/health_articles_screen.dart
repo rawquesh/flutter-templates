@@ -72,7 +72,7 @@ class _HealthArticlesScreenState extends State<HealthArticlesScreen> {
         children: [
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-            decoration: BoxDecoration(color: Colors.white.withOpacity(0.2), borderRadius: BorderRadius.circular(12)),
+            decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(12)),
             child: const Row(mainAxisSize: MainAxisSize.min, children: [Icon(Icons.star, color: Colors.white, size: 14), SizedBox(width: 4), Text('Featured', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold))]),
           ),
           const Spacer(),
@@ -111,7 +111,7 @@ class _HealthArticlesScreenState extends State<HealthArticlesScreen> {
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 0.85, crossAxisSpacing: 12, mainAxisSpacing: 12),
       itemCount: filtered.length,
       itemBuilder: (context, index) => _ArticleCard(article: filtered[index], isDark: widget.isDark, isBookmarked: _bookmarks.contains(filtered[index].title), onBookmark: () => setState(() {
-        if (_bookmarks.contains(filtered[index].title)) _bookmarks.remove(filtered[index].title); else _bookmarks.add(filtered[index].title);
+        if (_bookmarks.contains(filtered[index].title)) { _bookmarks.remove(filtered[index].title); } else { _bookmarks.add(filtered[index].title); }
       })),
     );
   }

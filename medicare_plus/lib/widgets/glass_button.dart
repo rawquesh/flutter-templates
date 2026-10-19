@@ -82,7 +82,7 @@ class _GlassButtonState extends State<GlassButton> {
             borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
             boxShadow: [
               BoxShadow(
-                color: AppColors.primaryBlue.withOpacity(0.3),
+                color: AppColors.primaryBlue.withValues(alpha: 0.3),
                 blurRadius: 12,
                 offset: const Offset(0, 6),
               ),
@@ -104,13 +104,13 @@ class _GlassButtonState extends State<GlassButton> {
           height: widget.height,
           decoration: BoxDecoration(
             color: isDark
-                ? Colors.white.withOpacity(0.15)
-                : Colors.white.withOpacity(0.8),
+                ? Colors.white.withValues(alpha: 0.15)
+                : Colors.white.withValues(alpha: 0.8),
             borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
             border: Border.all(
               color: isDark
-                  ? Colors.white.withOpacity(0.2)
-                  : AppColors.primaryBlue.withOpacity(0.3),
+                  ? Colors.white.withValues(alpha: 0.2)
+                  : AppColors.primaryBlue.withValues(alpha: 0.3),
               width: 1,
             ),
           ),
@@ -127,7 +127,7 @@ class _GlassButtonState extends State<GlassButton> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
         border: Border.all(
-          color: isDark ? Colors.white.withOpacity(0.3) : AppColors.primaryBlue,
+          color: isDark ? Colors.white.withValues(alpha: 0.3) : AppColors.primaryBlue,
           width: 2,
         ),
       ),
@@ -152,7 +152,7 @@ class _GlassButtonState extends State<GlassButton> {
             borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
             boxShadow: [
               BoxShadow(
-                color: AppColors.primaryBlue.withOpacity(0.4),
+                color: AppColors.primaryBlue.withValues(alpha: 0.4),
                 blurRadius: 16,
                 offset: const Offset(0, 8),
               ),
@@ -243,11 +243,11 @@ class _GlassIconButtonState extends State<GlassIconButton> {
                     height: widget.size,
                     decoration: BoxDecoration(
                       color: isDark
-                          ? Colors.white.withOpacity(0.1)
-                          : Colors.white.withOpacity(0.6),
+                          ? Colors.white.withValues(alpha: 0.1)
+                          : Colors.white.withValues(alpha: 0.6),
                       shape: BoxShape.circle,
                       border: Border.all(
-                        color: Colors.white.withOpacity(0.2),
+                        color: Colors.white.withValues(alpha: 0.2),
                         width: 1,
                       ),
                     ),

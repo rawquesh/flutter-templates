@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../theme/colors.dart';
@@ -22,6 +23,7 @@ class BannerCarousel extends StatefulWidget {
 
 class _BannerCarouselState extends State<BannerCarousel> {
   late PageController _pageController;
+  Timer? _autoScrollTimer;
   int _currentPage = 0;
 
   @override
@@ -33,21 +35,22 @@ class _BannerCarouselState extends State<BannerCarousel> {
 
   @override
   void dispose() {
+    _autoScrollTimer?.cancel();
     _pageController.dispose();
     super.dispose();
   }
 
   void _startAutoScroll() {
-    Future.delayed(widget.autoScrollDuration, () {
-      if (mounted) {
-        _currentPage = (_currentPage + 1) % widget.banners.length;
-        _pageController.animateToPage(
-          _currentPage,
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeInOut,
-        );
-        _startAutoScroll();
-      }
+    _autoScrollTimer?.cancel();
+    _autoScrollTimer =
+        Timer.periodic(widget.autoScrollDuration, (_) {
+      if (!mounted || !_pageController.hasClients) return;
+      _currentPage = (_currentPage + 1) % widget.banners.length;
+      _pageController.animateToPage(
+        _currentPage,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
     });
   }
 

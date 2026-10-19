@@ -4,7 +4,9 @@ import '../../utils/constants.dart';
 import '../../widgets/restaurant_card.dart';
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
+  final ValueChanged<Restaurant>? onRestaurantTap;
+
+  const SearchScreen({super.key, this.onRestaurantTap});
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -97,7 +99,7 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
 
   Widget _buildRestaurantResults(bool isDark) {
     return ListView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 100),
       children: [
         if (_searchController.text.isEmpty) ...[
           _buildSectionTitle('Recent Searches', isDark),
@@ -157,6 +159,7 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
                 distance: restaurant.distance,
                 imageGradient: restaurant.imageGradient,
                 isOpen: restaurant.isOpen,
+                onTap: () => widget.onRestaurantTap?.call(restaurant),
               );
             },
           ),
@@ -167,7 +170,7 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
 
   Widget _buildDishResults(bool isDark) {
     return ListView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 100),
       children: [
         GridView.builder(
           shrinkWrap: true,

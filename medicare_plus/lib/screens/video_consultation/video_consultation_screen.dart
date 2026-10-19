@@ -66,7 +66,7 @@ class _VideoConsultationScreenState extends State<VideoConsultationScreen> with 
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(children: [
-              Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: AppColors.primaryBlue.withOpacity(0.2), borderRadius: BorderRadius.circular(12)), child: const Icon(Icons.videocam, color: AppColors.primaryBlue, size: 24)),
+              Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: AppColors.primaryBlue.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(12)), child: const Icon(Icons.videocam, color: AppColors.primaryBlue, size: 24)),
               const SizedBox(width: 16),
               Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text('Next Consultation', style: TextStyle(fontWeight: FontWeight.bold, color: widget.isDark ? Colors.white : AppColors.textPrimaryLight)),
@@ -76,11 +76,11 @@ class _VideoConsultationScreenState extends State<VideoConsultationScreen> with 
             ]),
             const SizedBox(height: 16),
             Row(children: [
-              GlassButton(text: 'Join Call', variant: GlassButtonVariant.primary, icon: Icons.videocam, onPressed: () {}),
+              Expanded(child: GlassButton(text: 'Join Call', variant: GlassButtonVariant.primary, icon: Icons.videocam, onPressed: () {})),
               const SizedBox(width: 12),
-              GlassButton(text: 'Reschedule', variant: GlassButtonVariant.secondary, onPressed: () {}),
+              Expanded(child: GlassButton(text: 'Reschedule', variant: GlassButtonVariant.secondary, onPressed: () {})),
               const SizedBox(width: 8),
-              GlassButton(text: 'Cancel', variant: GlassButtonVariant.outline, onPressed: () {}),
+              Expanded(child: GlassButton(text: 'Cancel', variant: GlassButtonVariant.outline, onPressed: () {})),
             ]),
           ],
         ),
@@ -91,7 +91,7 @@ class _VideoConsultationScreenState extends State<VideoConsultationScreen> with 
   Widget _buildTabBar() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(color: widget.isDark ? Colors.white.withOpacity(0.05) : Colors.white, borderRadius: BorderRadius.circular(12)),
+      decoration: BoxDecoration(color: widget.isDark ? Colors.white.withValues(alpha: 0.05) : Colors.white, borderRadius: BorderRadius.circular(12)),
       child: TabBar(
         controller: _tabController,
         indicator: BoxDecoration(color: AppColors.primaryBlue, borderRadius: BorderRadius.circular(10)),
@@ -205,7 +205,7 @@ class _HistoryCard extends StatelessWidget {
           Text(_formatDate(consultation.date), style: TextStyle(fontSize: 12, color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight)),
         ]),
         const SizedBox(height: 12),
-        Container(padding: const EdgeInsets.all(12), decoration: BoxDecoration(color: isDark ? Colors.white.withOpacity(0.05) : AppColors.backgroundLight, borderRadius: BorderRadius.circular(8)), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Container(padding: const EdgeInsets.all(12), decoration: BoxDecoration(color: isDark ? Colors.white.withValues(alpha: 0.05) : AppColors.backgroundLight, borderRadius: BorderRadius.circular(8)), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(children: [Icon(Icons.access_time, size: 14, color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight), const SizedBox(width: 4), Text('Duration: ${consultation.duration}', style: TextStyle(fontSize: 12, color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight))]),
           const SizedBox(height: 8),
           Text(consultation.summary, style: TextStyle(fontSize: 14, color: isDark ? Colors.white : AppColors.textPrimaryLight)),

@@ -172,7 +172,7 @@ class _WaterTrackerScreenState extends State<WaterTrackerScreen> {
                 label: 'Large',
                 onTap: () => _addWater(500),
               ),
-              _buildCustomButton(),
+              _buildCustomButton(isDark),
             ],
           ),
         ],
@@ -180,7 +180,7 @@ class _WaterTrackerScreenState extends State<WaterTrackerScreen> {
     ).animate().fadeIn(delay: 200.ms, duration: 600.ms);
   }
 
-  Widget _buildCustomButton() {
+  Widget _buildCustomButton(bool isDark) {
     return GestureDetector(
       onTap: () {},
       child: Container(
@@ -195,9 +195,13 @@ class _WaterTrackerScreenState extends State<WaterTrackerScreen> {
           children: [
             const Icon(Icons.edit, color: AppColors.progressWater, size: 24),
             const SizedBox(height: 4),
-            const Text(
+            Text(
               'Custom',
-              style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w500),
+              style: TextStyle(
+                color: isDark ? Colors.white : const Color(0xFF1A1A2E),
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ],
         ),
@@ -206,9 +210,10 @@ class _WaterTrackerScreenState extends State<WaterTrackerScreen> {
   }
 
   void _addWater(int ml) {
-    if (_glassesConsumed < _totalGlasses) {
-      setState(() => _glassesConsumed++);
-    }
+    if (_glassesConsumed >= _totalGlasses) return;
+    final glassesToAdd =
+        (ml / 250).round().clamp(1, _totalGlasses - _glassesConsumed);
+    setState(() => _glassesConsumed += glassesToAdd);
   }
 
   Widget _buildDrinkTypes(bool isDark) {
@@ -302,9 +307,9 @@ class _WaterTrackerScreenState extends State<WaterTrackerScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _buildHydrationStatItem('Today', '${_glassesConsumed * 250}ml', AppColors.progressWater),
-              _buildHydrationStatItem('Average', '1,750ml', AppColors.accentBlue),
-              _buildHydrationStatItem('Best Streak', '12 days', AppColors.success),
+              _buildHydrationStatItem('Today', '${_glassesConsumed * 250}ml', AppColors.progressWater, isDark),
+              _buildHydrationStatItem('Average', '1,750ml', AppColors.accentBlue, isDark),
+              _buildHydrationStatItem('Best Streak', '12 days', AppColors.success, isDark),
             ],
           ),
         ],
@@ -312,7 +317,7 @@ class _WaterTrackerScreenState extends State<WaterTrackerScreen> {
     ).animate().fadeIn(delay: 400.ms, duration: 600.ms);
   }
 
-  Widget _buildHydrationStatItem(String label, String value, Color color) {
+  Widget _buildHydrationStatItem(String label, String value, Color color, bool isDark) {
     return Column(
       children: [
         Container(
@@ -326,11 +331,18 @@ class _WaterTrackerScreenState extends State<WaterTrackerScreen> {
         const SizedBox(height: 8),
         Text(
           value,
-          style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: isDark ? Colors.white : const Color(0xFF1A1A2E),
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         Text(
           label,
-          style: const TextStyle(color: Colors.white54, fontSize: 11),
+          style: TextStyle(
+            color: isDark ? Colors.white54 : Colors.grey,
+            fontSize: 11,
+          ),
         ),
       ],
     );
@@ -420,9 +432,13 @@ class _WaterTrackerScreenState extends State<WaterTrackerScreen> {
             ],
           ),
           const SizedBox(height: 12),
-          const Text(
+          Text(
             '• Improves energy levels and brain function\n• Helps maintain body temperature\n• Supports digestion and nutrient absorption\n• Promotes healthy skin\n• Aids in weight management',
-            style: TextStyle(color: Colors.white70, fontSize: 13, height: 1.6),
+            style: TextStyle(
+              color: isDark ? Colors.white70 : Colors.grey.shade700,
+              fontSize: 13,
+              height: 1.6,
+            ),
           ),
         ],
       ),

@@ -231,10 +231,10 @@ class WeeklyBarChart extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'Weekly Overview',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: isDark ? Colors.white : const Color(0xFF1A1A2E),
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import '../../theme/colors.dart';
 import '../../widgets/deal_card.dart';
@@ -14,6 +16,7 @@ class FlashDealsScreen extends StatefulWidget {
 class _FlashDealsScreenState extends State<FlashDealsScreen> {
   int _selectedCategory = 0;
   late Duration _timeRemaining;
+  Timer? _countdownTimer;
 
   final List<String> _categories = [
     'All Deals',
@@ -28,6 +31,21 @@ class _FlashDealsScreenState extends State<FlashDealsScreen> {
   void initState() {
     super.initState();
     _timeRemaining = const Duration(hours: 5, minutes: 32, seconds: 45);
+    _countdownTimer = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (_timeRemaining.inSeconds <= 0) {
+        _countdownTimer?.cancel();
+        return;
+      }
+      setState(() {
+        _timeRemaining -= const Duration(seconds: 1);
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _countdownTimer?.cancel();
+    super.dispose();
   }
 
   @override

@@ -2,21 +2,18 @@
 import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 import '../utils/constants.dart';
-import '../theme/app_theme.dart';
 
 class GlassSidebar extends StatelessWidget {
   final int selectedIndex;
   final ValueChanged<int> onItemTap;
-  final VoidCallback onThemeToggle;
-  final AppThemeMode currentTheme;
+  final ValueChanged<bool> onThemeChanged;
   final bool isDark;
 
   const GlassSidebar({
     super.key,
     required this.selectedIndex,
     required this.onItemTap,
-    required this.onThemeToggle,
-    required this.currentTheme,
+    required this.onThemeChanged,
     required this.isDark,
   });
 
@@ -28,7 +25,7 @@ class GlassSidebar extends StatelessWidget {
         color: isDark ? AppColors.sidebarDark : AppColors.sidebarLight,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(isDark ? 0.3 : 0.1),
+            color: Colors.black.withValues(alpha: isDark ? 0.3 : 0.1),
             blurRadius: 20,
             offset: const Offset(5, 0),
           ),
@@ -69,7 +66,7 @@ class GlassSidebar extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: AppColors.primaryBlue.withOpacity(0.3),
+                  color: AppColors.primaryBlue.withValues(alpha: 0.3),
                   blurRadius: 12,
                   offset: const Offset(0, 4),
                 ),
@@ -145,42 +142,30 @@ class GlassSidebar extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border(
           top: BorderSide(
-            color: isDark ? Colors.white.withOpacity(0.1) : AppColors.dividerLight,
+            color: isDark ? Colors.white.withValues(alpha: 0.1) : AppColors.dividerLight,
           ),
         ),
       ),
-      child: Column(
+      child: Row(
         children: [
-          Text(
-            'Theme',
-            style: theme.textTheme.labelSmall,
+          Icon(
+            isDark ? Icons.dark_mode_outlined : Icons.light_mode_outlined,
+            color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
+            size: 22,
           ),
-          const SizedBox(height: 12),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _ThemeOption(
-                icon: Icons.light_mode,
-                label: 'Light',
-                isSelected: currentTheme == AppThemeMode.light,
-                onTap: () => onThemeToggle(),
-                isDark: isDark,
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              'Dark mode',
+              style: theme.textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.w500,
               ),
-              _ThemeOption(
-                icon: Icons.view_sidebar,
-                label: 'Hybrid',
-                isSelected: currentTheme == AppThemeMode.darkSidebar,
-                onTap: () => onThemeToggle(),
-                isDark: isDark,
-              ),
-              _ThemeOption(
-                icon: Icons.dark_mode,
-                label: 'Dark',
-                isSelected: currentTheme == AppThemeMode.dark,
-                onTap: () => onThemeToggle(),
-                isDark: isDark,
-              ),
-            ],
+            ),
+          ),
+          Switch(
+            value: isDark,
+            onChanged: onThemeChanged,
+            activeThumbColor: AppColors.primaryBlue,
           ),
         ],
       ),
@@ -216,7 +201,7 @@ class _SidebarMenuItem extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
               color: isSelected
-                  ? AppColors.primaryBlue.withOpacity(isDark ? 0.2 : 0.1)
+                  ? AppColors.primaryBlue.withValues(alpha: isDark ? 0.2 : 0.1)
                   : Colors.transparent,
               borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
             ),
@@ -265,75 +250,11 @@ class _MenuItem {
   });
 }
 
-class _ThemeOption extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final bool isSelected;
-  final VoidCallback onTap;
-  final bool isDark;
-
-  const _ThemeOption({
-    required this.icon,
-    required this.label,
-    required this.isSelected,
-    required this.onTap,
-    required this.isDark,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          AnimatedContainer(
-            duration: AppConstants.animationMedium,
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              color: isSelected
-                  ? AppColors.primaryBlue.withOpacity(0.2)
-                  : Colors.transparent,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: isSelected
-                    ? AppColors.primaryBlue
-                    : (isDark ? Colors.white.withOpacity(0.1) : AppColors.dividerLight),
-                width: isSelected ? 2 : 1,
-              ),
-            ),
-            child: Icon(
-              icon,
-              color: isSelected
-                  ? AppColors.primaryBlue
-                  : (isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight),
-              size: 20,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-              color: isSelected
-                  ? AppColors.primaryBlue
-                  : (isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 class GlassDrawer extends StatelessWidget {
   final Widget child;
   final int selectedIndex;
   final ValueChanged<int> onItemTap;
-  final VoidCallback onThemeToggle;
-  final AppThemeMode currentTheme;
+  final ValueChanged<bool> onThemeChanged;
   final bool isDark;
 
   const GlassDrawer({
@@ -341,8 +262,7 @@ class GlassDrawer extends StatelessWidget {
     required this.child,
     required this.selectedIndex,
     required this.onItemTap,
-    required this.onThemeToggle,
-    required this.currentTheme,
+    required this.onThemeChanged,
     required this.isDark,
   });
 
@@ -355,7 +275,7 @@ class GlassDrawer extends StatelessWidget {
           GestureDetector(
             onTap: () => Navigator.pop(context),
             child: Container(
-              color: Colors.black.withOpacity(0.5),
+              color: Colors.black.withValues(alpha: 0.5),
             ),
           ),
           GlassSidebar(
@@ -364,8 +284,7 @@ class GlassDrawer extends StatelessWidget {
               onItemTap(index);
               Navigator.pop(context);
             },
-            onThemeToggle: onThemeToggle,
-            currentTheme: currentTheme,
+            onThemeChanged: onThemeChanged,
             isDark: isDark,
           ),
         ],
