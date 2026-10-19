@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import '../theme/colors.dart';
 import '../utils/constants.dart';
 
 class GlassCard extends StatelessWidget {
@@ -48,19 +49,21 @@ class GlassCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(borderRadius),
               child: Container(
                 decoration: BoxDecoration(
+                  // Dark mode: translucent white glass. Light mode: solid-ish
+                  // white surface so the card stays visible on light backgrounds.
                   color: isDarkMode
-                      ? Colors.white.withOpacity(opacity)
-                      : Colors.white.withOpacity(opacity),
+                      ? Colors.white.withValues(alpha: opacity)
+                      : AppColors.cardLight.withValues(alpha: 0.85),
                   borderRadius: BorderRadius.circular(borderRadius),
                   border: Border.all(
                     color: isDarkMode
-                        ? Colors.white.withOpacity(0.2)
-                        : Colors.white.withOpacity(0.3),
+                        ? Colors.white.withValues(alpha: 0.2)
+                        : AppColors.dividerLight,
                     width: AppConstants.borderWidth,
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(isDarkMode ? 0.3 : 0.1),
+                      color: Colors.black.withValues(alpha: isDarkMode ? 0.3 : 0.1),
                       blurRadius: 20,
                       offset: const Offset(0, 10),
                     ),
@@ -115,11 +118,11 @@ class GlassContainer extends StatelessWidget {
           filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
           child: Container(
             decoration: BoxDecoration(
-              color: color ?? Colors.white.withOpacity(opacity),
+              color: color ?? Colors.white.withValues(alpha: opacity),
               borderRadius: BorderRadius.circular(borderRadius),
               border: border ??
                   Border.all(
-                    color: Colors.white.withOpacity(0.2),
+                    color: Colors.white.withValues(alpha: 0.2),
                     width: AppConstants.borderWidth,
                   ),
             ),

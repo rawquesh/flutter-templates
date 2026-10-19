@@ -6,8 +6,9 @@ import '../../widgets/glass_button.dart';
 
 class CartScreen extends StatefulWidget {
   final VoidCallback onCheckout;
+  final VoidCallback? onBrowseRestaurants;
 
-  const CartScreen({super.key, required this.onCheckout});
+  const CartScreen({super.key, required this.onCheckout, this.onBrowseRestaurants});
 
   @override
   State<CartScreen> createState() => _CartScreenState();
@@ -78,7 +79,7 @@ class _CartScreenState extends State<CartScreen> {
           GlassButton(
             text: 'Browse Restaurants',
             width: 200,
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => widget.onBrowseRestaurants?.call(),
           ),
         ],
       ),

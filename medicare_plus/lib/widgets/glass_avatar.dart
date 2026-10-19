@@ -41,7 +41,7 @@ class GlassAvatar extends StatelessWidget {
           boxShadow: showGlow
               ? [
                   BoxShadow(
-                    color: AppColors.primaryBlue.withOpacity(0.3),
+                    color: AppColors.primaryBlue.withValues(alpha: 0.3),
                     blurRadius: 16,
                     spreadRadius: 2,
                   ),
@@ -55,7 +55,7 @@ class GlassAvatar extends StatelessWidget {
             color: Theme.of(context).scaffoldBackgroundColor,
             border: showBorder && !showGlow
                 ? Border.all(
-                    color: borderColor ?? AppColors.primaryBlue.withOpacity(0.3),
+                    color: borderColor ?? AppColors.primaryBlue.withValues(alpha: 0.3),
                     width: 2,
                   )
                 : null,

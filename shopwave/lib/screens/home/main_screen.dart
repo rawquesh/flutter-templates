@@ -32,9 +32,9 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
     _screens.addAll([
       HomeScreen(
-        onThemeChanged: () {},
         currentThemeIndex: widget.currentThemeIndex,
         onThemeChangedWithIndex: widget.onThemeChanged,
+        onSelectTab: (index) => setState(() => _currentIndex = index),
       ),
       const CategoriesScreen(),
       CartScreen(cartCount: _cartCount),
@@ -163,80 +163,3 @@ class ThemeToggleButton extends StatelessWidget {
   }
 }
 
-class AppDrawer extends StatelessWidget {
-  const AppDrawer({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
-    return Drawer(
-      child: Container(
-        color: isDark ? AppColors.sidebarDark : AppColors.sidebarLight,
-        child: SafeArea(
-          child: Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(24),
-                child: Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          colors: AppColors.gradientPrimary,
-                        ),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Icon(
-                        Icons.shopping_bag,
-                        color: Colors.white,
-                        size: 28,
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    const Text(
-                      'ShopWave',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const Divider(),
-              Expanded(
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  children: [
-                    _drawerItem(Icons.grid_view, 'All Categories', context),
-                    _drawerItem(Icons.shopping_bag_outlined, 'My Orders', context),
-                    _drawerItem(Icons.local_shipping_outlined, 'Order Tracking', context),
-                    _drawerItem(Icons.bolt, 'Flash Deals', context),
-                    _drawerItem(Icons.compare_arrows, 'Compare Products', context),
-                    _drawerItem(Icons.card_giftcard, 'Gift Cards', context),
-                    _drawerItem(Icons.storefront_outlined, 'Become a Seller', context),
-                    _drawerItem(Icons.local_offer_outlined, 'Offers & Deals', context),
-                    const Divider(),
-                    _drawerItem(Icons.settings_outlined, 'Settings', context),
-                    _drawerItem(Icons.help_outline, 'Help & Support', context),
-                    _drawerItem(Icons.info_outline, 'About', context),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _drawerItem(IconData icon, String title, BuildContext context) {
-    return ListTile(
-      leading: Icon(icon),
-      title: Text(title),
-      onTap: () => Navigator.pop(context),
-    );
-  }
-}

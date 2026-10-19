@@ -132,13 +132,9 @@ class FoodItemCard extends StatelessWidget {
               ),
             ),
             if (isBestseller)
-              Positioned(
-                top: 0,
-                right: 0,
-                child: GlassBadge(
-                  text: 'Bestseller',
-                  type: BadgeType.bestseller,
-                ),
+              const GlassBadge(
+                text: 'Bestseller',
+                type: BadgeType.bestseller,
               ),
             const SizedBox(width: 8),
             GestureDetector(

@@ -6,18 +6,19 @@ import '../../widgets/product_card.dart';
 import '../../widgets/banner_carousel.dart';
 import '../../widgets/category_card.dart';
 import '../../widgets/deal_card.dart';
+import '../../widgets/app_drawer.dart';
 import '../../utils/constants.dart';
 
 class HomeScreen extends StatefulWidget {
-  final VoidCallback onThemeChanged;
   final int currentThemeIndex;
   final ValueChanged<int>? onThemeChangedWithIndex;
+  final ValueChanged<int>? onSelectTab;
 
   const HomeScreen({
     super.key,
-    required this.onThemeChanged,
     required this.currentThemeIndex,
     this.onThemeChangedWithIndex,
+    this.onSelectTab,
   });
 
   @override
@@ -40,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       backgroundColor: isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
+      drawer: AppDrawer(onSelectTab: widget.onSelectTab),
       body: SafeArea(
         child: _showSearch ? _buildSearchOverlay() : _buildHomeContent(),
       ),
@@ -371,7 +373,7 @@ class _HomeScreenState extends State<HomeScreen> {
           physics: const NeverScrollableScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: 0.7,
+            childAspectRatio: 0.68,
             crossAxisSpacing: 12,
             mainAxisSpacing: 12,
           ),

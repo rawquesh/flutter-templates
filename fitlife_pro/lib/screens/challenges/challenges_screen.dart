@@ -11,8 +11,7 @@ class ChallengesScreen extends StatefulWidget {
   State<ChallengesScreen> createState() => _ChallengesScreenState();
 }
 
-class _ChallengesScreenState extends State<ChallengesScreen> with SingleTickerProviderStateMixin {
-  late TabController _tabController;
+class _ChallengesScreenState extends State<ChallengesScreen> {
   int _selectedCategoryIndex = 0;
 
   final List<Map<String, dynamic>> _challenges = [
@@ -51,18 +50,6 @@ class _ChallengesScreenState extends State<ChallengesScreen> with SingleTickerPr
       'isJoined': false,
     },
   ];
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 4, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -240,7 +227,6 @@ class _ChallengesScreenState extends State<ChallengesScreen> with SingleTickerPr
           return GestureDetector(
             onTap: () {
               setState(() => _selectedCategoryIndex = index);
-              _tabController.animateTo(index);
             },
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),

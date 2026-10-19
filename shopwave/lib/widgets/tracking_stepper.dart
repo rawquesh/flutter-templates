@@ -18,8 +18,9 @@ class TrackingStepper extends StatelessWidget {
     return Column(
       children: List.generate(steps.length, (index) {
         final step = steps[index];
-        final isCompleted = index < currentStep;
-        final isCurrent = index == currentStep;
+        // Honor an explicitly completed step, otherwise derive from position.
+        final isCompleted = step.isCompleted || index < currentStep;
+        final isCurrent = !step.isCompleted && index == currentStep;
         final isLast = index == steps.length - 1;
 
         return Row(

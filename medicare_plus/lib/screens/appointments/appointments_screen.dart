@@ -69,7 +69,7 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> with SingleTick
     return Container(
       margin: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: widget.isDark ? Colors.white.withOpacity(0.05) : Colors.white,
+        color: widget.isDark ? Colors.white.withValues(alpha: 0.05) : Colors.white,
         borderRadius: BorderRadius.circular(12),
       ),
       child: TabBar(
@@ -128,8 +128,8 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> with SingleTick
         title = 'No Completed Appointments'; message = 'Your completed appointments will appear here'; icon = Icons.check_circle_outline; break;
       case AppointmentStatus.cancelled:
         title = 'No Cancelled Appointments'; message = 'You have no cancelled appointments'; icon = Icons.cancel_outlined; break;
-      default:
-        title = 'No Appointments'; message = 'No appointments found'; icon = Icons.event_busy;
+      case AppointmentStatus.pending:
+        title = 'No Pending Appointments'; message = 'Your pending appointments will appear here'; icon = Icons.hourglass_empty_outlined; break;
     }
 
     return Center(

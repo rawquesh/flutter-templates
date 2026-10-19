@@ -32,16 +32,16 @@ class GlassChip extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
           color: isSelected
-              ? activeColor.withOpacity(isDark ? 0.2 : 0.15)
+              ? activeColor.withValues(alpha: isDark ? 0.2 : 0.15)
               : (isDark
-                  ? Colors.white.withOpacity(0.08)
-                  : Colors.white.withOpacity(0.6)),
+                  ? Colors.white.withValues(alpha: 0.08)
+                  : Colors.white.withValues(alpha: 0.6)),
           borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
           border: Border.all(
             color: isSelected
                 ? activeColor
                 : (isDark
-                    ? Colors.white.withOpacity(0.1)
+                    ? Colors.white.withValues(alpha: 0.1)
                     : AppColors.dividerLight),
             width: isSelected ? 2 : 1,
           ),

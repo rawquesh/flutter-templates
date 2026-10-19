@@ -61,38 +61,38 @@ class GlassBadge extends StatelessWidget {
     switch (type) {
       case GlassBadgeType.success:
         return _BadgeConfig(
-          backgroundColor: AppColors.success.withOpacity(0.15),
-          borderColor: AppColors.success.withOpacity(0.3),
+          backgroundColor: AppColors.success.withValues(alpha: 0.15),
+          borderColor: AppColors.success.withValues(alpha: 0.3),
           textColor: AppColors.success,
         );
       case GlassBadgeType.warning:
         return _BadgeConfig(
-          backgroundColor: AppColors.warning.withOpacity(0.15),
-          borderColor: AppColors.warning.withOpacity(0.3),
+          backgroundColor: AppColors.warning.withValues(alpha: 0.15),
+          borderColor: AppColors.warning.withValues(alpha: 0.3),
           textColor: AppColors.warning,
         );
       case GlassBadgeType.error:
         return _BadgeConfig(
-          backgroundColor: AppColors.error.withOpacity(0.15),
-          borderColor: AppColors.error.withOpacity(0.3),
+          backgroundColor: AppColors.error.withValues(alpha: 0.15),
+          borderColor: AppColors.error.withValues(alpha: 0.3),
           textColor: AppColors.error,
         );
       case GlassBadgeType.info:
         return _BadgeConfig(
-          backgroundColor: AppColors.primaryBlue.withOpacity(0.15),
-          borderColor: AppColors.primaryBlue.withOpacity(0.3),
+          backgroundColor: AppColors.primaryBlue.withValues(alpha: 0.15),
+          borderColor: AppColors.primaryBlue.withValues(alpha: 0.3),
           textColor: AppColors.primaryBlue,
         );
       case GlassBadgeType.emergency:
         return _BadgeConfig(
-          backgroundColor: AppColors.emergency.withOpacity(0.15),
-          borderColor: AppColors.emergency.withOpacity(0.3),
+          backgroundColor: AppColors.emergency.withValues(alpha: 0.15),
+          borderColor: AppColors.emergency.withValues(alpha: 0.3),
           textColor: AppColors.emergency,
         );
       case GlassBadgeType.neutral:
         return _BadgeConfig(
-          backgroundColor: Colors.grey.withOpacity(0.15),
-          borderColor: Colors.grey.withOpacity(0.3),
+          backgroundColor: Colors.grey.withValues(alpha: 0.15),
+          borderColor: Colors.grey.withValues(alpha: 0.3),
           textColor: Colors.grey,
         );
     }
@@ -184,7 +184,7 @@ class GlassStatusIndicator extends StatelessWidget {
         boxShadow: isOnline
             ? [
                 BoxShadow(
-                  color: AppColors.success.withOpacity(0.4),
+                  color: AppColors.success.withValues(alpha: 0.4),
                   blurRadius: 8,
                   spreadRadius: 1,
                 ),

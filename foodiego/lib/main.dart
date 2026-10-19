@@ -117,10 +117,14 @@ class MainShell extends StatelessWidget {
               HomeScreen(
                 onRestaurantTap: () => _navigateTo(context, 'restaurant'),
               ),
-              const SearchScreen(),
+              SearchScreen(
+                onRestaurantTap: (restaurant) =>
+                    _navigateToRestaurant(context, restaurant),
+              ),
               const OrdersScreen(),
               CartScreen(
                 onCheckout: () => _navigateTo(context, 'checkout'),
+                onBrowseRestaurants: () => onNavTap(0),
               ),
               ProfileScreen(
                 onSettingsTap: () => _navigateTo(context, 'settings'),
@@ -138,6 +142,18 @@ class MainShell extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  void _navigateToRestaurant(BuildContext context, Restaurant restaurant) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => RestaurantDetailScreen(
+          restaurant: restaurant,
+          onFoodTap: () => _navigateTo(context, 'food'),
+        ),
       ),
     );
   }

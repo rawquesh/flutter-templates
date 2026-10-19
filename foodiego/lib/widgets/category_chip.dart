@@ -19,6 +19,11 @@ class CategoryChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final cardColor = isDark ? AppColors.cardDark : AppColors.cardLight;
+    final textColor =
+        isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight;
+
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
@@ -27,7 +32,7 @@ class CategoryChip extends StatelessWidget {
         decoration: BoxDecoration(
           color: isSelected
               ? color.withValues(alpha: 0.2)
-              : AppColors.cardLight.withValues(alpha: 0.9),
+              : cardColor.withValues(alpha: 0.9),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: isSelected ? color : Colors.grey.withValues(alpha: 0.2),
@@ -63,9 +68,7 @@ class CategoryChip extends StatelessWidget {
             Text(
               name,
               style: TextStyle(
-                color: isSelected
-                    ? color
-                    : AppColors.textPrimaryLight,
+                color: isSelected ? color : textColor,
                 fontSize: 12,
                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
               ),

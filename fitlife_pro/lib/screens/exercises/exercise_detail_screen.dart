@@ -204,8 +204,8 @@ class ExerciseDetailScreen extends StatelessWidget {
                     children: [
                       const Text('Secondary:', style: TextStyle(color: AppColors.accentBlue, fontSize: 12, fontWeight: FontWeight.w600)),
                       const SizedBox(height: 8),
-                      _buildSecondaryMuscle('Shoulders'),
-                      _buildSecondaryMuscle('Triceps'),
+                      _buildSecondaryMuscle('Shoulders', isDark),
+                      _buildSecondaryMuscle('Triceps', isDark),
                     ],
                   ),
                 ),
@@ -217,7 +217,7 @@ class ExerciseDetailScreen extends StatelessWidget {
     ).animate().fadeIn(delay: 100.ms, duration: 600.ms);
   }
 
-  Widget _buildSecondaryMuscle(String name) {
+  Widget _buildSecondaryMuscle(String name, bool isDark) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 4),
       child: Row(
@@ -231,7 +231,13 @@ class ExerciseDetailScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 8),
-          Text(name, style: const TextStyle(color: Colors.white70, fontSize: 12)),
+          Text(
+            name,
+            style: TextStyle(
+              color: isDark ? Colors.white70 : Colors.grey.shade700,
+              fontSize: 12,
+            ),
+          ),
         ],
       ),
     );
@@ -271,16 +277,16 @@ class ExerciseDetailScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          _buildStep('1', 'Starting Position', 'Get into the correct starting position with proper form.'),
-          _buildStep('2', 'Execution', 'Perform the movement with controlled motion.'),
-          _buildStep('3', 'Breathing', 'Breathe consistently throughout the exercise.'),
-          _buildStep('4', 'Finish', 'Return to starting position and repeat.'),
+          _buildStep('1', 'Starting Position', 'Get into the correct starting position with proper form.', isDark),
+          _buildStep('2', 'Execution', 'Perform the movement with controlled motion.', isDark),
+          _buildStep('3', 'Breathing', 'Breathe consistently throughout the exercise.', isDark),
+          _buildStep('4', 'Finish', 'Return to starting position and repeat.', isDark),
         ],
       ),
     ).animate().fadeIn(delay: 200.ms, duration: 600.ms);
   }
 
-  Widget _buildStep(String number, String title, String description) {
+  Widget _buildStep(String number, String title, String description, bool isDark) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Row(
@@ -302,9 +308,22 @@ class ExerciseDetailScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600)),
+                Text(
+                  title,
+                  style: TextStyle(
+                    color: isDark ? Colors.white : const Color(0xFF1A1A2E),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
                 const SizedBox(height: 2),
-                Text(description, style: const TextStyle(color: Colors.white54, fontSize: 12)),
+                Text(
+                  description,
+                  style: TextStyle(
+                    color: isDark ? Colors.white54 : Colors.grey,
+                    fontSize: 12,
+                  ),
+                ),
               ],
             ),
           ),
@@ -354,7 +373,13 @@ class ExerciseDetailScreen extends StatelessWidget {
                 const Icon(Icons.check_circle, color: AppColors.success, size: 16),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: Text(tip, style: const TextStyle(color: Colors.white70, fontSize: 13)),
+                  child: Text(
+                    tip,
+                    style: TextStyle(
+                      color: isDark ? Colors.white70 : Colors.grey.shade700,
+                      fontSize: 13,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -383,15 +408,15 @@ class ExerciseDetailScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          _buildVariationItem('Dumbbell $exerciseName', 'Add free weights for more resistance'),
-          _buildVariationItem('Single Arm $exerciseName', 'Focus on one side at a time'),
-          _buildVariationItem('Slow Eccentric', '2-second lowering phase for more tension'),
+          _buildVariationItem('Dumbbell $exerciseName', 'Add free weights for more resistance', isDark),
+          _buildVariationItem('Single Arm $exerciseName', 'Focus on one side at a time', isDark),
+          _buildVariationItem('Slow Eccentric', '2-second lowering phase for more tension', isDark),
         ],
       ),
     ).animate().fadeIn(delay: 400.ms, duration: 600.ms);
   }
 
-  Widget _buildVariationItem(String name, String description) {
+  Widget _buildVariationItem(String name, String description, bool isDark) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Row(
@@ -409,8 +434,21 @@ class ExerciseDetailScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(name, style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500)),
-                Text(description, style: const TextStyle(color: Colors.white54, fontSize: 12)),
+                Text(
+                  name,
+                  style: TextStyle(
+                    color: isDark ? Colors.white : const Color(0xFF1A1A2E),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                Text(
+                  description,
+                  style: TextStyle(
+                    color: isDark ? Colors.white54 : Colors.grey,
+                    fontSize: 12,
+                  ),
+                ),
               ],
             ),
           ),
@@ -443,9 +481,9 @@ class ExerciseDetailScreen extends StatelessWidget {
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
-                _buildRelatedCard('Push-ups', 'Chest'),
-                _buildRelatedCard('Bench Press', 'Chest'),
-                _buildRelatedCard('Chest Fly', 'Chest'),
+                _buildRelatedCard('Push-ups', 'Chest', isDark),
+                _buildRelatedCard('Bench Press', 'Chest', isDark),
+                _buildRelatedCard('Chest Fly', 'Chest', isDark),
               ],
             ),
           ),
@@ -454,7 +492,7 @@ class ExerciseDetailScreen extends StatelessWidget {
     ).animate().fadeIn(delay: 500.ms, duration: 600.ms);
   }
 
-  Widget _buildRelatedCard(String name, String muscle) {
+  Widget _buildRelatedCard(String name, String muscle, bool isDark) {
     return Container(
       width: 100,
       margin: const EdgeInsets.only(right: 12),
@@ -469,8 +507,22 @@ class ExerciseDetailScreen extends StatelessWidget {
         children: [
           const Icon(Icons.fitness_center, color: AppColors.primaryOrange, size: 28),
           const SizedBox(height: 8),
-          Text(name, style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w500), textAlign: TextAlign.center),
-          Text(muscle, style: const TextStyle(color: Colors.white54, fontSize: 10)),
+          Text(
+            name,
+            style: TextStyle(
+              color: isDark ? Colors.white : const Color(0xFF1A1A2E),
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          Text(
+            muscle,
+            style: TextStyle(
+              color: isDark ? Colors.white54 : Colors.grey,
+              fontSize: 10,
+            ),
+          ),
         ],
       ),
     );

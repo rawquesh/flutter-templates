@@ -18,10 +18,10 @@ class GlassToggleSwitch extends StatelessWidget {
     return Switch(
       value: value,
       onChanged: onChanged,
-      activeColor: activeColor ?? AppColors.primaryBlue,
-      activeTrackColor: (activeColor ?? AppColors.primaryBlue).withOpacity(0.3),
+      activeThumbColor: activeColor ?? AppColors.primaryBlue,
+      activeTrackColor: (activeColor ?? AppColors.primaryBlue).withValues(alpha: 0.3),
       inactiveThumbColor: Colors.grey,
-      inactiveTrackColor: Colors.grey.withOpacity(0.3),
+      inactiveTrackColor: Colors.grey.withValues(alpha: 0.3),
     );
   }
 }

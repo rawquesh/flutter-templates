@@ -56,6 +56,7 @@ class _GlassTextFieldState extends State<GlassTextField> {
 
   @override
   void dispose() {
+    _focusNode.removeListener(_onFocusChange);
     if (widget.focusNode == null) {
       _focusNode.dispose();
     }
@@ -94,21 +95,21 @@ class _GlassTextFieldState extends State<GlassTextField> {
               duration: AppConstants.animationMedium,
               decoration: BoxDecoration(
                 color: isDark
-                    ? Colors.white.withOpacity(0.08)
-                    : Colors.white.withOpacity(0.7),
+                    ? Colors.white.withValues(alpha: 0.08)
+                    : Colors.white.withValues(alpha: 0.7),
                 borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
                 border: Border.all(
                   color: _isFocused
                       ? AppColors.primaryBlue
                       : (isDark
-                          ? Colors.white.withOpacity(0.1)
+                          ? Colors.white.withValues(alpha: 0.1)
                           : AppColors.dividerLight),
                   width: _isFocused ? 2 : 1,
                 ),
                 boxShadow: _isFocused
                     ? [
                         BoxShadow(
-                          color: AppColors.primaryBlue.withOpacity(0.1),
+                          color: AppColors.primaryBlue.withValues(alpha: 0.1),
                           blurRadius: 12,
                           offset: const Offset(0, 4),
                         ),
@@ -213,12 +214,12 @@ class GlassSearchField extends StatelessWidget {
           height: 50,
           decoration: BoxDecoration(
             color: isDark
-                ? Colors.white.withOpacity(0.08)
-                : Colors.white.withOpacity(0.7),
+                ? Colors.white.withValues(alpha: 0.08)
+                : Colors.white.withValues(alpha: 0.7),
             borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
             border: Border.all(
               color: isDark
-                  ? Colors.white.withOpacity(0.1)
+                  ? Colors.white.withValues(alpha: 0.1)
                   : AppColors.dividerLight,
             ),
           ),

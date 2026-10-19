@@ -39,7 +39,7 @@ class SymptomCard extends StatelessWidget {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: _getSeverityColor().withOpacity(0.2),
+                  color: _getSeverityColor().withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(
@@ -103,14 +103,14 @@ class SymptomCard extends StatelessWidget {
                       ),
                       decoration: BoxDecoration(
                         color: isSelected
-                            ? _getSeverityColorForType(sev).withOpacity(0.2)
+                            ? _getSeverityColorForType(sev).withValues(alpha: 0.2)
                             : Colors.transparent,
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
                           color: isSelected
                               ? _getSeverityColorForType(sev)
                               : (isDark
-                                  ? Colors.white.withOpacity(0.2)
+                                  ? Colors.white.withValues(alpha: 0.2)
                                   : AppColors.dividerLight),
                         ),
                       ),

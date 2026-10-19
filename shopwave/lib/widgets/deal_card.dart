@@ -215,28 +215,38 @@ class FlashSaleHeader extends StatelessWidget {
               ],
             ),
           ),
-          _CountdownBox(value: hours ~/ 10),
-          _CountdownBox(value: hours % 10),
-          const Text(
-            ':',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
+          Flexible(
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _CountdownBox(value: hours ~/ 10),
+                  _CountdownBox(value: hours % 10),
+                  const Text(
+                    ':',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  _CountdownBox(value: minutes ~/ 10),
+                  _CountdownBox(value: minutes % 10),
+                  const Text(
+                    ':',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  _CountdownBox(value: seconds ~/ 10),
+                  _CountdownBox(value: seconds % 10),
+                ],
+              ),
             ),
           ),
-          _CountdownBox(value: minutes ~/ 10),
-          _CountdownBox(value: minutes % 10),
-          const Text(
-            ':',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          _CountdownBox(value: seconds ~/ 10),
-          _CountdownBox(value: seconds % 10),
           const SizedBox(width: 12),
           GestureDetector(
             onTap: onViewAll,

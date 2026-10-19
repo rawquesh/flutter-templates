@@ -38,8 +38,8 @@ class EmergencyContactCard extends StatelessWidget {
             height: 48,
             decoration: BoxDecoration(
               color: isICE
-                  ? AppColors.error.withOpacity(0.2)
-                  : AppColors.primaryBlue.withOpacity(0.2),
+                  ? AppColors.error.withValues(alpha: 0.2)
+                  : AppColors.primaryBlue.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Icon(
@@ -69,7 +69,7 @@ class EmergencyContactCard extends StatelessWidget {
                           vertical: 2,
                         ),
                         decoration: BoxDecoration(
-                          color: AppColors.error.withOpacity(0.2),
+                          color: AppColors.error.withValues(alpha: 0.2),
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child: const Text(
@@ -149,10 +149,10 @@ class EmergencyServiceCard extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(isLarge ? 24 : 16),
         decoration: BoxDecoration(
-          color: emergencyColor.withOpacity(0.15),
+          color: emergencyColor.withValues(alpha: 0.15),
           borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
           border: Border.all(
-            color: emergencyColor.withOpacity(0.3),
+            color: emergencyColor.withValues(alpha: 0.3),
             width: isLarge ? 2 : 1,
           ),
         ),
@@ -163,7 +163,7 @@ class EmergencyServiceCard extends StatelessWidget {
               width: isLarge ? 60 : 48,
               height: isLarge ? 60 : 48,
               decoration: BoxDecoration(
-                color: emergencyColor.withOpacity(0.2),
+                color: emergencyColor.withValues(alpha: 0.2),
                 shape: BoxShape.circle,
               ),
               child: Icon(
@@ -223,7 +223,7 @@ class MedicalInfoCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: AppColors.error.withOpacity(0.2),
+                  color: AppColors.error.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: const Icon(

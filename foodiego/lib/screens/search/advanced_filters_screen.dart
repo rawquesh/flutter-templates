@@ -12,6 +12,7 @@ class AdvancedFiltersScreen extends StatefulWidget {
 class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
   final Set<String> _selectedCuisines = {};
   final Set<String> _selectedDietary = {};
+  final Set<String> _selectedPromos = {};
   String _priceRange = '';
   double _distance = 5.0;
   double _minRating = 3.0;
@@ -253,6 +254,7 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
   }
 
   Widget _buildPromoOption(String title, IconData icon, bool isDark) {
+    final isSelected = _selectedPromos.contains(title);
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       padding: const EdgeInsets.all(12),
@@ -272,8 +274,16 @@ class _AdvancedFiltersScreenState extends State<AdvancedFiltersScreen> {
           ),
           const Spacer(),
           Switch(
-            value: false,
-            onChanged: (v) {},
+            value: isSelected,
+            onChanged: (v) {
+              setState(() {
+                if (v) {
+                  _selectedPromos.add(title);
+                } else {
+                  _selectedPromos.remove(title);
+                }
+              });
+            },
             activeTrackColor: AppColors.primaryOrange.withValues(alpha: 0.5),
             thumbColor: WidgetStateProperty.resolveWith((states) {
               if (states.contains(WidgetState.selected)) {

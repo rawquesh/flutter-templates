@@ -371,7 +371,7 @@ class _ActiveWorkoutScreenState extends State<ActiveWorkoutScreen> {
                   ),
                   child: Text(
                     _formatDuration(_elapsed),
-                    style: const TextStyle(color: AppColors.primaryOrange, fontSize: 14, fontFamily: 'monospace'),
+                    style: const TextStyle(color: AppColors.primaryOrange, fontSize: 14),
                   ),
                 ),
               ],

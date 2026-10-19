@@ -25,7 +25,7 @@ class GlassBottomNav extends StatelessWidget {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(isDark ? 0.3 : 0.1),
+            color: Colors.black.withValues(alpha: isDark ? 0.3 : 0.1),
             blurRadius: 20,
             offset: const Offset(0, -5),
           ),
@@ -37,12 +37,12 @@ class GlassBottomNav extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               color: isDark
-                  ? AppColors.sidebarDark.withOpacity(0.95)
-                  : AppColors.cardLight.withOpacity(0.95),
+                  ? AppColors.sidebarDark.withValues(alpha: 0.95)
+                  : AppColors.cardLight.withValues(alpha: 0.95),
               border: Border(
                 top: BorderSide(
                   color: isDark
-                      ? Colors.white.withOpacity(0.1)
+                      ? Colors.white.withValues(alpha: 0.1)
                       : AppColors.dividerLight,
                 ),
               ),
@@ -90,7 +90,7 @@ class _NavItem extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
           color: isSelected
-              ? AppColors.primaryBlue.withOpacity(0.15)
+              ? AppColors.primaryBlue.withValues(alpha: 0.15)
               : Colors.transparent,
           borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
         ),

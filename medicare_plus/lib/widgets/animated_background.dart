@@ -148,7 +148,7 @@ class _AnimatedBlob extends StatelessWidget {
                 gradient: RadialGradient(
                   colors: [
                     blob.color,
-                    blob.color.withOpacity(0),
+                    blob.color.withValues(alpha: 0),
                   ],
                 ),
               ),
@@ -229,8 +229,8 @@ class MeshGradientBackground extends StatelessWidget {
               shape: BoxShape.circle,
               gradient: RadialGradient(
                 colors: [
-                  AppColors.primaryBlue.withOpacity(0.4),
-                  AppColors.primaryBlue.withOpacity(0),
+                  AppColors.primaryBlue.withValues(alpha: 0.4),
+                  AppColors.primaryBlue.withValues(alpha: 0),
                 ],
               ),
             ),
@@ -246,8 +246,8 @@ class MeshGradientBackground extends StatelessWidget {
               shape: BoxShape.circle,
               gradient: RadialGradient(
                 colors: [
-                  AppColors.teal.withOpacity(0.3),
-                  AppColors.teal.withOpacity(0),
+                  AppColors.teal.withValues(alpha: 0.3),
+                  AppColors.teal.withValues(alpha: 0),
                 ],
               ),
             ),

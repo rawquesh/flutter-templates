@@ -53,12 +53,12 @@ class _SymptomCheckerScreenState extends State<SymptomCheckerScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.error.withOpacity(0.1),
+        color: AppColors.error.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.error.withOpacity(0.3)),
+        border: Border.all(color: AppColors.error.withValues(alpha: 0.3)),
       ),
       child: Row(children: [
-        Container(padding: const EdgeInsets.all(12), decoration: BoxDecoration(color: AppColors.error.withOpacity(0.2), borderRadius: BorderRadius.circular(12)), child: const Icon(Icons.emergency, color: AppColors.error, size: 28)),
+        Container(padding: const EdgeInsets.all(12), decoration: BoxDecoration(color: AppColors.error.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(12)), child: const Icon(Icons.emergency, color: AppColors.error, size: 28)),
         const SizedBox(width: 16),
         Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text('Emergency?', style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.error, fontSize: 16)),
@@ -88,7 +88,7 @@ class _SymptomCheckerScreenState extends State<SymptomCheckerScreen> {
         final isSelected = _selectedSymptoms.contains(symptom);
         return GlassChip(label: symptom, isSelected: isSelected, onTap: () {
           setState(() {
-            if (isSelected) _selectedSymptoms.remove(symptom); else _selectedSymptoms.add(symptom);
+            if (isSelected) { _selectedSymptoms.remove(symptom); } else { _selectedSymptoms.add(symptom); }
           });
         });
       }).toList()),
@@ -142,7 +142,7 @@ class _SymptomCheckerScreenState extends State<SymptomCheckerScreen> {
 
   Widget _buildUrgencyLevel() {
     return GlassCard(child: Row(children: [
-      Container(padding: const EdgeInsets.all(12), decoration: BoxDecoration(color: AppColors.warning.withOpacity(0.2), borderRadius: BorderRadius.circular(12)), child: const Icon(Icons.access_time, color: AppColors.warning, size: 28)),
+      Container(padding: const EdgeInsets.all(12), decoration: BoxDecoration(color: AppColors.warning.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(12)), child: const Icon(Icons.access_time, color: AppColors.warning, size: 28)),
       const SizedBox(width: 16),
       Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text('Urgency Level', style: TextStyle(fontWeight: FontWeight.bold, color: widget.isDark ? Colors.white : AppColors.textPrimaryLight)),
@@ -167,7 +167,7 @@ class _SymptomCheckerScreenState extends State<SymptomCheckerScreen> {
   Widget _buildDisclaimer() {
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(color: AppColors.primaryBlue.withOpacity(0.1), borderRadius: BorderRadius.circular(12), border: Border.all(color: AppColors.primaryBlue.withOpacity(0.2))),
+      decoration: BoxDecoration(color: AppColors.primaryBlue.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(12), border: Border.all(color: AppColors.primaryBlue.withValues(alpha: 0.2))),
       child: Row(children: [
         const Icon(Icons.info_outline, color: AppColors.primaryBlue),
         const SizedBox(width: 12),
@@ -188,7 +188,7 @@ class _SelectedSymptomCard extends StatelessWidget {
     return GlassCard(
       padding: const EdgeInsets.all(12),
       child: Row(children: [
-        Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: AppColors.primaryBlue.withOpacity(0.2), borderRadius: BorderRadius.circular(8)), child: const Icon(Icons.medical_services_outlined, color: AppColors.primaryBlue, size: 20)),
+        Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: AppColors.primaryBlue.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(8)), child: const Icon(Icons.medical_services_outlined, color: AppColors.primaryBlue, size: 20)),
         const SizedBox(width: 12),
         Expanded(child: Text(symptom, style: TextStyle(fontWeight: FontWeight.w500, color: isDark ? Colors.white : AppColors.textPrimaryLight))),
         GlassChip(label: 'Moderate', isSelected: true, onTap: () {}),
@@ -213,7 +213,7 @@ class _ConditionRow extends StatelessWidget {
         Text('${(probability * 100).toInt()}%', style: TextStyle(fontWeight: FontWeight.w600, color: AppColors.primaryBlue)),
       ]),
       const SizedBox(height: 4),
-      LinearProgressIndicator(value: probability, backgroundColor: isDark ? Colors.white.withOpacity(0.1) : Colors.grey[200], valueColor: const AlwaysStoppedAnimation(AppColors.primaryBlue)),
+      LinearProgressIndicator(value: probability, backgroundColor: isDark ? Colors.white.withValues(alpha: 0.1) : Colors.grey[200], valueColor: const AlwaysStoppedAnimation(AppColors.primaryBlue)),
     ]);
   }
 }
@@ -226,7 +226,7 @@ class _ActionItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(children: [
-      Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: AppColors.success.withOpacity(0.2), borderRadius: BorderRadius.circular(8)), child: Icon(icon, color: AppColors.success, size: 20)),
+      Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: AppColors.success.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(8)), child: Icon(icon, color: AppColors.success, size: 20)),
       const SizedBox(width: 12),
       Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),

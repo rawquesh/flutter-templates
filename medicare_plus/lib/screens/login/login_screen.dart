@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../theme/colors.dart';
@@ -114,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primaryBlue.withOpacity(0.4),
+            color: AppColors.primaryBlue.withValues(alpha: 0.4),
             blurRadius: 20,
             offset: const Offset(0, 10),
           ),
@@ -184,12 +183,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 decoration: BoxDecoration(
                   color: _rememberMe
                       ? AppColors.primaryBlue
-                      : Colors.white.withOpacity(0.2),
+                      : Colors.white.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(6),
                   border: Border.all(
                     color: _rememberMe
                         ? AppColors.primaryBlue
-                        : Colors.white.withOpacity(0.3),
+                        : Colors.white.withValues(alpha: 0.3),
                   ),
                 ),
                 child: _rememberMe
@@ -204,7 +203,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Text(
                 'Remember me',
                 style: TextStyle(
-                  color: Colors.white.withOpacity(0.8),
+                  color: Colors.white.withValues(alpha: 0.8),
                   fontSize: 14,
                 ),
               ),
@@ -237,7 +236,7 @@ class _LoginScreenState extends State<LoginScreen> {
           backgroundColor: AppColors.primaryBlue,
           foregroundColor: Colors.white,
           elevation: 8,
-          shadowColor: AppColors.primaryBlue.withOpacity(0.5),
+          shadowColor: AppColors.primaryBlue.withValues(alpha: 0.5),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
           ),
@@ -270,7 +269,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Expanded(
               child: Container(
                 height: 1,
-                color: Colors.white.withOpacity(0.2),
+                color: Colors.white.withValues(alpha: 0.2),
               ),
             ),
             Padding(
@@ -278,7 +277,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Text(
                 'or continue with',
                 style: TextStyle(
-                  color: Colors.white.withOpacity(0.6),
+                  color: Colors.white.withValues(alpha: 0.6),
                   fontSize: 12,
                 ),
               ),
@@ -286,7 +285,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Expanded(
               child: Container(
                 height: 1,
-                color: Colors.white.withOpacity(0.2),
+                color: Colors.white.withValues(alpha: 0.2),
               ),
             ),
           ],
@@ -319,7 +318,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Text(
           "Don't have an account? ",
           style: TextStyle(
-            color: Colors.white.withOpacity(0.7),
+            color: Colors.white.withValues(alpha: 0.7),
             fontSize: 14,
           ),
         ),
@@ -370,10 +369,10 @@ class _SocialButtonState extends State<_SocialButton> {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.15),
+            color: Colors.white.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
             border: Border.all(
-              color: Colors.white.withOpacity(0.2),
+              color: Colors.white.withValues(alpha: 0.2),
             ),
           ),
           child: Row(

@@ -9,7 +9,6 @@ class AppTheme {
 
   static ThemeData get lightTheme {
     return ThemeData(
-      useMaterial3: true,
       brightness: Brightness.light,
       primaryColor: AppColors.primaryBlue,
       scaffoldBackgroundColor: AppColors.backgroundLight,
@@ -82,7 +81,6 @@ class AppTheme {
 
   static ThemeData get darkSidebarTheme {
     return ThemeData(
-      useMaterial3: true,
       brightness: Brightness.light,
       primaryColor: AppColors.primaryBlue,
       scaffoldBackgroundColor: AppColors.backgroundLight,
@@ -155,7 +153,6 @@ class AppTheme {
 
   static ThemeData get darkTheme {
     return ThemeData(
-      useMaterial3: true,
       brightness: Brightness.dark,
       primaryColor: AppColors.primaryBlue,
       scaffoldBackgroundColor: AppColors.backgroundDark,

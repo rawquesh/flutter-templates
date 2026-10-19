@@ -319,7 +319,7 @@ class _QuickActionCard extends StatelessWidget {
             width: 40,
             height: 40,
             decoration: BoxDecoration(
-              color: action.color.withOpacity(0.2),
+              color: action.color.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Icon(action.icon, color: action.color, size: 22),
@@ -376,7 +376,7 @@ class _HealthMetricCard extends StatelessWidget {
               width: 32,
               height: 32,
               decoration: BoxDecoration(
-                color: metric.color.withOpacity(0.2),
+                color: metric.color.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(metric.icon, color: metric.color, size: 18),
@@ -491,7 +491,7 @@ class _AppointmentCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
             decoration: BoxDecoration(
-              color: AppColors.primaryBlue.withOpacity(0.1),
+              color: AppColors.primaryBlue.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(

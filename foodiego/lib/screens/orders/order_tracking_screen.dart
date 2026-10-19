@@ -24,7 +24,7 @@ class OrderTrackingScreen extends StatelessWidget {
             const SizedBox(height: 16),
             _buildDeliveryPersonCard(isDark),
             const SizedBox(height: 16),
-            _buildOrderDetails(isDark),
+            _buildOrderDetails(context, isDark),
           ],
         ),
       ),
@@ -203,7 +203,7 @@ class OrderTrackingScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildOrderDetails(bool isDark) {
+  Widget _buildOrderDetails(BuildContext context, bool isDark) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -231,9 +231,9 @@ class OrderTrackingScreen extends StatelessWidget {
             ],
           ),
           const Divider(),
-          _buildOrderItem('Margherita Pizza', '1 x \$12.99'),
-          _buildOrderItem('Pepperoni Feast', '2 x \$14.99'),
-          _buildOrderItem('Garlic Bread', '1 x \$5.99'),
+          _buildOrderItem(context, 'Margherita Pizza', '1 x \$12.99'),
+          _buildOrderItem(context, 'Pepperoni Feast', '2 x \$14.99'),
+          _buildOrderItem(context, 'Garlic Bread', '1 x \$5.99'),
           const Divider(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -259,8 +259,8 @@ class OrderTrackingScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildOrderItem(String name, String price) {
-    final isDark = Theme.of(Widget as dynamic).brightness == Brightness.dark;
+  Widget _buildOrderItem(BuildContext context, String name, String price) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(

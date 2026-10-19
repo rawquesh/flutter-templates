@@ -63,7 +63,7 @@ class _HealthTipsScreenState extends State<HealthTipsScreen> {
       Text('${filtered.length} Tips Available', style: TextStyle(fontSize: 16, color: widget.isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight)),
       const SizedBox(height: 16),
       ...filtered.map((tip) => Padding(padding: const EdgeInsets.only(bottom: 16), child: _TipCard(tip: tip, isDark: widget.isDark, isBookmarked: _bookmarkedTips.contains(tip.title), onBookmark: () => setState(() {
-        if (_bookmarkedTips.contains(tip.title)) _bookmarkedTips.remove(tip.title); else _bookmarkedTips.add(tip.title);
+        if (_bookmarkedTips.contains(tip.title)) { _bookmarkedTips.remove(tip.title); } else { _bookmarkedTips.add(tip.title); }
       }))).animate().fadeIn(duration: 400.ms)),
     ]);
   }
@@ -86,7 +86,7 @@ class _TipCard extends StatelessWidget {
         Container(width: 80, height: 80, decoration: BoxDecoration(gradient: LinearGradient(colors: _getCategoryColors(tip.category), begin: Alignment.topLeft, end: Alignment.bottomRight), borderRadius: BorderRadius.circular(12)), child: Icon(_getCategoryIcon(tip.category), color: Colors.white, size: 36)),
         const SizedBox(width: 16),
         Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Container(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4), decoration: BoxDecoration(color: _getCategoryColors(tip.category)[0].withOpacity(0.2), borderRadius: BorderRadius.circular(8)), child: Text(tip.category, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _getCategoryColors(tip.category)[0]))),
+          Container(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4), decoration: BoxDecoration(color: _getCategoryColors(tip.category)[0].withValues(alpha: 0.2), borderRadius: BorderRadius.circular(8)), child: Text(tip.category, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _getCategoryColors(tip.category)[0]))),
           const SizedBox(height: 8),
           Text(tip.title, style: TextStyle(fontWeight: FontWeight.bold, color: isDark ? Colors.white : AppColors.textPrimaryLight), maxLines: 1, overflow: TextOverflow.ellipsis),
           const SizedBox(height: 4),

@@ -188,34 +188,37 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildInfoItem(Icons.timer, widget.duration, 'Duration'),
+          _buildInfoItem(Icons.timer, widget.duration, 'Duration', isDark),
           _buildDivider(),
-          _buildInfoItem(Icons.local_fire_department, widget.calories, 'Calories'),
+          _buildInfoItem(Icons.local_fire_department, widget.calories, 'Calories', isDark),
           _buildDivider(),
-          _buildInfoItem(Icons.fitness_center, '${widget.exerciseCount}', 'Exercises'),
+          _buildInfoItem(Icons.fitness_center, '${widget.exerciseCount}', 'Exercises', isDark),
           _buildDivider(),
-          _buildDifficultyItem(),
+          _buildDifficultyItem(isDark),
         ],
       ),
     ).animate().fadeIn(duration: 600.ms);
   }
 
-  Widget _buildInfoItem(IconData icon, String value, String label) {
+  Widget _buildInfoItem(IconData icon, String value, String label, bool isDark) {
     return Column(
       children: [
         Icon(icon, color: AppColors.primaryOrange, size: 24),
         const SizedBox(height: 8),
         Text(
           value,
-          style: const TextStyle(
-            color: Colors.white,
+          style: TextStyle(
+            color: isDark ? Colors.white : const Color(0xFF1A1A2E),
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(
           label,
-          style: const TextStyle(color: Colors.white54, fontSize: 11),
+          style: TextStyle(
+            color: isDark ? Colors.white54 : Colors.grey,
+            fontSize: 11,
+          ),
         ),
       ],
     );
@@ -229,7 +232,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
     );
   }
 
-  Widget _buildDifficultyItem() {
+  Widget _buildDifficultyItem(bool isDark) {
     return Column(
       children: [
         Row(
@@ -241,9 +244,12 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
           )),
         ),
         const SizedBox(height: 8),
-        const Text(
+        Text(
           'Difficulty',
-          style: TextStyle(color: Colors.white54, fontSize: 11),
+          style: TextStyle(
+            color: isDark ? Colors.white54 : Colors.grey,
+            fontSize: 11,
+          ),
         ),
       ],
     );

@@ -16,7 +16,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen>
-    with TickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _rememberMe = false;
@@ -331,7 +331,7 @@ class _LoginScreenState extends State<LoginScreen>
             ],
           ),
           child: GlassButton(
-            text: 'Start Workout',
+            text: 'Sign In',
             icon: Icons.arrow_forward,
             type: GlassButtonType.gradient,
             onPressed: _handleLogin,

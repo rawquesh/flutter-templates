@@ -286,7 +286,10 @@ class _BodyMeasurementsScreenState extends State<BodyMeasurementsScreen> {
                       children: [
                         Text(
                           m['part']!,
-                          style: const TextStyle(color: Colors.white70, fontSize: 12),
+                          style: TextStyle(
+                            color: isDark ? Colors.white70 : Colors.grey.shade700,
+                            fontSize: 12,
+                          ),
                         ),
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
@@ -313,11 +316,18 @@ class _BodyMeasurementsScreenState extends State<BodyMeasurementsScreen> {
                       children: [
                         Text(
                           m['value']!,
-                          style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            color: isDark ? Colors.white : const Color(0xFF1A1A2E),
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         Text(
                           ' ${m['unit']}',
-                          style: const TextStyle(color: Colors.white54, fontSize: 12),
+                          style: TextStyle(
+                            color: isDark ? Colors.white54 : Colors.grey,
+                            fontSize: 12,
+                          ),
                         ),
                       ],
                     ),
@@ -351,25 +361,38 @@ class _BodyMeasurementsScreenState extends State<BodyMeasurementsScreen> {
             ),
           ),
           const SizedBox(height: 16),
-          _buildGoalItem('Target Weight', '72 kg', 0.8, AppColors.success),
+          _buildGoalItem('Target Weight', '72 kg', 0.8, AppColors.success, isDark),
           const SizedBox(height: 12),
-          _buildGoalItem('Body Fat %', '12%', 0.6, AppColors.primaryOrange),
+          _buildGoalItem('Body Fat %', '12%', 0.6, AppColors.primaryOrange, isDark),
           const SizedBox(height: 12),
-          _buildGoalItem('Waist', '80 cm', 0.4, AppColors.accentBlue),
+          _buildGoalItem('Waist', '80 cm', 0.4, AppColors.accentBlue, isDark),
         ],
       ),
     ).animate().fadeIn(delay: 400.ms, duration: 600.ms);
   }
 
-  Widget _buildGoalItem(String label, String target, double progress, Color color) {
+  Widget _buildGoalItem(String label, String target, double progress, Color color, bool isDark) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(label, style: const TextStyle(color: Colors.white70, fontSize: 14)),
-            Text(target, style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600)),
+            Text(
+              label,
+              style: TextStyle(
+                color: isDark ? Colors.white70 : Colors.grey.shade700,
+                fontSize: 14,
+              ),
+            ),
+            Text(
+              target,
+              style: TextStyle(
+                color: isDark ? Colors.white : const Color(0xFF1A1A2E),
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 8),

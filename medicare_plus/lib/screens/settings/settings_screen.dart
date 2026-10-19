@@ -67,7 +67,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       Text('Notifications', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: widget.isDark ? Colors.white : AppColors.textPrimaryLight)),
       const SizedBox(height: 16),
       GlassCard(child: Column(children: _notifications.entries.map((e) => Padding(padding: const EdgeInsets.symmetric(vertical: 8), child: Row(children: [
-        Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: AppColors.primaryBlue.withOpacity(0.1), borderRadius: BorderRadius.circular(8)), child: Icon(_getNotificationIcon(e.key), color: AppColors.primaryBlue, size: 20)),
+        Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: AppColors.primaryBlue.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)), child: Icon(_getNotificationIcon(e.key), color: AppColors.primaryBlue, size: 20)),
         const SizedBox(width: 16),
         Expanded(child: Text(e.key, style: TextStyle(color: widget.isDark ? Colors.white : AppColors.textPrimaryLight))),
         GlassToggleSwitch(value: e.value, onChanged: (v) => setState(() => _notifications[e.key] = v)),
@@ -137,14 +137,14 @@ class _ThemeCard extends StatelessWidget {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.primaryBlue.withOpacity(0.1) : (isDark ? Colors.white.withOpacity(0.05) : Colors.white),
+          color: isSelected ? AppColors.primaryBlue.withValues(alpha: 0.1) : (isDark ? Colors.white.withValues(alpha: 0.05) : Colors.white),
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: isSelected ? AppColors.primaryBlue : (isDark ? Colors.white.withOpacity(0.1) : AppColors.dividerLight), width: isSelected ? 2 : 1),
+          border: Border.all(color: isSelected ? AppColors.primaryBlue : (isDark ? Colors.white.withValues(alpha: 0.1) : AppColors.dividerLight), width: isSelected ? 2 : 1),
         ),
         child: Column(children: [
           Container(
             width: 60, height: 40,
-            decoration: BoxDecoration(color: previewColor, borderRadius: BorderRadius.circular(8), border: Border.all(color: isDark ? Colors.white.withOpacity(0.2) : AppColors.dividerLight)),
+            decoration: BoxDecoration(color: previewColor, borderRadius: BorderRadius.circular(8), border: Border.all(color: isDark ? Colors.white.withValues(alpha: 0.2) : AppColors.dividerLight)),
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               Container(width: 20, height: double.infinity, decoration: BoxDecoration(color: previewColor == Colors.white ? Colors.grey[300] : Colors.grey[800], borderRadius: const BorderRadius.only(topLeft: Radius.circular(7), bottomLeft: Radius.circular(7)))),
               const SizedBox(width: 1),
@@ -155,7 +155,7 @@ class _ThemeCard extends StatelessWidget {
           Icon(icon, color: isSelected ? AppColors.primaryBlue : (isDark ? Colors.white70 : Colors.grey)),
           const SizedBox(height: 8),
           Text(title, style: TextStyle(fontWeight: isSelected ? FontWeight.bold : FontWeight.normal, color: isSelected ? AppColors.primaryBlue : (isDark ? Colors.white : AppColors.textPrimaryLight))),
-          if (isDefault) ...[const SizedBox(height: 4), Container(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2), decoration: BoxDecoration(color: AppColors.success.withOpacity(0.2), borderRadius: BorderRadius.circular(4)), child: const Text('Default', style: TextStyle(fontSize: 10, color: AppColors.success)))],
+          if (isDefault) ...[const SizedBox(height: 4), Container(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2), decoration: BoxDecoration(color: AppColors.success.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(4)), child: const Text('Default', style: TextStyle(fontSize: 10, color: AppColors.success)))],
         ]),
       ),
     );
@@ -173,7 +173,7 @@ class _SettingsItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Row(children: [
-        Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: AppColors.primaryBlue.withOpacity(0.1), borderRadius: BorderRadius.circular(10)), child: Icon(icon, color: AppColors.primaryBlue, size: 22)),
+        Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: AppColors.primaryBlue.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(10)), child: Icon(icon, color: AppColors.primaryBlue, size: 22)),
         const SizedBox(width: 16),
         Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(title, style: const TextStyle(fontWeight: FontWeight.w600)), Text(subtitle, style: TextStyle(fontSize: 12, color: Colors.grey))])),
         Icon(Icons.chevron_right, color: Colors.grey),

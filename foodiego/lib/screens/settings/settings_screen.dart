@@ -12,6 +12,9 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   int _selectedTheme = 1;
+  bool _pushNotifications = true;
+  bool _emailNotifications = false;
+  bool _smsNotifications = false;
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +43,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
             const SizedBox(height: 24),
             _buildSectionTitle('Notifications', isDark),
             const SizedBox(height: 12),
-            _buildSwitchTile('Push Notifications', Icons.notifications, true, isDark),
-            _buildSwitchTile('Email Notifications', Icons.email, false, isDark),
-            _buildSwitchTile('SMS Notifications', Icons.sms, false, isDark),
+            _buildSwitchTile('Push Notifications', Icons.notifications,
+                _pushNotifications, (v) => setState(() => _pushNotifications = v), isDark),
+            _buildSwitchTile('Email Notifications', Icons.email,
+                _emailNotifications, (v) => setState(() => _emailNotifications = v), isDark),
+            _buildSwitchTile('SMS Notifications', Icons.sms, _smsNotifications,
+                (v) => setState(() => _smsNotifications = v), isDark),
             const SizedBox(height: 24),
             _buildSectionTitle('Preferences', isDark),
             const SizedBox(height: 12),
@@ -211,7 +217,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Widget _buildSwitchTile(String title, IconData icon, bool value, bool isDark) {
+  Widget _buildSwitchTile(String title, IconData icon, bool value,
+      ValueChanged<bool> onChanged, bool isDark) {
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
@@ -228,7 +235,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         trailing: Switch(
           value: value,
-          onChanged: (v) {},
+          onChanged: onChanged,
           activeTrackColor: AppColors.primaryOrange.withValues(alpha: 0.5),
           thumbColor: WidgetStateProperty.resolveWith((states) {
             if (states.contains(WidgetState.selected)) {
