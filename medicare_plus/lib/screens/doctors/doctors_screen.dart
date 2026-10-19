@@ -3,25 +3,22 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../../theme/colors.dart';
 import '../../widgets/glass_text_field.dart';
 import '../../widgets/glass_chip.dart';
-import '../../widgets/glass_bottom_nav.dart';
-import '../../widgets/glass_sidebar.dart';
-import '../../widgets/glass_toggle.dart';
 import '../../widgets/doctor_card.dart';
-import '../../theme/app_theme.dart';
 
 class DoctorsScreen extends StatefulWidget {
-  const DoctorsScreen({super.key});
+  final bool isDark;
+
+  const DoctorsScreen({super.key, required this.isDark});
 
   @override
   State<DoctorsScreen> createState() => _DoctorsScreenState();
 }
 
 class _DoctorsScreenState extends State<DoctorsScreen> {
-  bool _isDark = true;
   int _selectedSpecialty = 0;
   final Set<String> _favorites = {};
 
-  final List<_Doctor> _doctors = [
+  static final List<_Doctor> _doctors = [
     _Doctor(name: 'Sarah Wilson', specialty: 'Cardiologist', rating: 4.9, reviews: 128, experience: 12),
     _Doctor(name: 'Michael Chen', specialty: 'Dermatologist', rating: 4.8, reviews: 95, experience: 8),
     _Doctor(name: 'Emily Parker', specialty: 'General Physician', rating: 4.7, reviews: 156, experience: 15),
@@ -30,109 +27,42 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
     _Doctor(name: 'Robert Garcia', specialty: 'Neurologist', rating: 4.8, reviews: 88, experience: 14),
   ];
 
-  final List<String> _specialties = [
-    'All',
-    'Cardiologist',
-    'Dermatologist',
-    'General',
-    'Orthopedic',
-    'Pediatrician',
-    'Neurologist',
-    'Dentist',
+  static final List<String> _specialties = [
+    'All', 'Cardiologist', 'Dermatologist', 'General', 'Orthopedic', 'Pediatrician', 'Neurologist', 'Dentist',
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: _isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
-      drawer: _buildDrawer(),
-      body: Row(
-        children: [
-          if (MediaQuery.of(context).size.width > 800)
-            GlassSidebar(
-              selectedIndex: 1,
-              onItemTap: (_) {},
-              onThemeToggle: () => setState(() => _isDark = !_isDark),
-              currentTheme: _isDark ? AppThemeMode.dark : AppThemeMode.light,
-              isDark: _isDark,
+    return CustomScrollView(
+      slivers: [
+        SliverAppBar(
+          floating: true,
+          backgroundColor: widget.isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
+          title: Text(
+            'Find Doctors',
+            style: TextStyle(
+              color: widget.isDark ? Colors.white : AppColors.textPrimaryLight,
+              fontWeight: FontWeight.bold,
             ),
-          Expanded(
-            child: CustomScrollView(
-              slivers: [
-                _buildAppBar(),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildSearchBar(),
-                        const SizedBox(height: 16),
-                        _buildSpecialtyChips(),
-                        const SizedBox(height: 24),
-                        _buildDoctorList(),
-                        const SizedBox(height: 100),
-                      ],
-                    ),
-                  ),
-                ),
+          ),
+          actions: const [SizedBox(width: 16)],
+        ),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildSearchBar(),
+                const SizedBox(height: 16),
+                _buildSpecialtyChips(),
+                const SizedBox(height: 24),
+                _buildDoctorList(),
+                const SizedBox(height: 100),
               ],
             ),
           ),
-        ],
-      ),
-      bottomNavigationBar: GlassBottomNav(
-        currentIndex: 1,
-        onTap: (_) {},
-        items: const [
-          GlassBottomNavItem(icon: Icons.home_outlined, activeIcon: Icons.home, label: 'Home'),
-          GlassBottomNavItem(icon: Icons.medical_services_outlined, activeIcon: Icons.medical_services, label: 'Doctors'),
-          GlassBottomNavItem(icon: Icons.calendar_today_outlined, activeIcon: Icons.calendar_today, label: 'Appointments'),
-          GlassBottomNavItem(icon: Icons.person_outline, activeIcon: Icons.person, label: 'Profile'),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: AppColors.primaryBlue,
-        child: const Icon(Icons.add, color: Colors.white),
-      ),
-    );
-  }
-
-  Widget _buildDrawer() {
-    return GlassDrawer(
-      selectedIndex: 1,
-      onItemTap: (_) {},
-      onThemeToggle: () => setState(() => _isDark = !_isDark),
-      currentTheme: _isDark ? AppThemeMode.dark : AppThemeMode.light,
-      isDark: _isDark,
-      child: const SizedBox(),
-    );
-  }
-
-  Widget _buildAppBar() {
-    return SliverAppBar(
-      floating: true,
-      backgroundColor: _isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
-      leading: Builder(
-        builder: (context) => IconButton(
-          icon: Icon(Icons.menu, color: _isDark ? Colors.white : AppColors.textPrimaryLight),
-          onPressed: () => Scaffold.of(context).openDrawer(),
         ),
-      ),
-      title: Text(
-        'Find Doctors',
-        style: TextStyle(
-          color: _isDark ? Colors.white : AppColors.textPrimaryLight,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      actions: [
-        GlassThemeToggle(
-          currentTheme: _isDark ? AppThemeMode.dark : AppThemeMode.light,
-          onChanged: (mode) => setState(() => _isDark = mode == AppThemeMode.dark),
-        ),
-        const SizedBox(width: 16),
       ],
     );
   }
@@ -152,7 +82,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
-            color: _isDark ? Colors.white : AppColors.textPrimaryLight,
+            color: widget.isDark ? Colors.white : AppColors.textPrimaryLight,
           ),
         ),
         const SizedBox(height: 12),
@@ -193,14 +123,10 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
-                color: _isDark ? Colors.white : AppColors.textPrimaryLight,
+                color: widget.isDark ? Colors.white : AppColors.textPrimaryLight,
               ),
             ),
-            GlassChip(
-              label: 'Sort by Rating',
-              icon: Icons.sort,
-              onTap: () {},
-            ),
+            GlassChip(label: 'Sort by Rating', icon: Icons.sort, onTap: () {}),
           ],
         ),
         const SizedBox(height: 16),
@@ -216,7 +142,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
               reviewCount: doctor.reviews,
               experienceYears: doctor.experience,
               isFavorite: _favorites.contains(doctor.name),
-              isDark: _isDark,
+              isDark: widget.isDark,
               onTap: () {},
               onBookTap: () {},
               onFavoriteTap: () {
@@ -243,11 +169,5 @@ class _Doctor {
   final int reviews;
   final int experience;
 
-  _Doctor({
-    required this.name,
-    required this.specialty,
-    required this.rating,
-    required this.reviews,
-    required this.experience,
-  });
+  _Doctor({required this.name, required this.specialty, required this.rating, required this.reviews, required this.experience});
 }

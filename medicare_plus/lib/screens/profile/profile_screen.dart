@@ -4,22 +4,13 @@ import '../../theme/colors.dart';
 import '../../widgets/glass_card.dart';
 import '../../widgets/glass_avatar.dart';
 import '../../widgets/glass_button.dart';
-import '../../widgets/glass_bottom_nav.dart';
-import '../../widgets/glass_sidebar.dart';
-import '../../widgets/glass_toggle.dart';
-import '../../theme/app_theme.dart';
 
-class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+class ProfileScreen extends StatelessWidget {
+  final bool isDark;
 
-  @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
+  const ProfileScreen({super.key, required this.isDark});
 
-class _ProfileScreenState extends State<ProfileScreen> {
-  bool _isDark = true;
-
-  final Map<String, dynamic> _userData = {
+  static final Map<String, dynamic> _userData = {
     'name': 'John Doe',
     'email': 'john.doe@email.com',
     'phone': '+1 (555) 123-4567',
@@ -35,7 +26,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     'medications': ['Inhaler', 'Vitamin D'],
   };
 
-  final List<_SettingItem> _settings = [
+  static final List<_SettingItem> _settings = [
     _SettingItem(icon: Icons.person_outline, title: 'Edit Profile', subtitle: 'Update your personal information'),
     _SettingItem(icon: Icons.emergency_outlined, title: 'Emergency Info', subtitle: 'Blood type, allergies, conditions'),
     _SettingItem(icon: Icons.notifications_outlined, title: 'Notifications', subtitle: 'Manage your alerts'),
@@ -46,94 +37,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: _isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
-      drawer: _buildDrawer(),
-      body: Row(
-        children: [
-          if (MediaQuery.of(context).size.width > 800)
-            GlassSidebar(
-              selectedIndex: 10,
-              onItemTap: (_) {},
-              onThemeToggle: () => setState(() => _isDark = !_isDark),
-              currentTheme: _isDark ? AppThemeMode.dark : AppThemeMode.light,
-              isDark: _isDark,
-            ),
-          Expanded(
-            child: CustomScrollView(
-              slivers: [
-                _buildAppBar(),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      children: [
-                        _buildProfileHeader(),
-                        const SizedBox(height: 24),
-                        _buildStatsRow(),
-                        const SizedBox(height: 24),
-                        _buildHealthSummary(),
-                        const SizedBox(height: 24),
-                        _buildSettingsList(),
-                        const SizedBox(height: 24),
-                        _buildLogoutButton(),
-                        const SizedBox(height: 100),
-                      ],
-                    ),
-                  ),
-                ),
+    return CustomScrollView(
+      slivers: [
+        SliverAppBar(
+          floating: true,
+          backgroundColor: isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
+          title: Text(
+            'My Profile',
+            style: TextStyle(color: isDark ? Colors.white : AppColors.textPrimaryLight, fontWeight: FontWeight.bold),
+          ),
+          actions: const [SizedBox(width: 16)],
+        ),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                _buildProfileHeader(),
+                const SizedBox(height: 24),
+                _buildStatsRow(),
+                const SizedBox(height: 24),
+                _buildHealthSummary(),
+                const SizedBox(height: 24),
+                _buildSettingsList(),
+                const SizedBox(height: 24),
+                _buildLogoutButton(),
+                const SizedBox(height: 100),
               ],
             ),
           ),
-        ],
-      ),
-      bottomNavigationBar: GlassBottomNav(
-        currentIndex: 3,
-        onTap: (_) {},
-        items: const [
-          GlassBottomNavItem(icon: Icons.home_outlined, activeIcon: Icons.home, label: 'Home'),
-          GlassBottomNavItem(icon: Icons.medical_services_outlined, activeIcon: Icons.medical_services, label: 'Doctors'),
-          GlassBottomNavItem(icon: Icons.calendar_today_outlined, activeIcon: Icons.calendar_today, label: 'Appointments'),
-          GlassBottomNavItem(icon: Icons.person_outline, activeIcon: Icons.person, label: 'Profile'),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDrawer() {
-    return GlassDrawer(
-      selectedIndex: 10,
-      onItemTap: (_) {},
-      onThemeToggle: () => setState(() => _isDark = !_isDark),
-      currentTheme: _isDark ? AppThemeMode.dark : AppThemeMode.light,
-      isDark: _isDark,
-      child: const SizedBox(),
-    );
-  }
-
-  Widget _buildAppBar() {
-    return SliverAppBar(
-      floating: true,
-      backgroundColor: _isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
-      leading: Builder(
-        builder: (context) => IconButton(
-          icon: Icon(Icons.menu, color: _isDark ? Colors.white : AppColors.textPrimaryLight),
-          onPressed: () => Scaffold.of(context).openDrawer(),
         ),
-      ),
-      title: Text(
-        'My Profile',
-        style: TextStyle(
-          color: _isDark ? Colors.white : AppColors.textPrimaryLight,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      actions: [
-        GlassThemeToggle(
-          currentTheme: _isDark ? AppThemeMode.dark : AppThemeMode.light,
-          onChanged: (mode) => setState(() => _isDark = mode == AppThemeMode.dark),
-        ),
-        const SizedBox(width: 16),
       ],
     );
   }
@@ -144,11 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         children: [
           Stack(
             children: [
-              GlassAvatar(
-                size: 100,
-                name: _userData['name'],
-                showGlow: true,
-              ),
+              GlassAvatar(size: 100, name: _userData['name'], showGlow: true),
               Positioned(
                 right: 0,
                 bottom: 0,
@@ -157,10 +86,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   decoration: BoxDecoration(
                     color: AppColors.primaryBlue,
                     shape: BoxShape.circle,
-                    border: Border.all(
-                      color: _isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
-                      width: 3,
-                    ),
+                    border: Border.all(color: isDark ? AppColors.backgroundDark : AppColors.backgroundLight, width: 3),
                   ),
                   child: const Icon(Icons.edit, color: Colors.white, size: 16),
                 ),
@@ -168,43 +94,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ],
           ),
           const SizedBox(height: 16),
-          Text(
-            _userData['name'],
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: _isDark ? Colors.white : AppColors.textPrimaryLight,
-            ),
-          ),
+          Text(_userData['name'], style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: isDark ? Colors.white : AppColors.textPrimaryLight)),
           const SizedBox(height: 4),
-          Text(
-            _userData['email'],
-            style: TextStyle(
-              color: _isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            _userData['phone'],
-            style: TextStyle(
-              color: _isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
-            ),
-          ),
+          Text(_userData['email'], style: TextStyle(color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight)),
+          Text(_userData['phone'], style: TextStyle(color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight)),
           const SizedBox(height: 12),
-          Text(
-            'Member since ${_userData['memberSince']}',
-            style: TextStyle(
-              fontSize: 12,
-              color: _isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
-            ),
-          ),
+          Text('Member since ${_userData['memberSince']}', style: TextStyle(fontSize: 12, color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight)),
           const SizedBox(height: 16),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [AppColors.primaryBlue, AppColors.teal],
-              ),
+              gradient: const LinearGradient(colors: [AppColors.primaryBlue, AppColors.teal]),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Row(
@@ -212,13 +112,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 const Icon(Icons.favorite, color: Colors.white, size: 18),
                 const SizedBox(width: 8),
-                Text(
-                  'Health Score: ${_userData['healthScore']}',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                Text('Health Score: ${_userData['healthScore']}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
               ],
             ),
           ),
@@ -248,23 +142,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   Icon(stat.icon, color: AppColors.primaryBlue, size: 24),
                   const SizedBox(height: 8),
-                  Text(
-                    stat.value,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: _isDark ? Colors.white : AppColors.textPrimaryLight,
-                    ),
-                  ),
+                  Text(stat.value, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: isDark ? Colors.white : AppColors.textPrimaryLight)),
                   const SizedBox(height: 4),
-                  Text(
-                    stat.label,
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: _isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
+                  Text(stat.label, style: TextStyle(fontSize: 11, color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight), textAlign: TextAlign.center),
                 ],
               ),
             ),
@@ -283,21 +163,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: [
               Container(
                 padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: AppColors.error.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(10),
-                ),
+                decoration: BoxDecoration(color: AppColors.error.withOpacity(0.2), borderRadius: BorderRadius.circular(10)),
                 child: const Icon(Icons.medical_information, color: AppColors.error),
               ),
               const SizedBox(width: 12),
-              Text(
-                'Health Summary',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: _isDark ? Colors.white : AppColors.textPrimaryLight,
-                ),
-              ),
+              Text('Health Summary', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: isDark ? Colors.white : AppColors.textPrimaryLight)),
             ],
           ),
           const SizedBox(height: 16),
@@ -323,20 +193,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                label,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: _isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
-                ),
-              ),
-              Text(
-                value,
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  color: _isDark ? Colors.white : AppColors.textPrimaryLight,
-                ),
-              ),
+              Text(label, style: TextStyle(fontSize: 12, color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight)),
+              Text(value, style: TextStyle(fontWeight: FontWeight.w500, color: isDark ? Colors.white : AppColors.textPrimaryLight)),
             ],
           ),
         ),
@@ -348,14 +206,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Settings',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: _isDark ? Colors.white : AppColors.textPrimaryLight,
-          ),
-        ),
+        Text('Settings', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: isDark ? Colors.white : AppColors.textPrimaryLight)),
         const SizedBox(height: 16),
         ..._settings.asMap().entries.map((entry) {
           final index = entry.key;
@@ -369,10 +220,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   Container(
                     padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: AppColors.primaryBlue.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
+                    decoration: BoxDecoration(color: AppColors.primaryBlue.withOpacity(0.1), borderRadius: BorderRadius.circular(10)),
                     child: Icon(setting.icon, color: AppColors.primaryBlue, size: 22),
                   ),
                   const SizedBox(width: 16),
@@ -380,27 +228,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          setting.title,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: _isDark ? Colors.white : AppColors.textPrimaryLight,
-                          ),
-                        ),
-                        Text(
-                          setting.subtitle,
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: _isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
-                          ),
-                        ),
+                        Text(setting.title, style: TextStyle(fontWeight: FontWeight.w600, color: isDark ? Colors.white : AppColors.textPrimaryLight)),
+                        Text(setting.subtitle, style: TextStyle(fontSize: 12, color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight)),
                       ],
                     ),
                   ),
-                  Icon(
-                    Icons.chevron_right,
-                    color: _isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
-                  ),
+                  Icon(Icons.chevron_right, color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight),
                 ],
               ),
             ),
@@ -411,13 +244,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _buildLogoutButton() {
-    return GlassButton(
-      text: 'Logout',
-      variant: GlassButtonVariant.outline,
-      icon: Icons.logout,
-      isExpanded: true,
-      onPressed: () {},
-    ).animate().fadeIn(delay: 1000.ms, duration: 400.ms);
+    return GlassButton(text: 'Logout', variant: GlassButtonVariant.outline, icon: Icons.logout, isExpanded: true, onPressed: () {}).animate().fadeIn(delay: 1000.ms, duration: 400.ms);
   }
 }
 
@@ -425,7 +252,6 @@ class _StatItem {
   final IconData icon;
   final String value;
   final String label;
-
   _StatItem({required this.icon, required this.value, required this.label});
 }
 
@@ -433,6 +259,5 @@ class _SettingItem {
   final IconData icon;
   final String title;
   final String subtitle;
-
   _SettingItem({required this.icon, required this.title, required this.subtitle});
 }

@@ -90,22 +90,28 @@ class AppointmentCard extends StatelessWidget {
             ),
             child: Row(
               children: [
-                _InfoItem(
-                  icon: Icons.calendar_today,
-                  label: _formatDate(dateTime),
-                  isDark: isDark,
+                Flexible(
+                  child: _InfoItem(
+                    icon: Icons.calendar_today,
+                    label: _formatDate(dateTime),
+                    isDark: isDark,
+                  ),
                 ),
-                const SizedBox(width: 24),
-                _InfoItem(
-                  icon: Icons.access_time,
-                  label: _formatTime(dateTime),
-                  isDark: isDark,
+                const SizedBox(width: 12),
+                Flexible(
+                  child: _InfoItem(
+                    icon: Icons.access_time,
+                    label: _formatTime(dateTime),
+                    isDark: isDark,
+                  ),
                 ),
-                const SizedBox(width: 24),
-                _InfoItem(
-                  icon: Icons.location_on_outlined,
-                  label: location,
-                  isDark: isDark,
+                const SizedBox(width: 12),
+                Flexible(
+                  child: _InfoItem(
+                    icon: Icons.location_on_outlined,
+                    label: location,
+                    isDark: isDark,
+                  ),
                 ),
               ],
             ),

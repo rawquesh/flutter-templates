@@ -28,20 +28,36 @@ class _AppShellState extends State<AppShell> {
   int _sidebarIndex = 0;
   bool _isDark = true;
 
-  final List<Widget> _allScreens = const [
-    DashboardScreen(),
-    DoctorsScreen(),
-    AppointmentsScreen(),
-    HealthRecordsScreen(),
-    MedicinesScreen(),
-    HealthTipsScreen(),
-    VideoConsultationScreen(),
-    SymptomCheckerScreen(),
-    EmergencyScreen(),
-    HealthArticlesScreen(),
-    ProfileScreen(),
-    SettingsScreen(),
-  ];
+  Widget _getScreen(int index) {
+    switch (index) {
+      case 0:
+        return DashboardScreen(isDark: _isDark);
+      case 1:
+        return DoctorsScreen(isDark: _isDark);
+      case 2:
+        return AppointmentsScreen(isDark: _isDark);
+      case 3:
+        return HealthRecordsScreen(isDark: _isDark);
+      case 4:
+        return MedicinesScreen(isDark: _isDark);
+      case 5:
+        return HealthTipsScreen(isDark: _isDark);
+      case 6:
+        return VideoConsultationScreen(isDark: _isDark);
+      case 7:
+        return SymptomCheckerScreen(isDark: _isDark);
+      case 8:
+        return EmergencyScreen(isDark: _isDark);
+      case 9:
+        return HealthArticlesScreen(isDark: _isDark);
+      case 10:
+        return ProfileScreen(isDark: _isDark);
+      case 11:
+        return SettingsScreen(isDark: _isDark);
+      default:
+        return DashboardScreen(isDark: _isDark);
+    }
+  }
 
   void _onBottomNavTap(int index) {
     setState(() {
@@ -78,7 +94,7 @@ class _AppShellState extends State<AppShell> {
               isDark: _isDark,
             ),
           Expanded(
-            child: _allScreens[_sidebarIndex],
+            child: _getScreen(_sidebarIndex),
           ),
         ],
       ),

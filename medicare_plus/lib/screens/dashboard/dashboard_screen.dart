@@ -1,40 +1,28 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../theme/colors.dart';
 import '../../widgets/glass_card.dart';
 import '../../widgets/glass_avatar.dart';
-import '../../widgets/glass_bottom_nav.dart';
-import '../../widgets/glass_sidebar.dart';
-import '../../widgets/glass_toggle.dart';
-import '../../theme/app_theme.dart';
 
-class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({super.key});
+class DashboardScreen extends StatelessWidget {
+  final bool isDark;
 
-  @override
-  State<DashboardScreen> createState() => _DashboardScreenState();
-}
+  const DashboardScreen({super.key, required this.isDark});
 
-class _DashboardScreenState extends State<DashboardScreen> {
-  int _selectedNavIndex = 0;
-  int _selectedSidebarIndex = 0;
-  bool _isDark = true;
-
-  final List<_HealthMetric> _healthMetrics = [
+  static final List<_HealthMetric> _healthMetrics = [
     _HealthMetric(icon: Icons.favorite, label: 'Heart Rate', value: '72 bpm', trend: '+2', color: AppColors.heartRate),
     _HealthMetric(icon: Icons.speed, label: 'Blood Pressure', value: '120/80', trend: '-3', color: AppColors.bloodPressure),
     _HealthMetric(icon: Icons.bedtime, label: 'Sleep', value: '7h 30m', trend: '+1h', color: AppColors.sleep),
     _HealthMetric(icon: Icons.directions_walk, label: 'Steps', value: '8,432', trend: '+1.2k', color: AppColors.steps),
   ];
 
-  final List<_UpcomingAppointment> _upcomingAppointments = [
+  static final List<_UpcomingAppointment> _upcomingAppointments = [
     _UpcomingAppointment(name: 'Sarah Wilson', specialty: 'Cardiologist', date: 'Today, 2:30 PM', doctorName: 'Dr. Sarah Wilson'),
     _UpcomingAppointment(name: 'Michael Chen', specialty: 'Dermatologist', date: 'Tomorrow, 10:00 AM', doctorName: 'Dr. Michael Chen'),
     _UpcomingAppointment(name: 'Emily Parker', specialty: 'General Physician', date: 'Mar 28, 11:30 AM', doctorName: 'Dr. Emily Parker'),
   ];
 
-  final List<_HealthTip> _healthTips = [
+  static final List<_HealthTip> _healthTips = [
     _HealthTip(title: 'Stay Hydrated', subtitle: 'Drink at least 8 glasses of water daily'),
     _HealthTip(title: 'Morning Exercise', subtitle: 'A 30-minute walk boosts energy'),
     _HealthTip(title: 'Sleep Well', subtitle: 'Maintain consistent sleep schedule'),
@@ -42,111 +30,61 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: _isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
-      drawer: _buildDrawer(),
-      body: Row(
-        children: [
-          if (MediaQuery.of(context).size.width > 800)
-            GlassSidebar(
-              selectedIndex: _selectedSidebarIndex,
-              onItemTap: (index) => setState(() => _selectedSidebarIndex = index),
-              onThemeToggle: () => setState(() => _isDark = !_isDark),
-              currentTheme: _isDark ? AppThemeMode.dark : AppThemeMode.light,
-              isDark: _isDark,
-            ),
-          Expanded(
-            child: CustomScrollView(
-              slivers: [
-                _buildAppBar(),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildGreeting(),
-                        const SizedBox(height: 24),
-                        _buildQuickActions(),
-                        const SizedBox(height: 24),
-                        _buildHealthMetrics(),
-                        const SizedBox(height: 24),
-                        _buildUpcomingAppointments(),
-                        const SizedBox(height: 24),
-                        _buildHealthTips(),
-                        const SizedBox(height: 100),
-                      ],
-                    ),
+    return CustomScrollView(
+      slivers: [
+        SliverAppBar(
+          floating: true,
+          backgroundColor: isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
+          title: Row(
+            children: [
+              Container(
+                width: 36,
+                height: 36,
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [AppColors.primaryBlue, AppColors.teal],
                   ),
+                  borderRadius: BorderRadius.circular(10),
                 ),
+                child: const Icon(Icons.favorite_border, color: Colors.white, size: 20),
+              ),
+              const SizedBox(width: 12),
+              Flexible(
+                child: Text(
+                  'MediCare+',
+                  style: TextStyle(
+                    color: isDark ? Colors.white : AppColors.textPrimaryLight,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+          actions: const [
+            SizedBox(width: 16),
+          ],
+        ),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildGreeting(),
+                const SizedBox(height: 24),
+                _buildQuickActions(),
+                const SizedBox(height: 24),
+                _buildHealthMetrics(),
+                const SizedBox(height: 24),
+                _buildUpcomingAppointments(),
+                const SizedBox(height: 24),
+                _buildHealthTips(),
+                const SizedBox(height: 100),
               ],
             ),
           ),
-        ],
-      ),
-      bottomNavigationBar: GlassBottomNav(
-        currentIndex: _selectedNavIndex,
-        onTap: (index) => setState(() => _selectedNavIndex = index),
-        items: const [
-          GlassBottomNavItem(icon: Icons.home_outlined, activeIcon: Icons.home, label: 'Home'),
-          GlassBottomNavItem(icon: Icons.medical_services_outlined, activeIcon: Icons.medical_services, label: 'Doctors'),
-          GlassBottomNavItem(icon: Icons.calendar_today_outlined, activeIcon: Icons.calendar_today, label: 'Appointments'),
-          GlassBottomNavItem(icon: Icons.person_outline, activeIcon: Icons.person, label: 'Profile'),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDrawer() {
-    return GlassDrawer(
-      selectedIndex: _selectedSidebarIndex,
-      onItemTap: (index) => setState(() => _selectedSidebarIndex = index),
-      onThemeToggle: () => setState(() => _isDark = !_isDark),
-      currentTheme: _isDark ? AppThemeMode.dark : AppThemeMode.light,
-      isDark: _isDark,
-      child: const SizedBox(),
-    );
-  }
-
-  Widget _buildAppBar() {
-    return SliverAppBar(
-      floating: true,
-      backgroundColor: _isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
-      leading: Builder(
-        builder: (context) => IconButton(
-          icon: Icon(Icons.menu, color: _isDark ? Colors.white : AppColors.textPrimaryLight),
-          onPressed: () => Scaffold.of(context).openDrawer(),
         ),
-      ),
-      title: Row(
-        children: [
-          Container(
-            width: 36,
-            height: 36,
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [AppColors.primaryBlue, AppColors.teal],
-              ),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: const Icon(Icons.favorite_border, color: Colors.white, size: 20),
-          ),
-          const SizedBox(width: 12),
-          Text(
-            'MediCare+',
-            style: TextStyle(
-              color: _isDark ? Colors.white : AppColors.textPrimaryLight,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
-      actions: [
-        GlassThemeToggle(
-          currentTheme: _isDark ? AppThemeMode.dark : AppThemeMode.light,
-          onChanged: (mode) => setState(() => _isDark = mode == AppThemeMode.dark),
-        ),
-        const SizedBox(width: 16),
       ],
     );
   }
@@ -176,7 +114,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 '$greeting,',
                 style: TextStyle(
                   fontSize: 16,
-                  color: _isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
+                  color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
                 ),
               ),
               const SizedBox(height: 4),
@@ -185,14 +123,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: _isDark ? Colors.white : AppColors.textPrimaryLight,
+                  color: isDark ? Colors.white : AppColors.textPrimaryLight,
                 ),
               ),
               Text(
                 dateString,
                 style: TextStyle(
                   fontSize: 14,
-                  color: _isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
+                  color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
                 ),
               ),
             ],
@@ -225,7 +163,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: _isDark ? Colors.white : AppColors.textPrimaryLight,
+            color: isDark ? Colors.white : AppColors.textPrimaryLight,
           ),
         ),
         const SizedBox(height: 12),
@@ -236,7 +174,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             return Expanded(
               child: Padding(
                 padding: EdgeInsets.only(right: index < actions.length - 1 ? 8 : 0),
-                child: _QuickActionCard(action: action, isDark: _isDark),
+                child: _QuickActionCard(action: action, isDark: isDark),
               ),
             );
           }).toList(),
@@ -257,7 +195,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: _isDark ? Colors.white : AppColors.textPrimaryLight,
+            color: isDark ? Colors.white : AppColors.textPrimaryLight,
           ),
         ),
         const SizedBox(height: 12),
@@ -270,7 +208,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               final metric = _healthMetrics[index];
               return Padding(
                 padding: EdgeInsets.only(right: index < _healthMetrics.length - 1 ? 12 : 0),
-                child: _HealthMetricCard(metric: metric, isDark: _isDark),
+                child: _HealthMetricCard(metric: metric, isDark: isDark),
               );
             },
           ),
@@ -294,7 +232,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: _isDark ? Colors.white : AppColors.textPrimaryLight,
+                color: isDark ? Colors.white : AppColors.textPrimaryLight,
               ),
             ),
             TextButton(
@@ -316,7 +254,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               final appointment = _upcomingAppointments[index];
               return Padding(
                 padding: EdgeInsets.only(right: index < _upcomingAppointments.length - 1 ? 12 : 0),
-                child: _AppointmentCard(appointment: appointment, isDark: _isDark),
+                child: _AppointmentCard(appointment: appointment, isDark: isDark),
               );
             },
           ),
@@ -337,7 +275,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: _isDark ? Colors.white : AppColors.textPrimaryLight,
+            color: isDark ? Colors.white : AppColors.textPrimaryLight,
           ),
         ),
         const SizedBox(height: 12),
@@ -345,7 +283,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           final tip = entry.value;
           return Padding(
             padding: const EdgeInsets.only(bottom: 12),
-            child: _HealthTipCard(tip: tip, isDark: _isDark),
+            child: _HealthTipCard(tip: tip, isDark: isDark),
           );
         }),
       ],
@@ -426,58 +364,65 @@ class _HealthMetricCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GlassCard(
-      width: 130,
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 36,
-            height: 36,
-            decoration: BoxDecoration(
-              color: metric.color.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Icon(metric.icon, color: metric.color, size: 20),
-          ),
-          const SizedBox(height: 12),
-          Text(
-            metric.label,
-            style: TextStyle(
-              fontSize: 12,
-              color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            metric.value,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: isDark ? Colors.white : AppColors.textPrimaryLight,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Row(
-            children: [
-              Icon(
-                Icons.trending_up,
-                size: 14,
-                color: AppColors.success,
+    return SizedBox(
+      width: 120,
+      child: GlassCard(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 32,
+              height: 32,
+              decoration: BoxDecoration(
+                color: metric.color.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(8),
               ),
-              const SizedBox(width: 4),
-              Text(
-                metric.trend,
-                style: const TextStyle(
-                  fontSize: 12,
+              child: Icon(metric.icon, color: metric.color, size: 18),
+            ),
+            const SizedBox(height: 6),
+            Text(
+              metric.label,
+              style: TextStyle(
+                fontSize: 11,
+                color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
+              ),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            ),
+            const SizedBox(height: 2),
+            Text(
+              metric.value,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: isDark ? Colors.white : AppColors.textPrimaryLight,
+              ),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            ),
+            const SizedBox(height: 4),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.trending_up,
+                  size: 12,
                   color: AppColors.success,
                 ),
-              ),
-            ],
-          ),
-        ],
+                const SizedBox(width: 2),
+                Text(
+                  metric.trend,
+                  style: const TextStyle(
+                    fontSize: 11,
+                    color: AppColors.success,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
