@@ -39,7 +39,7 @@ dependencies:
   google_fonts: ^6.2.1
   flutter_animate: ^4.5.0
   shimmer: ^3.0.0
-  adaptive_theme: ^3.6.0
+  adaptive_theme: ">=3.6.0 <3.8.0"
 
 dev_dependencies:
   flutter_test:

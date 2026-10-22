@@ -1,13 +1,16 @@
 <div align="center">
-  <h1>Flutter Templates</h1>
-  <p><strong>Four production-grade Flutter UI templates — e-commerce, food delivery, healthcare, and fitness.</strong><br>
-  Glassmorphism design, dark &amp; light themes, smooth animations, and mock data throughout. Clone a folder, run it, and make it yours.</p>
-</div>
 
-[![Flutter](https://img.shields.io/badge/Flutter-3.47-02569B.svg)](https://flutter.dev/)
-[![Dart](https://img.shields.io/badge/Dart-3.13-0175C2.svg)](https://dart.dev/)
-[![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20iOS-lightgrey.svg)](https://flutter.dev/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+  <h1>Flutter Templates</h1>
+
+  <p><strong>Four production-grade Flutter UI templates — e-commerce, food delivery, healthcare, and fitness.</strong><br>
+  Glassmorphism design, dark & light themes, smooth animations, and mock data throughout. Clone a folder, run it, and make it yours.</p>
+
+  [![Flutter](https://img.shields.io/badge/Flutter-3.47-02569B.svg)](https://flutter.dev/)
+  [![Dart](https://img.shields.io/badge/Dart-3.13-0175C2.svg)](https://dart.dev/)
+  [![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20iOS-lightgrey.svg)](https://flutter.dev/)
+  [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+</div>
 
 ---
 
@@ -20,9 +23,9 @@
 | [MediCare Plus](#3--medicare-plus--healthcare) | Healthcare & appointments | 14 |
 | [FitLife Pro](#4--fitlife-pro--fitness--workouts) | Fitness & workout tracking | 16 |
 
-> **Screenshots:** coming soon — each template is visual-first, so run one with `flutter run` to see it live, or capture screens from your device to drop into `assets/screenshots/`.
+> **Screenshots:** Each template has a five-screen showcase below, featuring its core UI and key flows.
 >
-> **Note:** these are **UI templates** — polished front-ends wired to local mock data. No backend, no API keys, no state-management packages. They are starting points you can connect to Firebase, REST APIs, or your own backend.
+> **Note:** These are **UI templates** — polished front-ends wired to local mock data. No backend, no API keys, no state-management packages. They are starting points you can connect to Firebase, REST APIs, or your own backend.
 
 ---
 
@@ -30,6 +33,7 @@
 
 A complete online store: storefront, catalog, and order flow with a vendor dashboard.
 
+![ShopWave — E-Commerce Flutter UI Template showcase](assets/shopwave.png)
 
 **Highlights**
 - Home with banner carousel, category grid, flash-deal countdown (live timer), and featured products
@@ -43,9 +47,9 @@ A complete online store: storefront, catalog, and order flow with a vendor dashb
 ```
 shopwave/
 ├── lib/screens/   # home, categories, product_detail, compare, cart, wishlist,
-│                   # flash_deals, gift_cards, orders, order_tracking, vendor, login…
+│                  # flash_deals, gift_cards, orders, order_tracking, vendor, login…
 ├── lib/widgets/   # product_card, deal_card, banner_carousel, comparison_table,
-│                   # tracking_stepper, glass_* components…
+│                  # tracking_stepper, glass_* components…
 └── lib/theme/     # light / dark themes, shared colors
 ```
 
@@ -55,6 +59,7 @@ shopwave/
 
 A food-delivery app: discover restaurants, order food, book tables, and track deliveries.
 
+![FoodieGo — Food Delivery Flutter UI Template showcase](assets/foodiego.png)
 
 **Highlights**
 - Home with restaurant/food cards, category chips, and offer banners
@@ -69,9 +74,9 @@ A food-delivery app: discover restaurants, order food, book tables, and track de
 ```
 foodiego/
 ├── lib/screens/   # home, search, restaurant, cart, checkout, orders,
-│                   # order_tracking, booking, login, profile, settings…
+│                  # order_tracking, booking, login, profile, settings…
 ├── lib/widgets/   # restaurant_card, food_item_card, cart_item_card,
-│                   # quantity_selector, rating_stars, offer_banner…
+│                  # quantity_selector, rating_stars, offer_banner…
 └── lib/theme/     # light / dark themes, shared colors
 ```
 
@@ -81,6 +86,7 @@ foodiego/
 
 A healthcare companion: find doctors, book appointments, and manage health records.
 
+![MediCare Plus — Healthcare Flutter UI Template showcase](assets/medicare.png)
 
 **Highlights**
 - Dashboard with upcoming appointments, quick actions, and health tips
@@ -93,9 +99,9 @@ A healthcare companion: find doctors, book appointments, and manage health recor
 ```
 medicare_plus/
 ├── lib/screens/   # dashboard, doctors, appointments, medicines, health_records,
-│                   # symptom_checker, video_consultation, emergency, articles…
+│                  # symptom_checker, video_consultation, emergency, articles…
 ├── lib/widgets/   # doctor_card, appointment_card, symptom_card, article_card,
-│                   # glass_sidebar, glass_dialog, glass_* components…
+│                  # glass_sidebar, glass_dialog, glass_* components…
 └── lib/theme/     # light / dark themes, theme controller
 ```
 
@@ -105,6 +111,7 @@ medicare_plus/
 
 A fitness tracker: workouts, nutrition, hydration, and progress analytics.
 
+![FitLife Pro — Fitness & Workout Flutter UI Template showcase](assets/fitlife.png)
 
 **Highlights**
 - Dashboard with activity rings, streak calendar, and quick stats
@@ -118,9 +125,9 @@ A fitness tracker: workouts, nutrition, hydration, and progress analytics.
 ```
 fitlife_pro/
 ├── lib/screens/   # home, workouts, active_workout, exercises, progress, diet,
-│                   # meal_planner, water_tracker, body_measurements, challenges…
+│                  # meal_planner, water_tracker, body_measurements, challenges…
 ├── lib/widgets/   # workout_card, glass_progress_ring, macro_ring, streak_calendar,
-│                   # water_progress_ring, measurement_chart, workout_timer…
+│                  # water_progress_ring, measurement_chart, workout_timer…
 └── lib/theme/     # light / dark themes, shared colors
 ```
 
@@ -206,7 +213,11 @@ flutter-templates/
 ├── fitlife_pro/       # 💪 Fitness template
 ├── planning/          # Design specs & implementation plans (incl. ideas for future templates)
 └── assets/
-    └── screenshots/   # README showcase screenshots
+    ├── shopwave.png   # ShopWave README showcase
+    ├── foodiego.png   # FoodieGo README showcase
+    ├── medicare.png   # MediCare Plus README showcase
+    ├── fitlife.png    # FitLife Pro README showcase
+    └── screenshots/   # Individual screen captures (optional)
 ```
 
 The `planning/` folder holds the original design specifications for each built template, plus specs for future template ideas (crypto wallet, travel booking, online learning, event tickets, home services, social).
