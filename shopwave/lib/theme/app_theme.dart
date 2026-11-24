@@ -111,6 +111,11 @@ class AppTheme {
         ),
         iconTheme: const IconThemeData(color: Colors.white),
       ),
+      tabBarTheme: const TabBarThemeData(
+        labelColor: Colors.white,
+        unselectedLabelColor: Colors.white70,
+        indicatorColor: AppColors.primaryBlueLight,
+      ),
       cardTheme: CardThemeData(
         color: AppColors.cardLight,
         elevation: 0,

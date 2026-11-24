@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "defaultMode": "bypassPermissions",
-    "additionalDirectories": [
-      "c:\\Projects\\codecanyon\\React-templates\\.vscode"
-    ]
-  }
-}

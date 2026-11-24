@@ -222,6 +222,11 @@ class _CartScreenState extends State<CartScreen> {
               ],
             ),
           ),
+          const SizedBox(height: 16),
+          GlassButton(
+            text: 'Proceed to Checkout',
+            onPressed: widget.onCheckout,
+          ),
           const SizedBox(height: 100),
         ],
       ),

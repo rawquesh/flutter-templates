@@ -55,7 +55,9 @@ class _HomeScreenState extends State<HomeScreen> {
       slivers: [
         SliverAppBar(
           floating: true,
-          backgroundColor: isDark ? AppColors.sidebarDark : AppColors.cardLight,
+          backgroundColor: (isDark || widget.currentThemeIndex == 1)
+              ? AppColors.sidebarDark
+              : AppColors.cardLight,
           leading: Builder(
             builder: (context) => IconButton(
               icon: const Icon(Icons.menu),
@@ -161,7 +163,13 @@ class _HomeScreenState extends State<HomeScreen> {
           color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Icon(_getThemeIcon(widget.currentThemeIndex), size: 20),
+        child: Icon(
+          _getThemeIcon(widget.currentThemeIndex),
+          size: 20,
+          color: Theme.of(context).brightness == Brightness.dark
+              ? Colors.white
+              : AppColors.textPrimaryLight,
+        ),
       ),
     );
   }

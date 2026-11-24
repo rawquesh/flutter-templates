@@ -137,14 +137,22 @@ class ProfileScreen extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.only(left: index > 0 ? 8 : 0),
             child: GlassCard(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 12),
               child: Column(
                 children: [
                   Icon(stat.icon, color: AppColors.primaryBlue, size: 24),
                   const SizedBox(height: 8),
                   Text(stat.value, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: isDark ? Colors.white : AppColors.textPrimaryLight)),
                   const SizedBox(height: 4),
-                  Text(stat.label, style: TextStyle(fontSize: 11, color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight), textAlign: TextAlign.center),
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      stat.label,
+                      maxLines: 1,
+                      style: TextStyle(fontSize: 11, color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                 ],
               ),
             ),

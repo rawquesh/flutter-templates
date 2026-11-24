@@ -202,44 +202,50 @@ class _AnimatedProgressRingState extends State<AnimatedProgressRing>
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final textColor = isDark ? Colors.white : const Color(0xFF1A1A2E);
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        GlassProgressRing(
-          progress: _progressAnimation.value,
-          size: widget.size,
-          progressColor: widget.color,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                '${(_valueAnimation.value * 100).toInt()}%',
-                style: TextStyle(
-                  color: textColor,
-                  fontSize: widget.size / 5,
-                  fontWeight: FontWeight.bold,
-                ),
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, _) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            GlassProgressRing(
+              progress: _progressAnimation.value,
+              size: widget.size,
+              progressColor: widget.color,
+              animate: false,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    '${(_valueAnimation.value * 100).toInt()}%',
+                    style: TextStyle(
+                      color: textColor,
+                      fontSize: widget.size / 5,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          widget.label,
-          style: TextStyle(
-            color: isDark ? Colors.white70 : Colors.grey,
-            fontSize: 12,
-          ),
-        ),
-        Text(
-          widget.valueText,
-          style: TextStyle(
-            color: textColor,
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ],
+            ),
+            const SizedBox(height: 8),
+            Text(
+              widget.label,
+              style: TextStyle(
+                color: isDark ? Colors.white70 : Colors.grey,
+                fontSize: 12,
+              ),
+            ),
+            Text(
+              widget.valueText,
+              style: TextStyle(
+                color: textColor,
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

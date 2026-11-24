@@ -34,11 +34,11 @@ class QuantitySelector extends StatelessWidget {
             icon: Icons.remove,
             onTap: quantity > min ? () => onChanged(quantity - 1) : null,
           ),
-          Container(
+          SizedBox(
             width: 40,
-            alignment: Alignment.center,
             child: Text(
               quantity.toString(),
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: isDark
                     ? AppColors.textPrimaryDark

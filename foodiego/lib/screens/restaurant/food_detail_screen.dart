@@ -40,7 +40,7 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
           const SliverToBoxAdapter(child: SizedBox(height: 120)),
         ],
       ),
-      bottomSheet: _buildBottomBar(isDark),
+      bottomNavigationBar: _buildBottomBar(isDark),
     );
   }
 

@@ -311,7 +311,7 @@ class _QuickActionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GlassCard(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 14),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -325,14 +325,18 @@ class _QuickActionCard extends StatelessWidget {
             child: Icon(action.icon, color: action.color, size: 22),
           ),
           const SizedBox(height: 8),
-          Text(
-            action.label,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-              color: isDark ? Colors.white : AppColors.textPrimaryLight,
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              action.label,
+              maxLines: 1,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                color: isDark ? Colors.white : AppColors.textPrimaryLight,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
           ),
         ],
       ),

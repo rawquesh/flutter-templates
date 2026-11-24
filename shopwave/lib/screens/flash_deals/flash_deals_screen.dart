@@ -98,51 +98,61 @@ class _FlashDealsScreenState extends State<FlashDealsScreen> {
       ),
       child: Row(
         children: [
-          const Icon(Icons.bolt, color: Colors.white, size: 40),
-          const SizedBox(width: 16),
+          const Icon(Icons.bolt, color: Colors.white, size: 36),
+          const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Deal ends in',
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 14,
-                  ),
-                ),
-                const SizedBox(height: 8),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _buildTimeBox(hours ~/ 10),
-                    _buildTimeBox(hours % 10),
-                    _buildTimeSeparator(),
-                    _buildTimeBox(minutes ~/ 10),
-                    _buildTimeBox(minutes % 10),
-                    _buildTimeSeparator(),
-                    _buildTimeBox(seconds ~/ 10),
-                    _buildTimeBox(seconds % 10),
+                    const Text(
+                      'Deal ends in',
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 14,
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: const Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.local_fire_department, color: Colors.white, size: 15),
+                          SizedBox(width: 4),
+                          Text(
+                            'Hot Deals',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.2),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: const Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(Icons.local_fire_department, color: Colors.white, size: 16),
-                SizedBox(width: 4),
-                Text(
-                  'Hot Deals',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
+                const SizedBox(height: 10),
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: Alignment.centerLeft,
+                  child: Row(
+                    children: [
+                      _buildTimeBox(hours ~/ 10),
+                      _buildTimeBox(hours % 10),
+                      _buildTimeSeparator(),
+                      _buildTimeBox(minutes ~/ 10),
+                      _buildTimeBox(minutes % 10),
+                      _buildTimeSeparator(),
+                      _buildTimeBox(seconds ~/ 10),
+                      _buildTimeBox(seconds % 10),
+                    ],
                   ),
                 ),
               ],
